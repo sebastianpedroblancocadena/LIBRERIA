@@ -100,9 +100,9 @@
                     <div>
                         <div class="flex items-center gap-2">
                             <span class="font-heading font-extrabold text-2xl tracking-tight text-blue-900">EduSmart</span>
-                            <span class="bg-amber-100 text-amber-800 text-[11px] font-bold px-2 py-0.5 rounded-full border border-amber-300">Ciencia 2026</span>
+                            
                         </div>
-                        <p class="text-xs text-slate-500 hidden sm:block font-medium">Tienda de Útiles Escolares & Gestión de Inventario</p>
+                        <p class="text-xs text-slate-500 hidden sm:block font-medium">Tienda de útiles escolares</p>
                     </div>
                 </div>
 
@@ -119,31 +119,8 @@
                     </button>
                 </nav>
 
-                <!-- Right Actions: Social Share, Search, Cart -->
+                <!-- Right Actions: Cart -->
                 <div class="flex items-center gap-3">
-                    <!-- Share Store Dropdown / Button -->
-                    <div class="relative group">
-                        <button class="p-2.5 rounded-xl border border-slate-200 text-slate-600 hover:text-blue-700 hover:bg-slate-50 transition-colors flex items-center gap-1.5 text-sm font-medium" title="Compartir Tienda">
-                            <i class="fa-solid fa-share-nodes"></i>
-                            <span class="hidden lg:inline">Compartir</span>
-                        </button>
-                        <div class="absolute right-0 mt-2 w-56 bg-white rounded-2xl shadow-xl border border-slate-100 p-2 hidden group-hover:block transition-all z-50">
-                            <p class="text-xs font-semibold text-slate-400 px-3 py-1.5 uppercase">Compartir en Redes</p>
-                            <a href="javascript:void(0)" onclick="shareStore('whatsapp')" class="flex items-center gap-2.5 px-3 py-2 text-sm text-slate-700 hover:bg-emerald-50 hover:text-emerald-700 rounded-xl transition-colors">
-                                <i class="fa-brands fa-whatsapp text-emerald-500 text-base"></i> WhatsApp
-                            </a>
-                            <a href="javascript:void(0)" onclick="shareStore('facebook')" class="flex items-center gap-2.5 px-3 py-2 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-700 rounded-xl transition-colors">
-                                <i class="fa-brands fa-facebook text-blue-600 text-base"></i> Facebook
-                            </a>
-                            <a href="javascript:void(0)" onclick="shareStore('twitter')" class="flex items-center gap-2.5 px-3 py-2 text-sm text-slate-700 hover:bg-sky-50 hover:text-sky-600 rounded-xl transition-colors">
-                                <i class="fa-brands fa-x-twitter text-slate-800 text-base"></i> X (Twitter)
-                            </a>
-                            <button onclick="shareStore('copy')" class="w-full flex items-center gap-2.5 px-3 py-2 text-sm text-slate-700 hover:bg-amber-50 hover:text-amber-700 rounded-xl transition-colors text-left">
-                                <i class="fa-solid fa-link text-amber-500 text-base"></i> Copiar Enlace
-                            </button>
-                        </div>
-                    </div>
-
                     <!-- Cart Trigger Button -->
                     <button onclick="toggleCartDrawer(true)" class="relative p-2.5 bg-blue-900 text-white rounded-xl shadow-md hover:bg-blue-800 transition-all flex items-center gap-2 text-sm font-semibold">
                         <i class="fa-solid fa-cart-shopping text-base"></i>
@@ -196,37 +173,25 @@
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                     <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
                         <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
-                            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/15 backdrop-blur text-blue-100 text-xs font-semibold tracking-wide uppercase border border-white/20">
-                                <i class="fa-solid fa-bolt text-amber-300"></i> Temporada Escolar 2026 - Entrega Rápida
-                            </div>
-                            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-heading font-black tracking-tight leading-tight">
-                                Todo para tu Éxito Escolar en un Solo Lugar
-                            </h1>
-                            <p class="text-lg text-blue-100 max-w-2xl font-light leading-relaxed">
-                                Diseñado especialmente para estudiantes y padres de familia. Adquiere libros de texto, cuadernos, lápices, lapiceros y carpetas con disponibilidad en tiempo real y confirmación inmediata a tu WhatsApp.
-                            </p>
+                            
+                            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-heading font-black tracking-tight leading-tight">Todo para tu éxito escolar en un solo lugar</h1>
+                            
                             <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
                                 <a href="#catalogo" class="px-8 py-4 bg-amber-400 hover:bg-amber-300 text-slate-900 font-heading font-bold rounded-2xl shadow-lg shadow-amber-400/25 hover:scale-105 transition-all flex items-center gap-3 text-lg">
                                     <i class="fa-solid fa-basket-shopping text-xl"></i> Comprar en Línea
                                 </a>
-                                <button onclick="switchView('architecture')" class="px-6 py-4 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-2xl backdrop-blur border border-white/20 transition-all flex items-center gap-2">
-                                    <i class="fa-solid fa-circle-info"></i> Conocer el Proyecto
-                                </button>
                             </div>
 
                             <!-- Social Direct Share Bar -->
                             <div class="pt-6 flex items-center justify-center lg:justify-start gap-3 text-sm text-blue-200">
-                                <span class="font-medium text-xs uppercase tracking-wider text-blue-300">Recomienda la tienda:</span>
-                                <button onclick="shareStore('whatsapp')" class="w-9 h-9 rounded-full bg-white/15 hover:bg-emerald-500 hover:text-white flex items-center justify-center transition-all" title="Compartir por WhatsApp">
-                                    <i class="fa-brands fa-whatsapp"></i>
-                                </button>
-                                <button onclick="shareStore('facebook')" class="w-9 h-9 rounded-full bg-white/15 hover:bg-blue-600 hover:text-white flex items-center justify-center transition-all" title="Compartir en Facebook">
+                                <span class="font-medium text-xs uppercase tracking-wider text-blue-300">Recomienda la tienda por redes sociales:</span>
+                                <button onclick="showToast('Opción no disponible todavía', 'info')" class="w-9 h-9 rounded-full bg-white/15 hover:bg-blue-600 hover:text-white flex items-center justify-center transition-all" title="Compartir en Facebook">
                                     <i class="fa-brands fa-facebook-f"></i>
                                 </button>
-                                <button onclick="shareStore('twitter')" class="w-9 h-9 rounded-full bg-white/15 hover:bg-sky-400 hover:text-white flex items-center justify-center transition-all" title="Compartir en X">
+                                <button onclick="showToast('Opción no disponible todavía', 'info')" class="w-9 h-9 rounded-full bg-white/15 hover:bg-sky-400 hover:text-white flex items-center justify-center transition-all" title="Compartir en X">
                                     <i class="fa-brands fa-x-twitter"></i>
                                 </button>
-                                <button onclick="shareStore('copy')" class="w-9 h-9 rounded-full bg-white/15 hover:bg-amber-400 hover:text-slate-900 flex items-center justify-center transition-all" title="Copiar Enlace">
+                                <button onclick="showToast('Opción no disponible todavía', 'info')" class="w-9 h-9 rounded-full bg-white/15 hover:bg-amber-400 hover:text-slate-900 flex items-center justify-center transition-all" title="Copiar Enlace">
                                     <i class="fa-solid fa-link"></i>
                                 </button>
                             </div>
@@ -235,35 +200,10 @@
                         <!-- Hero Banner Visual (School Supplies Real Composition) -->
                         <div class="lg:col-span-5 relative">
                             <div class="relative mx-auto max-w-md lg:max-w-none">
-                                <div class="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white/20 group">
+                                <div class="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white/20">
                                     <img src="https://images.unsplash.com/photo-1452860606245-08befc0ff44b?auto=format&fit=crop&w=1000&q=80" 
                                          alt="Materiales y Útiles Escolares" 
-                                         class="w-full h-[380px] object-cover object-center group-hover:scale-105 transition-transform duration-700">
-                                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent"></div>
-                                    <div class="absolute bottom-6 left-6 right-6 text-white">
-                                        <span class="bg-emerald-500 text-slate-900 text-xs font-black uppercase px-2.5 py-1 rounded-md mb-2 inline-block">Stock Sincronizado</span>
-                                        <h3 class="font-heading font-bold text-xl">Calidad Certificada para Escuelas y Colegios</h3>
-                                        <p class="text-xs text-slate-300 mt-1">Los mejores artículos con garantía escolar oficial.</p>
-                                    </div>
-                                </div>
-                                <!-- Floating Mini Badges -->
-                                <div class="absolute -bottom-5 -left-5 bg-white text-slate-800 p-4 rounded-2xl shadow-xl flex items-center gap-3 border border-slate-100 animate-bounce sm:flex hidden">
-                                    <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-lg">
-                                        <i class="fa-solid fa-truck-fast"></i>
-                                    </div>
-                                    <div>
-                                        <p class="text-xs text-slate-400 font-medium">Entrega Directa</p>
-                                        <p class="text-sm font-bold text-slate-800">Aulas y Domicilios</p>
-                                    </div>
-                                </div>
-                                <div class="absolute -top-5 -right-5 bg-white text-slate-800 p-3.5 rounded-2xl shadow-xl flex items-center gap-3 border border-slate-100 hidden sm:flex">
-                                    <div class="w-9 h-9 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center font-bold">
-                                        <i class="fa-solid fa-shield-halved"></i>
-                                    </div>
-                                    <div>
-                                        <p class="text-[11px] text-slate-400 font-medium">Pago Seguro</p>
-                                        <p class="text-xs font-bold text-slate-800">Cifrado SSL 256-bit</p>
-                                    </div>
+                                         class="w-full h-[380px] object-cover object-center">
                                 </div>
                             </div>
                         </div>
@@ -459,13 +399,16 @@
                                 <i class="fa-solid fa-gauge-high text-base w-5 text-center"></i> Dashboard Principal
                             </button>
                             <button onclick="switchAdminTab('inventario')" id="adminTab-inventario" class="w-full flex items-center gap-3 px-3.5 py-3 rounded-xl transition-colors text-slate-300 hover:bg-slate-800 hover:text-white">
-                                <i class="fa-solid fa-boxes-stacked text-base w-5 text-center text-amber-400"></i> Gestión de Inventario 📦
+                                <i class="fa-solid fa-boxes-stacked text-base w-5 text-center text-amber-400"></i> Gestión de Inventario
+                            </button>
+                            <button onclick="switchAdminTab('database')" id="adminTab-database" class="w-full flex items-center gap-3 px-3.5 py-3 rounded-xl transition-colors text-slate-300 hover:bg-slate-800 hover:text-white">
+                                <i class="fa-solid fa-database text-base w-5 text-center text-sky-400"></i> Base de Datos
                             </button>
                             <button onclick="switchAdminTab('ventas')" id="adminTab-ventas" class="w-full flex items-center gap-3 px-3.5 py-3 rounded-xl transition-colors text-slate-300 hover:bg-slate-800 hover:text-white">
-                                <i class="fa-solid fa-receipt text-base w-5 text-center text-emerald-400"></i> Ventas & Clientes 👥
+                                <i class="fa-solid fa-receipt text-base w-5 text-center text-emerald-400"></i> Ventas & Clientes
                             </button>
                             <button onclick="switchAdminTab('reportes')" id="adminTab-reportes" class="w-full flex items-center gap-3 px-3.5 py-3 rounded-xl transition-colors text-slate-300 hover:bg-slate-800 hover:text-white">
-                                <i class="fa-solid fa-file-pdf text-base w-5 text-center text-rose-400"></i> Reportes Semanales 📊
+                                <i class="fa-solid fa-file-pdf text-base w-5 text-center text-rose-400"></i> Reportes
                             </button>
                         </nav>
                     </div>
@@ -519,7 +462,7 @@
                             <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between">
                                 <div>
                                     <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Ingresos Totales</p>
-                                    <h3 id="kpiTotalRevenue" class="text-2xl font-black text-slate-900 mt-1">$1,428.50</h3>
+                                    <h3 id="kpiTotalRevenue" class="text-2xl font-black text-slate-900 mt-1">Bs. 1.428,50</h3>
                                     <p class="text-[11px] text-emerald-600 font-semibold mt-1 flex items-center gap-1">
                                         <i class="fa-solid fa-arrow-trend-up"></i> +18.4% vs semana previa
                                     </p>
@@ -610,26 +553,38 @@
 
 
                     <!-- ======================= -->
-                    <!-- TAB 2: INVENTARIO (CRUD COMPLETO) -->
+                    <!-- TAB 2: INVENTARIO (CRUD COMPLETO & BASE DE DATOS SQL) -->
                     <!-- ======================= -->
                     <div id="adminContent-inventario" class="hidden space-y-6">
                         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                             <div>
-                                <h2 class="text-2xl sm:text-3xl font-heading font-extrabold text-slate-900">Gestión de Inventario 📦</h2>
-                                <p class="text-sm text-slate-500">Agrega, edita, consulta y elimina productos escolares. El stock se descuenta automáticamente con cada compra.</p>
+                                <h2 class="text-2xl sm:text-3xl font-heading font-extrabold text-slate-900">Gestión de Inventario & Base de Datos SQL 📦</h2>
+                                <p class="text-sm text-slate-500">Agrega, edita, consulta y elimina productos. El stock se descuenta automáticamente en tiempo real con cada compra.</p>
                             </div>
-                            <button onclick="openProductModal()" class="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-sm rounded-xl shadow flex items-center gap-2">
-                                <i class="fa-solid fa-plus"></i> Agregar Nuevo Producto
-                            </button>
+                            <div class="flex items-center gap-2">
+                                <button onclick="openProductModal()" class="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs sm:text-sm rounded-xl shadow flex items-center gap-2 transition-all">
+                                    <i class="fa-solid fa-plus"></i> Añadir Producto
+                                </button>
+                                <button onclick="switchAdminTab('database')" class="px-4 py-2.5 bg-sky-800 hover:bg-sky-700 text-white font-bold text-xs sm:text-sm rounded-xl shadow flex items-center gap-2 transition-all">
+                                    <i class="fa-solid fa-database"></i> Ver Tabla SQL
+                                </button>
+                            </div>
                         </div>
 
                         <!-- Inventory Filter & Search Bar -->
                         <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex flex-col sm:flex-row gap-3 items-center justify-between">
-                            <div class="relative w-full sm:w-80">
+                            <div class="relative w-full sm:w-72">
                                 <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
-                                <input type="text" id="adminInventorySearch" oninput="renderAdminInventoryTable()" placeholder="Buscar por SKU, nombre o categoría..." class="w-full pl-9 pr-3 py-2 text-xs rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-slate-50">
+                                <input type="text" id="adminInventorySearch" oninput="renderAdminInventoryTable()" placeholder="Buscar por ID BD, SKU, nombre..." class="w-full pl-9 pr-3 py-2 text-xs rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-slate-50">
                             </div>
-                            <div class="flex items-center gap-2 w-full sm:w-auto">
+                            <div class="flex flex-wrap items-center gap-2 w-full sm:w-auto">
+                                <select id="adminInventorySort" onchange="renderAdminInventoryTable()" class="px-3 py-2 text-xs rounded-xl border border-slate-300 bg-slate-50 font-semibold text-blue-900">
+                                    <option value="id-asc">Ordenar por: ID BD (Ascendente)</option>
+                                    <option value="sku-asc">Ordenar por: SKU (Código)</option>
+                                    <option value="name-asc">Ordenar por: Nombre A-Z</option>
+                                    <option value="price-desc">Ordenar por: Precio Mayor-Menor</option>
+                                    <option value="stock-asc">Ordenar por: Stock Menor-Mayor</option>
+                                </select>
                                 <select id="adminCategoryFilter" onchange="renderAdminInventoryTable()" class="px-3 py-2 text-xs rounded-xl border border-slate-300 bg-slate-50 font-medium text-slate-700">
                                     <option value="all">Todas las Categorías</option>
                                     <option value="Libros">📚 Libros</option>
@@ -648,18 +603,20 @@
                             </div>
                         </div>
 
-                        <!-- Table -->
+                        <!-- Inventory Table -->
                         <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
                             <div class="overflow-x-auto">
                                 <table class="w-full text-left text-xs text-slate-600">
                                     <thead class="bg-slate-100 text-slate-700 font-bold uppercase tracking-wider text-[11px] border-b border-slate-200">
                                         <tr>
+                                            <th class="py-3.5 px-4">ID BD</th>
+                                            <th class="py-3.5 px-4">SKU</th>
                                             <th class="py-3.5 px-4">Producto</th>
                                             <th class="py-3.5 px-4">Categoría</th>
                                             <th class="py-3.5 px-4">Precio</th>
-                                            <th class="py-3.5 px-4">Stock Disponible</th>
-                                            <th class="py-3.5 px-4">Estado</th>
-                                            <th class="py-3.5 px-4 text-center">Ajuste Rápido</th>
+                                            <th class="py-3.5 px-4">Stock Actual</th>
+                                            <th class="py-3.5 px-4">Estado SQL</th>
+                                            <th class="py-3.5 px-4 text-center">Ajuste (+/-)</th>
                                             <th class="py-3.5 px-4 text-right">Acciones</th>
                                         </tr>
                                     </thead>
@@ -673,16 +630,73 @@
 
 
                     <!-- ======================= -->
+                    <!-- TAB 2.1: VISOR DE BASE DE DATOS RELACIONAL SQL -->
+                    <!-- ======================= -->
+                    <div id="adminContent-database" class="hidden space-y-6">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                            <div>
+                                <h2 class="text-2xl sm:text-3xl font-heading font-extrabold text-slate-900">Base de Datos Relacional SQL 🗄️</h2>
+                                <p class="text-sm text-slate-500">Inspección directa de las tablas relacionales de la base de datos SQL (<code class="font-mono bg-slate-200 px-1 py-0.5 rounded text-blue-900">edusmart.db</code>).</p>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <button onclick="openProductModal()" class="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl shadow flex items-center gap-1.5">
+                                    <i class="fa-solid fa-plus"></i> Añadir Producto
+                                </button>
+                                <button onclick="refreshSQLTableInspector()" class="px-4 py-2.5 bg-sky-700 hover:bg-sky-600 text-white font-bold text-xs rounded-xl shadow flex items-center gap-1.5">
+                                    <i class="fa-solid fa-arrows-rotate"></i> Recargar SQL
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Table Selector Pills -->
+                        <div class="flex flex-wrap gap-2 border-b border-slate-200 pb-3">
+                            <button id="sqlTabBtn-productos" onclick="switchSQLTable('productos')" class="px-4 py-2 rounded-xl text-xs font-bold transition-all bg-sky-900 text-white shadow-sm flex items-center gap-2">
+                                <i class="fa-solid fa-boxes-stacked"></i> TABLA: productos (<span id="sqlCount-productos">24</span>)
+                            </button>
+                            <button id="sqlTabBtn-ventas" onclick="switchSQLTable('ventas')" class="px-4 py-2 rounded-xl text-xs font-bold transition-all bg-white text-slate-700 border border-slate-300 hover:bg-slate-100 flex items-center gap-2">
+                                <i class="fa-solid fa-receipt"></i> TABLA: ventas (<span id="sqlCount-ventas">--</span>)
+                            </button>
+                            <button id="sqlTabBtn-movimientos_inventario" onclick="switchSQLTable('movimientos_inventario')" class="px-4 py-2 rounded-xl text-xs font-bold transition-all bg-white text-slate-700 border border-slate-300 hover:bg-slate-100 flex items-center gap-2">
+                                <i class="fa-solid fa-timeline"></i> TABLA: movimientos_inventario (<span id="sqlCount-movimientos_inventario">--</span>)
+                            </button>
+                        </div>
+
+                        <!-- Inspector Container -->
+                        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden space-y-3 p-4">
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-slate-900 text-slate-200 p-4 rounded-xl font-mono text-xs">
+                                <div>
+                                    <span class="text-emerald-400 font-bold">SQL QUERY:</span> <span id="sqlQueryDisplay">SELECT * FROM productos ORDER BY id ASC;</span>
+                                </div>
+                                <div class="text-[11px] text-slate-400">
+                                    Motor: <strong class="text-sky-400">SQLite / Relacional SQL</strong> | Registros: <strong id="sqlTableRecordCount" class="text-white">24</strong>
+                                </div>
+                            </div>
+
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-left text-xs text-slate-700 font-mono">
+                                    <thead id="sqlInspectorTableHeader" class="bg-slate-100 text-slate-900 font-bold uppercase tracking-wider text-[11px] border-b border-slate-300">
+                                        <!-- Dynamic Header Columns -->
+                                    </thead>
+                                    <tbody id="sqlInspectorTableBody" class="divide-y divide-slate-200">
+                                        <!-- Dynamic Row Data -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- ======================= -->
                     <!-- TAB 3: VENTAS Y CLIENTES -->
                     <!-- ======================= -->
                     <div id="adminContent-ventas" class="hidden space-y-6">
                         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                             <div>
-                                <h2 class="text-2xl sm:text-3xl font-heading font-extrabold text-slate-900">Módulo de Clientes & Ventas 👥</h2>
+                                <h2 class="text-2xl sm:text-3xl font-heading font-extrabold text-slate-900">Módulo de Clientes & Ventas</h2>
                                 <p class="text-sm text-slate-500">Registro seguro de órdenes en línea, datos personales y método de pago utilizado.</p>
                             </div>
                             <span class="px-3.5 py-1.5 bg-blue-100 text-blue-800 rounded-xl text-xs font-bold flex items-center gap-1.5 self-start sm:self-auto">
-                                <i class="fa-solid fa-lock"></i> Base de Datos Cifrada SSL
+                                <i class="fa-solid fa-lock"></i> Base de Datos Relacional SQL
                             </span>
                         </div>
 
@@ -721,12 +735,26 @@
                     <div id="adminContent-reportes" class="hidden space-y-6">
                         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                             <div>
-                                <h2 class="text-2xl sm:text-3xl font-heading font-extrabold text-slate-900">Módulo de Reportes Semanales 📊</h2>
-                                <p class="text-sm text-slate-500">Evaluación gerencial del inventario y ventas con generador oficial en formato PDF (simulación PDFKit de Python).</p>
+                                <h2 class="text-2xl sm:text-3xl font-heading font-extrabold text-slate-900">Módulo de Reportes</h2>
+                                <p class="text-sm text-slate-500">Generación y descarga de reportes periódicos de inventario y ventas en formato PDF.</p>
                             </div>
-                            <button onclick="generateWeeklyPDFReport()" class="px-6 py-3 bg-rose-600 hover:bg-rose-500 text-white font-bold text-sm rounded-xl shadow-lg shadow-rose-600/25 flex items-center gap-2">
-                                <i class="fa-solid fa-file-arrow-down text-lg"></i> Descargar Reporte en PDF
-                            </button>
+                            <div class="flex flex-wrap items-center gap-3">
+                                <div class="flex items-center gap-2 bg-white px-3 py-2 rounded-xl border border-slate-300 shadow-sm">
+                                    <label class="text-xs font-bold text-slate-700">Período:</label>
+                                    <select id="reportPeriodSelect" onchange="updateReportPeriodUI()" class="bg-transparent text-xs font-semibold text-slate-800 focus:outline-none">
+                                        <option value="diario">Diario</option>
+                                        <option value="semanal" selected>Semanal</option>
+                                        <option value="mensual">Mensual</option>
+                                        <option value="anual">Anual</option>
+                                    </select>
+                                </div>
+                                <button onclick="downloadPythonBackendPDF()" class="px-5 py-3 bg-emerald-700 hover:bg-emerald-600 text-white font-bold text-xs sm:text-sm rounded-xl shadow-lg shadow-emerald-700/25 flex items-center gap-2 transition-all" title="Descarga el PDF generado por el servidor Flask">
+                                    <i class="fa-brands fa-python text-lg text-emerald-300"></i> Descargar PDF (Backend Python)
+                                </button>
+                                <button onclick="generatePDFReport()" class="px-5 py-3 bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs sm:text-sm rounded-xl shadow-lg shadow-rose-600/25 flex items-center gap-2 transition-all">
+                                    <i class="fa-solid fa-file-arrow-down text-lg"></i> PDF Rápido (jsPDF)
+                                </button>
+                            </div>
                         </div>
 
                         <!-- Report Summary Card Preview -->
@@ -734,10 +762,10 @@
                             <div class="border-b border-slate-200 pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                                 <div>
                                     <span class="text-xs font-bold text-rose-600 uppercase tracking-wider">Reporte Semanal Consolidado</span>
-                                    <h3 class="text-xl font-heading font-black text-slate-900">Librería & Papelería Escolar - Festival de Ciencia</h3>
+                                    <h3 class="text-xl font-heading font-black text-slate-900">Librería & Papelería Escolar EduSmart</h3>
                                 </div>
                                 <div class="text-xs text-slate-500 font-medium">
-                                    Período: <strong class="text-slate-800">Semana Escolar en Curso</strong> | Generado por: <strong class="text-slate-800">Python PDFKit Engine</strong>
+                                    Período: <strong class="text-slate-800">Semana Escolar en Curso</strong> | Generado por: <strong class="text-slate-800">Python Flask & ReportLab Engine</strong>
                                 </div>
                             </div>
 
@@ -745,7 +773,7 @@
                             <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                                 <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
                                     <p class="text-xs text-slate-500">Ventas Totales Registradas</p>
-                                    <h4 id="reportRevenueTotal" class="text-xl font-black text-slate-900 mt-1">$1,428.50</h4>
+                                    <h4 id="reportRevenueTotal" class="text-xl font-black text-slate-900 mt-1">Bs. 1.428,50</h4>
                                     <p class="text-[11px] text-emerald-600 font-semibold mt-1">Margen operativo óptimo</p>
                                 </div>
                                 <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
@@ -755,35 +783,13 @@
                                 </div>
                                 <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
                                     <p class="text-xs text-slate-500">Valor de Inventario Remanente</p>
-                                    <h4 id="reportInventoryValue" class="text-xl font-black text-slate-900 mt-1">$5,890.00</h4>
+                                    <h4 id="reportInventoryValue" class="text-xl font-black text-slate-900 mt-1">Bs. 5.890,00</h4>
                                     <p class="text-[11px] text-slate-500 font-medium mt-1">Stock seguro en almacén</p>
                                 </div>
                             </div>
 
-                            <!-- PDF Preview Box -->
-                            <div class="p-4 bg-amber-50 rounded-xl border border-amber-200 flex items-center justify-between text-xs text-amber-900">
-                                <div class="flex items-center gap-3">
-                                    <i class="fa-solid fa-file-circle-check text-2xl text-amber-600"></i>
-                                    <div>
-                                        <p class="font-bold">Plantilla de Reporte PDF Lista para Descargar</p>
-                                        <p class="text-[11px] text-amber-800">Incluye: Membrete oficial, resumen ejecutivo, tabla de órdenes con desglose por ítem y balance de inventario.</p>
-                                    </div>
-                                </div>
-                                <button onclick="generateWeeklyPDFReport()" class="px-4 py-2 bg-amber-600 hover:bg-amber-500 text-white font-bold rounded-lg shadow-sm">
-                                    Generar Ahora
-                                </button>
-                            </div>
-
-                            <!-- Python Backend Code Reference -->
-                            <div class="bg-slate-900 text-slate-200 p-4 rounded-xl font-mono text-xs overflow-x-auto">
-                                <p class="text-emerald-400 font-bold mb-1"># Script de Python para generar PDF con PDFKit / ReportLab:</p>
-                                <p class="text-slate-400">import pdfkit, psycopg2, datetime</p>
-                                <p class="text-slate-400">def generar_reporte_semanal_pdf():</p>
-                                <p class="text-slate-400">&nbsp;&nbsp;&nbsp;&nbsp;datos = db.query("SELECT * FROM inventario WHERE stock &lt; 10")</p>
-                                <p class="text-slate-400">&nbsp;&nbsp;&nbsp;&nbsp;html_doc = render_template('reporte_template.html', items=datos)</p>
-                                <p class="text-slate-400">&nbsp;&nbsp;&nbsp;&nbsp;pdfkit.from_string(html_doc, 'reporte_semanal_ventas.pdf')</p>
-                                <p class="text-emerald-400 mt-1"># [OK] Listo para ser presentado al comité evaluador de ciencias</p>
-                            </div>
+                            <!-- Report Section Clean -->
+                            
                         </div>
                     </div>
                 </section>
@@ -922,7 +928,7 @@
                 </div>
             </div>
 
-            <!-- ESTUDIO DE VIABILIDAD Y FINANZAS ($7,000 USD Y ROI EN 1 MES) -->
+            <!-- ESTUDIO DE VIABILIDAD Y FINANZAS (7.000 Bs. Y ROI EN 1 MES) -->
             <div class="bg-white p-8 sm:p-12 rounded-3xl border border-slate-200 shadow-sm space-y-8">
                 <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 border-b border-slate-200 pb-8">
                     <div class="max-w-2xl">
@@ -931,21 +937,21 @@
                             Viabilidad del Proyecto y Retorno de Inversión (ROI)
                         </h3>
                         <p class="text-sm text-slate-500 mt-2 leading-relaxed">
-                            La implementación de este sistema web requiere un presupuesto de <strong>$7,000 dólares netos</strong>. Gracias a la eliminación de mermas por descontrol de inventario y al incremento de ventas en línea, se prevé la <strong>recuperación total de la inversión en solo un mes</strong>.
+                            La implementación de este sistema web requiere un presupuesto de <strong>7.000 Bs. dólares netos</strong>. Gracias a la eliminación de mermas por descontrol de inventario y al incremento de ventas en línea, se prevé la <strong>recuperación total de la inversión en solo un mes</strong>.
                         </p>
                     </div>
                     <div class="p-5 rounded-2xl bg-emerald-50 border border-emerald-200 text-center shrink-0">
                         <p class="text-xs font-bold text-emerald-800 uppercase">Presupuesto Neto Requerido</p>
-                        <h4 class="text-3xl sm:text-4xl font-black text-emerald-700 mt-1">$7,000 USD</h4>
+                        <h4 class="text-3xl sm:text-4xl font-black text-emerald-700 mt-1">7.000 Bs.</h4>
                         <p class="text-[11px] font-semibold text-emerald-600 mt-1">Recuperación estimada: 30 Días</p>
                     </div>
                 </div>
 
-                <!-- Desglose del Presupuesto de $7,000 USD -->
+                <!-- Desglose del Presupuesto de 7.000 Bs. -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div>
                         <h4 class="font-heading font-bold text-base text-slate-900 mb-4 flex items-center gap-2">
-                            <i class="fa-solid fa-list-check text-blue-600"></i> Desglose del Presupuesto ($7,000 USD)
+                            <i class="fa-solid fa-list-check text-blue-600"></i> Desglose del Presupuesto (7.000 Bs.)
                         </h4>
                         <div class="space-y-3 text-xs">
                             <div class="flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-slate-200">
@@ -953,7 +959,7 @@
                                     <strong class="text-slate-800">1. Infraestructura Cloud & Base de Datos 24/7</strong>
                                     <p class="text-slate-500 text-[11px]">Servidores AWS/DigitalOcean con disponibilidad 24/7 y réplicas</p>
                                 </div>
-                                <span class="font-black text-slate-900 text-sm">$1,200</span>
+                                <span class="font-black text-slate-900 text-sm">Bs. 1.200</span>
                             </div>
 
                             <div class="flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-slate-200">
@@ -961,7 +967,7 @@
                                     <strong class="text-slate-800">2. Desarrollo Frontend (HTML, CSS, JS, Tailwind)</strong>
                                     <p class="text-slate-500 text-[11px]">Interfaz adaptativa para estudiantes y padres de familia</p>
                                 </div>
-                                <span class="font-black text-slate-900 text-sm">$1,800</span>
+                                <span class="font-black text-slate-900 text-sm">Bs. 1.800</span>
                             </div>
 
                             <div class="flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-slate-200">
@@ -969,7 +975,7 @@
                                     <strong class="text-slate-800">3. Backend Python & Motor de Reportes PDFKit</strong>
                                     <p class="text-slate-500 text-[11px]">Lógica de negocio, gestión de inventario y generación PDF</p>
                                 </div>
-                                <span class="font-black text-slate-900 text-sm">$2,000</span>
+                                <span class="font-black text-slate-900 text-sm">Bs. 2.000</span>
                             </div>
 
                             <div class="flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-slate-200">
@@ -977,7 +983,7 @@
                                     <strong class="text-slate-800">4. Certificado SSL, Seguridad & Dominio Oficial</strong>
                                     <p class="text-slate-500 text-[11px]">Cifrado TLS de 256 bits y protección de datos escolares</p>
                                 </div>
-                                <span class="font-black text-slate-900 text-sm">$500</span>
+                                <span class="font-black text-slate-900 text-sm">Bs. 500</span>
                             </div>
 
                             <div class="flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-slate-200">
@@ -985,7 +991,7 @@
                                     <strong class="text-slate-800">5. Integración Meta Cloud API (WhatsApp) & Pagos</strong>
                                     <p class="text-slate-500 text-[11px]">Webhooks para alertas automáticas y pasarela escalable</p>
                                 </div>
-                                <span class="font-black text-slate-900 text-sm">$1,000</span>
+                                <span class="font-black text-slate-900 text-sm">Bs. 1.000</span>
                             </div>
 
                             <div class="flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-slate-200">
@@ -993,12 +999,12 @@
                                     <strong class="text-slate-800">6. Capacitación, Pruebas y Despliegue Final</strong>
                                     <p class="text-slate-500 text-[11px]">Puesta en marcha, manuales para personal y soporte inicial</p>
                                 </div>
-                                <span class="font-black text-slate-900 text-sm">$500</span>
+                                <span class="font-black text-slate-900 text-sm">Bs. 500</span>
                             </div>
 
                             <div class="flex items-center justify-between p-3.5 rounded-xl bg-blue-900 text-white font-bold text-sm">
                                 <span>TOTAL PRESUPUESTO DEL PROYECTO:</span>
-                                <span class="text-amber-300 text-base">$7,000 USD Netos</span>
+                                <span class="text-amber-300 text-base">7.000 Bs. Netos</span>
                             </div>
                         </div>
                     </div>
@@ -1012,7 +1018,7 @@
                             <div class="space-y-1">
                                 <div class="flex justify-between font-semibold text-slate-700">
                                     <span>Aumento de Ventas en Línea (Canal Digital 24/7)</span>
-                                    <span class="text-emerald-600 font-bold">+$4,800 USD</span>
+                                    <span class="text-emerald-600 font-bold">+4.800 Bs.</span>
                                 </div>
                                 <div class="w-full h-2 bg-slate-200 rounded-full overflow-hidden">
                                     <div class="h-full bg-emerald-500 rounded-full" style="width: 68%"></div>
@@ -1023,7 +1029,7 @@
                             <div class="space-y-1">
                                 <div class="flex justify-between font-semibold text-slate-700">
                                     <span>Ahorro por Eliminación de Pérdidas y Faltantes de Stock</span>
-                                    <span class="text-blue-600 font-bold">+$2,400 USD</span>
+                                    <span class="text-blue-600 font-bold">+2.400 Bs.</span>
                                 </div>
                                 <div class="w-full h-2 bg-slate-200 rounded-full overflow-hidden">
                                     <div class="h-full bg-blue-600 rounded-full" style="width: 35%"></div>
@@ -1034,7 +1040,7 @@
                             <div class="space-y-1">
                                 <div class="flex justify-between font-semibold text-slate-700">
                                     <span>Optimización en Tiempos de Atención y Facturación</span>
-                                    <span class="text-purple-600 font-bold">+$950 USD</span>
+                                    <span class="text-purple-600 font-bold">+950 Bs.</span>
                                 </div>
                                 <div class="w-full h-2 bg-slate-200 rounded-full overflow-hidden">
                                     <div class="h-full bg-purple-600 rounded-full" style="width: 20%"></div>
@@ -1044,7 +1050,7 @@
 
                             <div class="pt-3 border-t border-slate-200 flex justify-between items-center text-sm font-bold">
                                 <span class="text-slate-800">Beneficio Neto Mensual Estimado:</span>
-                                <span class="text-emerald-700 text-base">+$8,150 USD</span>
+                                <span class="text-emerald-700 text-base">+8.150 Bs.</span>
                             </div>
                         </div>
 
@@ -1053,7 +1059,7 @@
                             <div>
                                 <p class="font-bold">Conclusión de Viabilidad:</p>
                                 <p class="mt-0.5 leading-relaxed">
-                                    El sistema genera <strong>$8,150 USD de beneficio</strong> en los primeros 30 días, cubriendo por completo los <strong>$7,000 USD de inversión inicial</strong> con un excedente positivo neto de $1,150 USD a partir del primer mes.
+                                    El sistema genera <strong>8.150 Bs. de beneficio</strong> en los primeros 30 días, cubriendo por completo los <strong>7.000 Bs. de inversión inicial</strong> con un excedente positivo neto de 1.150 Bs. a partir del primer mes.
                                 </p>
                             </div>
                         </div>
@@ -1081,7 +1087,7 @@
                             <i class="fa-solid fa-cart-shopping"></i>
                         </div>
                         <div>
-                            <h3 class="font-heading font-bold text-lg text-slate-900">Carrito de Compras 💳</h3>
+                            <h3 class="font-heading font-bold text-lg text-slate-900">Carrito de Compras</h3>
                             <p class="text-xs text-slate-500">Revisa tus útiles antes de pagar</p>
                         </div>
                     </div>
@@ -1100,7 +1106,7 @@
                     <div class="space-y-1.5 text-xs text-slate-600">
                         <div class="flex justify-between">
                             <span>Subtotal:</span>
-                            <span id="cartSubtotal" class="font-semibold text-slate-800">$0.00</span>
+                            <span id="cartSubtotal" class="font-semibold text-slate-800">Bs. 0,00</span>
                         </div>
                         <div class="flex justify-between">
                             <span>Envío / Entrega en Colegio:</span>
@@ -1112,7 +1118,7 @@
                         </div>
                         <div class="flex justify-between text-base font-bold text-slate-900 pt-2 border-t border-slate-200">
                             <span>Total a Pagar:</span>
-                            <span id="cartTotal" class="text-blue-900 font-extrabold text-xl">$0.00</span>
+                            <span id="cartTotal" class="text-blue-900 font-extrabold text-xl">Bs. 0,00</span>
                         </div>
                     </div>
 
@@ -1158,7 +1164,7 @@
                             </div>
                             <div>
                                 <label class="block text-xs font-semibold text-slate-700 mb-1">WhatsApp / Teléfono *</label>
-                                <input type="tel" id="custPhone" required placeholder="+591 76543210" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-600 focus:outline-none">
+                                <input type="tel" id="custPhone" required placeholder="" value="" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-600 focus:outline-none">
                             </div>
                         </div>
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -1218,7 +1224,7 @@
                     <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
                         <div>
                             <span class="text-xs text-slate-400">Monto total:</span>
-                            <h4 id="checkoutModalTotal" class="text-2xl font-black text-blue-900">$0.00</h4>
+                            <h4 id="checkoutModalTotal" class="text-2xl font-black text-blue-900">Bs. 0,00</h4>
                         </div>
                         <div class="flex gap-2">
                             <button type="button" onclick="closeCheckoutModal()" class="px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-100 rounded-xl">
@@ -1254,7 +1260,7 @@
                                 <h4 class="font-bold text-sm">EduSmart Tienda Escolar</h4>
                                 <i class="fa-solid fa-circle-check text-emerald-300 text-xs" title="Empresa Verificada Meta"></i>
                             </div>
-                            <p class="text-[10px] text-emerald-100">Meta Cloud API • Mensaje Automatizado</p>
+                            <p class="text-[10px] text-emerald-100">Meta Cloud API • WhatsApp Oficial: <strong></strong></p>
                         </div>
                     </div>
                     <button onclick="closeWhatsAppModal()" class="text-white/80 hover:text-white">
@@ -1279,7 +1285,7 @@
                         
                         <div class="p-2.5 bg-white/70 rounded-xl space-y-1 font-mono text-[11px]">
                             <p><strong>N° de Orden:</strong> <span id="waOrderId" class="text-blue-800 font-bold">#ORD-0000</span></p>
-                            <p><strong>Total Pagado:</strong> <span id="waOrderTotal" class="text-emerald-700 font-bold">$0.00</span></p>
+                            <p><strong>Total Pagado:</strong> <span id="waOrderTotal" class="text-emerald-700 font-bold">Bs. 0,00</span></p>
                             <p><strong>Método:</strong> <span id="waOrderMethod">QR / Transferencia</span></p>
                             <p><strong>Entrega en:</strong> <span id="waOrderAddress">Colegio</span></p>
                         </div>
@@ -1299,7 +1305,7 @@
                     <!-- Actions in Modal -->
                     <div class="space-y-2 pt-2">
                         <a id="waDirectChatBtn" href="#" target="_blank" class="w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl shadow-md flex items-center justify-center gap-2 transition-all">
-                            <i class="fa-brands fa-whatsapp text-base"></i> Abrir en WhatsApp Real
+                            <i class="fa-brands fa-whatsapp text-base"></i> Enviar Pedido a WhatsApp ()
                         </a>
                         <button onclick="closeWhatsAppModal()" class="w-full py-2 bg-white text-slate-700 text-xs font-semibold rounded-xl border border-slate-300 hover:bg-slate-50">
                             Cerrar y Seguir Comprando
@@ -1354,7 +1360,7 @@
 
                     <div class="grid grid-cols-2 gap-3">
                         <div>
-                            <label class="block text-xs font-semibold text-slate-700 mb-1">Precio Unitario ($) *</label>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1">Precio Unitario (Bs.) *</label>
                             <input type="number" step="0.01" min="0.10" id="prodPrice" required placeholder="4.50" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
                         </div>
                         <div>
@@ -1400,65 +1406,28 @@
     <!-- ======================================================== -->
     <!-- FOOTER -->
     <!-- ======================================================== -->
-    <footer class="bg-slate-900 text-slate-400 text-xs border-t border-slate-800 mt-auto">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
-                <div class="space-y-3">
-                    <div class="flex items-center gap-2 text-white font-heading font-bold text-lg">
-                        <i class="fa-solid fa-graduation-cap text-blue-500"></i> EduSmart Escolar
-                    </div>
-                    <p class="text-slate-400 text-xs leading-relaxed">
-                        Proyecto de Sistema Web para el Festival de Ciencia 2026. Tienda en línea para estudiantes y padres con backend en Python, base de datos 24/7 y notificación por Meta Cloud API.
-                    </p>
-                </div>
-
-                <div>
-                    <h5 class="text-white font-bold mb-3 uppercase tracking-wider text-[11px]">Categorías de Útiles</h5>
-                    <ul class="space-y-2">
-                        <li><a href="javascript:void(0)" onclick="switchView('client'); filterCategory('Libros')" class="hover:text-blue-400">📚 Libros de Texto & Lectura</a></li>
-                        <li><a href="javascript:void(0)" onclick="switchView('client'); filterCategory('Cuadernos')" class="hover:text-blue-400">📓 Cuadernos Escolares</a></li>
-                        <li><a href="javascript:void(0)" onclick="switchView('client'); filterCategory('Lápices')" class="hover:text-blue-400">✏️ Lápices de Grafito & Colores</a></li>
-                        <li><a href="javascript:void(0)" onclick="switchView('client'); filterCategory('Lapiceros')" class="hover:text-blue-400">🖊️ Lapiceros & Bolígrafos</a></li>
-                        <li><a href="javascript:void(0)" onclick="switchView('client'); filterCategory('Reglas')" class="hover:text-blue-400">📏 Reglas & Geometría</a></li>
-                        <li><a href="javascript:void(0)" onclick="switchView('client'); filterCategory('Carpetas')" class="hover:text-blue-400">📁 Carpetas & Archivadores</a></li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h5 class="text-white font-bold mb-3 uppercase tracking-wider text-[11px]">Secciones del Proyecto</h5>
-                    <ul class="space-y-2">
-                        <li><a href="javascript:void(0)" onclick="switchView('client')" class="hover:text-blue-400">1. Interfaz del Cliente (Estudiantes y Padres)</a></li>
-                        <li><a href="javascript:void(0)" onclick="switchView('admin')" class="hover:text-blue-400">2. Panel de Administración (Python Backend)</a></li>
-                        <li><a href="javascript:void(0)" onclick="switchView('architecture')" class="hover:text-blue-400">3. Arquitectura, SSL & Viabilidad ($7,000)</a></li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h5 class="text-white font-bold mb-3 uppercase tracking-wider text-[11px]">Festival de Ciencia 2026</h5>
-                    <p class="text-slate-400 text-xs">
-                        Desarrollado con HTML, CSS, JavaScript, Tailwind CSS, Chart.js, jsPDF y arquitectura Backend en Python.
-                    </p>
-                    <div class="mt-3 flex gap-2">
-                        <button onclick="shareStore('whatsapp')" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-emerald-600 text-white flex items-center justify-center transition-colors">
-                            <i class="fa-brands fa-whatsapp"></i>
-                        </button>
-                        <button onclick="shareStore('facebook')" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-blue-600 text-white flex items-center justify-center transition-colors">
-                            <i class="fa-brands fa-facebook-f"></i>
-                        </button>
-                        <button onclick="shareStore('copy')" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-amber-500 text-white flex items-center justify-center transition-colors">
-                            <i class="fa-solid fa-link"></i>
-                        </button>
-                    </div>
-                </div>
+    <footer class="bg-slate-900 text-slate-400 text-xs border-t border-slate-800 mt-auto py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
+            <div class="flex items-center justify-center gap-2 text-white font-heading font-bold text-lg">
+                <i class="fa-solid fa-graduation-cap text-blue-500"></i> EduSmart
             </div>
-
-            <div class="pt-6 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px]">
-                <p>&copy; 2026 EduSmart - Festival de Ciencia. Todos los derechos reservados.</p>
-                <div class="flex items-center gap-4 text-emerald-400">
-                    <span><i class="fa-solid fa-lock"></i> Cifrado SSL Activo</span>
-                    <span><i class="fa-solid fa-bolt"></i> Sincronización Webhook 24/7</span>
-                </div>
+            <p class="text-slate-300 text-sm font-medium">
+                La librería está ubicada en la JJ Pérez, La Paz, Bolivia.
+            </p>
+            <div class="flex justify-center items-center gap-3 pt-2">
+                <button onclick="showToast('Opción no disponible todavía', 'info')" class="w-9 h-9 rounded-full bg-slate-800 hover:bg-blue-600 text-white flex items-center justify-center transition-colors" title="Facebook">
+                    <i class="fa-brands fa-facebook-f"></i>
+                </button>
+                <button onclick="showToast('Opción no disponible todavía', 'info')" class="w-9 h-9 rounded-full bg-slate-800 hover:bg-sky-400 text-white flex items-center justify-center transition-colors" title="X (Twitter)">
+                    <i class="fa-brands fa-x-twitter"></i>
+                </button>
+                <button onclick="showToast('Opción no disponible todavía', 'info')" class="w-9 h-9 rounded-full bg-slate-800 hover:bg-amber-500 text-white flex items-center justify-center transition-colors" title="Copiar Enlace">
+                    <i class="fa-solid fa-link"></i>
+                </button>
             </div>
+            <p class="text-[11px] text-slate-500 pt-2 border-t border-slate-800">
+                &copy; 2026 EduSmart. Todos los derechos reservados.
+            </p>
         </div>
     </footer>
 
@@ -1727,7 +1696,7 @@
             {
                 id: 'ORD-2026-9142',
                 customerName: 'Carlos Villarroel',
-                customerPhone: '+591 71234567',
+                customerPhone: '',
                 customerEmail: 'carlos.v@gmail.com',
                 customerAddress: 'Colegio Franco Boliviano - 4to Sec.',
                 paymentMethod: 'QR / Transferencia',
@@ -1743,7 +1712,7 @@
             {
                 id: 'ORD-2026-9141',
                 customerName: 'Mariana Gutierrez',
-                customerPhone: '+591 79876543',
+                customerPhone: '',
                 customerEmail: 'mariana.g@outlook.com',
                 customerAddress: 'Col. Alemán - 1ro Secundaria',
                 paymentMethod: 'Tarjeta Débito/Crédito',
@@ -1759,7 +1728,7 @@
             {
                 id: 'ORD-2026-9140',
                 customerName: 'Fernando Morales (Padre)',
-                customerPhone: '+591 76543210',
+                customerPhone: '',
                 customerEmail: 'f.morales@hotmail.com',
                 customerAddress: 'Colegio San Calixto - Primaria',
                 paymentMethod: 'Efectivo Contraentrega',
@@ -1774,6 +1743,10 @@
             }
         ];
 
+        // API CONFIGURATION & BACKEND INTEGRATION
+        const API_BASE = (window.location.origin && window.location.origin.includes(':5000')) ? '' : 'http://localhost:5000';
+        let isBackendConnected = false;
+
         // GLOBAL APPLICATION STATE
         let products = [];
         let orders = [];
@@ -1785,7 +1758,7 @@
         let categoryChartInstance = null;
 
         // INITIALIZATION
-        window.addEventListener('DOMContentLoaded', () => {
+        window.addEventListener('DOMContentLoaded', async () => {
             loadState();
             renderCatalog();
             updateCategoryCounts();
@@ -1794,6 +1767,9 @@
             renderAdminOrdersTable();
             renderLiveActivityFeed();
             initCharts();
+
+            // Sincronizar automáticamente con el Backend Python & Base de Datos SQL si está en línea
+            await syncWithBackend(false);
         });
 
         // PERSISTENCE HELPERS
@@ -1825,6 +1801,92 @@
             }
         }
 
+        // ==========================================
+        // BACKEND PYTHON & DATABASE SQL CONNECTIVITY
+        // ==========================================
+        async function checkBackendConnection() {
+            try {
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 2000);
+                const res = await fetch(`${API_BASE}/api/status`, { signal: controller.signal });
+                clearTimeout(timeoutId);
+                if (res.ok) {
+                    const data = await res.json();
+                    isBackendConnected = true;
+                    updateBackendStatusBadge(true, data);
+                    return true;
+                }
+            } catch (e) {
+                // Modo local offline
+            }
+            isBackendConnected = false;
+            updateBackendStatusBadge(false);
+            return false;
+        }
+
+        function updateBackendStatusBadge(online, data = null) {
+            const badge = document.getElementById('backendStatusIndicator');
+            const dot = document.getElementById('backendStatusDot');
+            const text = document.getElementById('backendStatusText');
+            if (!badge || !text) return;
+
+            if (online) {
+                badge.className = "hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 cursor-pointer shadow-xs transition-all hover:bg-emerald-100";
+                if (dot) dot.className = "w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse";
+                text.textContent = "API Python & SQL Activos";
+                badge.title = `Conectado a ${data?.motor_bd || 'Base de datos SQL'}. Clic para sincronizar.`;
+            } else {
+                badge.className = "hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-amber-50 text-amber-700 border border-amber-200 cursor-pointer shadow-xs transition-all hover:bg-amber-100";
+                if (dot) dot.className = "w-2.5 h-2.5 rounded-full bg-amber-500";
+                text.textContent = "Modo Local Demo";
+                badge.title = "Servidor Flask (puerto 5000) apagado. Ejecuta 'python backend/app.py' o 'iniciar_servidor.bat'. Clic para reintentar conexión.";
+            }
+        }
+
+        async function syncWithBackend(notifyUser = false) {
+            const connected = await checkBackendConnection();
+            if (connected) {
+                try {
+                    // 1. Obtener catálogo desde la base de datos SQL
+                    const prodRes = await fetch(`${API_BASE}/api/productos`);
+                    if (prodRes.ok) {
+                        const prodData = await prodRes.json();
+                        if (Array.isArray(prodData) && prodData.length > 0) {
+                            products = prodData;
+                            localStorage.setItem('edusmart_products', JSON.stringify(products));
+                        }
+                    }
+
+                    // 2. Obtener ventas registradas en la base de datos SQL
+                    const ordersRes = await fetch(`${API_BASE}/api/ventas`);
+                    if (ordersRes.ok) {
+                        const ordersData = await ordersRes.json();
+                        if (Array.isArray(ordersData)) {
+                            orders = ordersData;
+                            localStorage.setItem('edusmart_orders', JSON.stringify(orders));
+                        }
+                    }
+
+                    // 3. Refrescar interfaces
+                    renderCatalog();
+                    updateCategoryCounts();
+                    renderCartUI();
+                    renderAdminInventoryTable();
+                    renderAdminOrdersTable();
+                    renderLiveActivityFeed();
+                    initCharts();
+
+                    if (notifyUser) {
+                        showToast('🟢 Conexión exitosa: Sincronizado con la base de datos SQL de Python', 'success');
+                    }
+                } catch (e) {
+                    console.error("Error sincronizando:", e);
+                }
+            } else if (notifyUser) {
+                showToast('🟡 Servidor Python no detectado en http://localhost:5000. Operando en modo local.', 'warning');
+            }
+        }
+
         function resetDemoData() {
             if (confirm('¿Deseas reiniciar los productos, inventario y órdenes a los valores iniciales para la presentación?')) {
                 products = [...DEFAULT_PRODUCTS];
@@ -1838,7 +1900,7 @@
                 renderAdminOrdersTable();
                 renderLiveActivityFeed();
                 initCharts();
-                showToast('Datos reiniciados correctamente para el Festival de Ciencia', 'success');
+                showToast('Datos reiniciados correctamente para el EduSmart Escolar', 'success');
             }
         }
 
@@ -1974,10 +2036,6 @@
                 let stockBadge = '';
                 if (isOutOfStock) {
                     stockBadge = '<span class="bg-rose-100 text-rose-800 text-[10px] font-bold px-2 py-0.5 rounded-full border border-rose-200">Agotado</span>';
-                } else if (isLowStock) {
-                    stockBadge = `<span class="bg-amber-100 text-amber-800 text-[10px] font-bold px-2 py-0.5 rounded-full border border-amber-300">¡Últimas ${product.stock} unidades!</span>`;
-                } else {
-                    stockBadge = `<span class="bg-emerald-100 text-emerald-800 text-[10px] font-semibold px-2 py-0.5 rounded-full border border-emerald-200">Stock: ${product.stock} disp.</span>`;
                 }
 
                 // Category Icon
@@ -2023,8 +2081,8 @@
 
                             <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
                                 <div>
-                                    <span class="text-[10px] text-slate-400 block font-medium">Precio Escolar</span>
-                                    <span class="text-xl font-black text-slate-900">$${product.price.toFixed(2)}</span>
+                                    <span class="text-[10px] text-slate-400 block font-medium">Precio</span>
+                                    <span class="text-xl font-black text-slate-900">Bs. ${product.price.toFixed(2)}</span>
                                 </div>
 
                                 <button onclick="addToCart('${product.id}')" 
@@ -2123,8 +2181,8 @@
             badge.textContent = totalItems;
 
             const totalAmount = cart.reduce((sum, i) => sum + (i.price * i.quantity), 0);
-            subtotalEl.textContent = `$${totalAmount.toFixed(2)}`;
-            totalEl.textContent = `$${totalAmount.toFixed(2)}`;
+            subtotalEl.textContent = `Bs. ${totalAmount.toFixed(2)}`;
+            totalEl.textContent = `Bs. ${totalAmount.toFixed(2)}`;
 
             if (cart.length === 0) {
                 container.innerHTML = `
@@ -2146,7 +2204,7 @@
                         <h4 class="font-heading font-bold text-xs text-slate-800 truncate">${item.name}</h4>
                         <span class="text-[10px] text-slate-400 block">${item.sku}</span>
                         <div class="flex items-center justify-between mt-1">
-                            <span class="text-xs font-black text-slate-900">$${(item.price * item.quantity).toFixed(2)}</span>
+                            <span class="text-xs font-black text-slate-900">Bs. ${(item.price * item.quantity).toFixed(2)}</span>
                             <div class="flex items-center gap-2 bg-white px-2 py-0.5 rounded-lg border border-slate-300">
                                 <button onclick="updateCartQty('${item.id}', -1)" class="text-xs text-slate-600 hover:text-rose-600 font-bold px-1">-</button>
                                 <span class="text-xs font-bold text-slate-800 px-1">${item.quantity}</span>
@@ -2165,7 +2223,7 @@
             if (cart.length === 0) return;
             toggleCartDrawer(false);
             const totalAmount = cart.reduce((sum, i) => sum + (i.price * i.quantity), 0);
-            document.getElementById('checkoutModalTotal').textContent = `$${totalAmount.toFixed(2)}`;
+            document.getElementById('checkoutModalTotal').textContent = `Bs. ${totalAmount.toFixed(2)}`;
             document.getElementById('checkoutModal').classList.remove('hidden');
         }
 
@@ -2214,7 +2272,7 @@
         // ==========================================
         // ORDER PROCESSING & AUTOMATIC STOCK REDUCTION
         // ==========================================
-        function handleProcessOrder(event) {
+        async function handleProcessOrder(event) {
             event.preventDefault();
 
             const name = document.getElementById('custName').value.trim();
@@ -2222,77 +2280,148 @@
             const email = document.getElementById('custEmail').value.trim() || 'No especificado';
             const address = document.getElementById('custAddress').value.trim();
             const payMethod = document.querySelector('input[name="payMethod"]:checked').value;
+            const submitBtn = document.getElementById('submitOrderBtn');
 
-            // Validate stock availability before final execution
-            for (let item of cart) {
-                const prod = products.find(p => p.id === item.id);
-                if (!prod || prod.stock < item.quantity) {
-                    showToast(`Error: Stock insuficiente para ${item.name}. Disponibles: ${prod ? prod.stock : 0}`, 'error');
-                    return;
-                }
+            if (cart.length === 0) {
+                showToast('El carrito de compras está vacío.', 'warning');
+                return;
             }
 
-            const totalAmount = cart.reduce((sum, i) => sum + (i.price * i.quantity), 0);
-            const randomOrderNum = Math.floor(1000 + Math.random() * 9000);
-            const orderId = `ORD-2026-${randomOrderNum}`;
-            const now = new Date();
-            const formattedDate = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}:${String(now.getSeconds()).padStart(2,'0')}`;
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Procesando en Base de Datos SQL...';
+            }
 
-            // 1. AUTOMATIC STOCK DISCOUNT
-            const stockMovements = [];
-            cart.forEach(item => {
-                const prod = products.find(p => p.id === item.id);
-                if (prod) {
-                    prod.stock -= item.quantity;
-                    stockMovements.push(`${item.name} (-${item.quantity})`);
+            try {
+                if (isBackendConnected) {
+                    // PETICIÓN FETCH AL BACKEND REAL EN PYTHON (TRANSACCIÓN ACID SQL)
+                    const payload = {
+                        customerName: name,
+                        customerPhone: phone,
+                        customerEmail: email,
+                        customerAddress: address,
+                        paymentMethod: payMethod,
+                        items: cart.map(item => ({
+                            id: item.id,
+                            name: item.name,
+                            price: item.price,
+                            quantity: item.quantity,
+                            sku: item.sku || ''
+                        }))
+                    };
+
+                    const response = await fetch(`${API_BASE}/api/ventas`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    const result = await response.json();
+
+                    if (!response.ok) {
+                        throw new Error(result.error || 'Error al procesar la venta en el servidor SQL.');
+                    }
+
+                    // Sincronizar el catálogo actualizado desde la base de datos SQL
+                    const prodRes = await fetch(`${API_BASE}/api/productos`);
+                    if (prodRes.ok) {
+                        products = await prodRes.json();
+                        localStorage.setItem('edusmart_products', JSON.stringify(products));
+                    }
+
+                    const newOrder = result.venta;
+                    orders.unshift(newOrder);
+                    localStorage.setItem('edusmart_orders', JSON.stringify(orders));
+
+                    const purchasedCartBackup = [...cart];
+                    cart = [];
+                    localStorage.setItem('edusmart_cart', JSON.stringify(cart));
+
+                    renderCatalog();
+                    updateCategoryCounts();
+                    renderCartUI();
+                    renderAdminInventoryTable();
+                    renderAdminOrdersTable();
+                    renderLiveActivityFeed();
+                    initCharts();
+
+                    closeCheckoutModal();
+                    openWhatsAppModal(newOrder, purchasedCartBackup, result.webhook);
+                    showToast('¡Compra exitosa! Stock descontado en la base de datos SQL.', 'success');
+                } else {
+                    // MODO FALLBACK LOCAL (OFFLINE)
+                    for (let item of cart) {
+                        const prod = products.find(p => p.id === item.id);
+                        if (!prod || prod.stock < item.quantity) {
+                            showToast(`Error: Stock insuficiente para ${item.name}. Disponibles: ${prod ? prod.stock : 0}`, 'error');
+                            if (submitBtn) {
+                                submitBtn.disabled = false;
+                                submitBtn.innerHTML = '<i class="fa-solid fa-check"></i> Confirmar y Descontar Stock';
+                            }
+                            return;
+                        }
+                    }
+
+                    const totalAmount = cart.reduce((sum, i) => sum + (i.price * i.quantity), 0);
+                    const randomOrderNum = Math.floor(1000 + Math.random() * 9000);
+                    const orderId = `ORD-2026-${randomOrderNum}`;
+                    const now = new Date();
+                    const formattedDate = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}:${String(now.getSeconds()).padStart(2,'0')}`;
+
+                    cart.forEach(item => {
+                        const prod = products.find(p => p.id === item.id);
+                        if (prod) prod.stock -= item.quantity;
+                    });
+
+                    const newOrder = {
+                        id: orderId,
+                        customerName: name,
+                        customerPhone: phone,
+                        customerEmail: email,
+                        customerAddress: address,
+                        paymentMethod: payMethod,
+                        items: [...cart],
+                        total: totalAmount,
+                        date: formattedDate,
+                        status: 'Entregado'
+                    };
+
+                    orders.unshift(newOrder);
+                    const purchasedCartBackup = [...cart];
+                    cart = [];
+                    saveState();
+
+                    renderCatalog();
+                    updateCategoryCounts();
+                    renderCartUI();
+                    renderAdminInventoryTable();
+                    renderAdminOrdersTable();
+                    renderLiveActivityFeed();
+                    initCharts();
+
+                    closeCheckoutModal();
+                    openWhatsAppModal(newOrder, purchasedCartBackup);
+                    showToast('¡Compra exitosa (modo local)! Descuento aplicado en memoria.', 'info');
                 }
-            });
-
-            // 2. CREATE AND PERSIST ORDER
-            const newOrder = {
-                id: orderId,
-                customerName: name,
-                customerPhone: phone,
-                customerEmail: email,
-                customerAddress: address,
-                paymentMethod: payMethod,
-                items: [...cart],
-                total: totalAmount,
-                date: formattedDate,
-                status: 'Entregado'
-            };
-
-            orders.unshift(newOrder); // Prepend for live dashboard visibility
-            
-            // 3. CLEAR CART & SAVE STATE
-            const purchasedCartBackup = [...cart];
-            cart = [];
-            saveState();
-
-            // 4. REFRESH UI
-            renderCatalog();
-            updateCategoryCounts();
-            renderCartUI();
-            renderAdminInventoryTable();
-            renderAdminOrdersTable();
-            renderLiveActivityFeed();
-            initCharts();
-
-            // 5. CLOSE CHECKOUT & OPEN WHATSAPP META CLOUD NOTIFICATION MODAL
-            closeCheckoutModal();
-            openWhatsAppModal(newOrder, purchasedCartBackup);
-
-            showToast(`¡Compra exitosa! Se descontó el inventario en tiempo real.`, 'success');
+            } catch (err) {
+                console.error("Error al procesar orden:", err);
+                showToast(`Error: ${err.message}`, 'error');
+            } finally {
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<i class="fa-solid fa-check"></i> Confirmar y Descontar Stock';
+                }
+            }
         }
 
         // ==========================================
         // WHATSAPP META CLOUD API SIMULATION
         // ==========================================
-        function openWhatsAppModal(order, items) {
+        function openWhatsAppModal(order, items, webhookData = null) {
             const modal = document.getElementById('whatsappModal');
             document.getElementById('waGreeting').innerHTML = `Hola <strong>${order.customerName}</strong>,`;
-            document.getElementById('waOrderId').textContent = `#${order.id}`;
-            document.getElementById('waOrderTotal').textContent = `$${order.total.toFixed(2)}`;
+            document.getElementById('waOrderId').textContent = `#${order.id || order.order_id}`;
+            document.getElementById('waOrderTotal').textContent = `Bs. ${parseFloat(order.total).toFixed(2)}`;
             document.getElementById('waOrderMethod').textContent = order.paymentMethod;
             document.getElementById('waOrderAddress').textContent = order.customerAddress;
 
@@ -2301,23 +2430,28 @@
 
             const itemsList = document.getElementById('waOrderItemsList');
             itemsList.innerHTML = items.map(i => `
-                <li>${i.quantity}x ${i.name} - $${(i.price * i.quantity).toFixed(2)}</li>
+                <li>${i.quantity}x ${i.name} - Bs. ${(parseFloat(i.price) * i.quantity).toFixed(2)}</li>
             `).join('');
 
             // Setup real WhatsApp link for direct share
             const textMsg = encodeURIComponent(
                 `*EduSmart - Confirmación de Compra Escolar*\n` +
-                `*N° de Orden:* #${order.id}\n` +
+                `*N° de Orden:* #${order.id || order.order_id}\n` +
                 `*Cliente:* ${order.customerName}\n` +
-                `*Total Pagado:* $${order.total.toFixed(2)}\n` +
+                `*Total Pagado:* Bs. ${parseFloat(order.total).toFixed(2)}\n` +
                 `*Método:* ${order.paymentMethod}\n` +
                 `*Entrega:* ${order.customerAddress}\n\n` +
                 `*Artículos:*\n` + items.map(i => `• ${i.quantity}x ${i.name}`).join('\n') +
                 `\n\n_Mensaje automático generado por EduSmart Webhook & Meta Cloud API._`
             );
-            const cleanPhone = order.customerPhone.replace(/[^0-9]/g, '');
-            const waUrl = cleanPhone.length > 6 ? `https://api.whatsapp.com/send?phone=${cleanPhone}&text=${textMsg}` : `https://api.whatsapp.com/send?text=${textMsg}`;
-            document.getElementById('waDirectChatBtn').href = waUrl;
+            // Número oficial de WhatsApp de la Tienda EduSmart ()
+            const STORE_WHATSAPP_NUMBER = "59162559281";
+            const waUrl = `https://api.whatsapp.com/send?phone=${STORE_WHATSAPP_NUMBER}&text=${textMsg}`;
+            const directBtn = document.getElementById('waDirectChatBtn');
+            if (directBtn) {
+                directBtn.href = waUrl;
+                directBtn.innerHTML = `<i class="fa-brands fa-whatsapp text-base"></i> Enviar Pedido a WhatsApp ()`;
+            }
 
             modal.classList.remove('hidden');
         }
@@ -2328,7 +2462,7 @@
 
         function shareStore(network) {
             const url = window.location.href.split('#')[0];
-            const text = "¡Descubre EduSmart! La tienda en línea de útiles escolares para estudiantes y padres con confirmación por WhatsApp y stock en tiempo real: ";
+            const text = "¡Descubre EduSmart! La tienda en línea de útiles escolares para estudiantes y padres con atención por WhatsApp () y stock en tiempo real: ";
 
             if (network === 'whatsapp') {
                 window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text + url)}`, '_blank');
@@ -2349,8 +2483,9 @@
         // ADMIN PANEL MODULES
         // ==========================================
         function switchAdminTab(tabName) {
-            ['dashboard', 'inventario', 'ventas', 'reportes'].forEach(t => {
-                document.getElementById(`adminContent-${t}`).classList.add('hidden');
+            ['dashboard', 'inventario', 'database', 'ventas', 'reportes'].forEach(t => {
+                const el = document.getElementById(`adminContent-${t}`);
+                if (el) el.classList.add('hidden');
                 const btn = document.getElementById(`adminTab-${t}`);
                 if (btn) {
                     btn.classList.remove('bg-blue-600', 'text-white');
@@ -2371,6 +2506,8 @@
                 updateDashboardKPIs();
             } else if (tabName === 'inventario') {
                 renderAdminInventoryTable();
+            } else if (tabName === 'database') {
+                switchSQLTable(currentSQLTable || 'productos');
             } else if (tabName === 'ventas') {
                 renderAdminOrdersTable();
             } else if (tabName === 'reportes') {
@@ -2379,12 +2516,12 @@
         }
 
         function updateDashboardKPIs() {
-            const totalRevenue = orders.reduce((sum, o) => sum + o.total, 0);
+            const totalRevenue = orders.reduce((sum, o) => sum + parseFloat(o.total || 0), 0);
             const totalOrders = orders.length;
             const lowStockCount = products.filter(p => p.stock <= 5).length;
             const totalCatalog = products.length;
 
-            document.getElementById('kpiTotalRevenue').textContent = `$${totalRevenue.toFixed(2)}`;
+            document.getElementById('kpiTotalRevenue').textContent = `Bs. ${totalRevenue.toFixed(2)}`;
             document.getElementById('kpiTotalOrders').textContent = `${totalOrders} órdenes`;
             document.getElementById('kpiLowStock').textContent = `${lowStockCount} ítems`;
             document.getElementById('kpiCatalogCount').textContent = `${totalCatalog} productos`;
@@ -2408,11 +2545,11 @@
                         </span>
                         <div>
                             <p class="font-bold text-slate-800">${o.customerName} realizó compra #${o.id}</p>
-                            <p class="text-[10px] text-slate-400">${o.items.length} artículos • Descuento automático de stock aplicado</p>
+                            <p class="text-[10px] text-slate-400">${(o.items || []).length} artículos • Descuento automático de stock aplicado</p>
                         </div>
                     </div>
                     <div class="text-right">
-                        <span class="font-black text-slate-900 text-xs">$${o.total.toFixed(2)}</span>
+                        <span class="font-black text-slate-900 text-xs">Bs. ${parseFloat(o.total || 0).toFixed(2)}</span>
                         <span class="text-[9px] text-emerald-600 block font-semibold">Webhook Sincronizado</span>
                     </div>
                 </div>
@@ -2420,7 +2557,7 @@
         }
 
         // ==========================================
-        // INVENTORY MANAGEMENT (CRUD COMPLETO)
+        // INVENTORY MANAGEMENT (CRUD COMPLETO & ORDENADO POR ID BD)
         // ==========================================
         function renderAdminInventoryTable() {
             const tbody = document.getElementById('adminInventoryTableBody');
@@ -2429,13 +2566,15 @@
             const searchQuery = (document.getElementById('adminInventorySearch')?.value || '').toLowerCase().trim();
             const catFilter = document.getElementById('adminCategoryFilter')?.value || 'all';
             const stockFilter = document.getElementById('adminStockStatusFilter')?.value || 'all';
+            const sortOrder = document.getElementById('adminInventorySort')?.value || 'id-asc';
 
-            const filtered = products.filter(p => {
+            let filtered = products.filter(p => {
                 const matchCat = (catFilter === 'all') || (p.category === catFilter);
                 const matchSearch = !searchQuery || 
-                                    p.name.toLowerCase().includes(searchQuery) || 
-                                    p.sku.toLowerCase().includes(searchQuery) ||
-                                    p.category.toLowerCase().includes(searchQuery);
+                                    (p.id && p.id.toLowerCase().includes(searchQuery)) ||
+                                    (p.name && p.name.toLowerCase().includes(searchQuery)) || 
+                                    (p.sku && p.sku.toLowerCase().includes(searchQuery)) ||
+                                    (p.category && p.category.toLowerCase().includes(searchQuery));
                 
                 let matchStock = true;
                 if (stockFilter === 'low') matchStock = (p.stock > 0 && p.stock <= 5);
@@ -2445,11 +2584,28 @@
                 return matchCat && matchSearch && matchStock;
             });
 
+            // Sorting
+            if (sortOrder === 'id-asc') {
+                filtered.sort((a, b) => {
+                    const numA = parseInt((a.id || '').replace('prod-', '')) || 0;
+                    const numB = parseInt((b.id || '').replace('prod-', '')) || 0;
+                    return numA - numB;
+                });
+            } else if (sortOrder === 'sku-asc') {
+                filtered.sort((a, b) => (a.sku || '').localeCompare(b.sku || ''));
+            } else if (sortOrder === 'name-asc') {
+                filtered.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
+            } else if (sortOrder === 'price-desc') {
+                filtered.sort((a, b) => b.price - a.price);
+            } else if (sortOrder === 'stock-asc') {
+                filtered.sort((a, b) => a.stock - b.stock);
+            }
+
             if (filtered.length === 0) {
                 tbody.innerHTML = `
                     <tr>
-                        <td colspan="7" class="py-8 text-center text-slate-400">
-                            No se encontraron productos en el inventario con los filtros seleccionados.
+                        <td colspan="9" class="py-8 text-center text-slate-400">
+                            No se encontraron productos en el inventario con los criterios seleccionados.
                         </td>
                     </tr>
                 `;
@@ -2470,15 +2626,21 @@
 
                 return `
                     <tr class="hover:bg-slate-50 transition-colors">
+                        <td class="py-3 px-4 font-mono font-bold text-blue-900 bg-slate-50/50">
+                            ${p.id}
+                        </td>
+                        <td class="py-3 px-4 font-mono text-xs text-slate-600 font-semibold">
+                            ${p.sku}
+                        </td>
                         <td class="py-3 px-4 flex items-center gap-3">
-                            <img src="${p.image}" alt="${p.name}" class="w-10 h-10 rounded-xl object-cover bg-white border border-slate-200">
+                            <img src="${p.image}" alt="${p.name}" class="w-10 h-10 rounded-xl object-cover bg-white border border-slate-200 shrink-0">
                             <div>
-                                <strong class="text-slate-900 block font-semibold">${p.name}</strong>
-                                <span class="text-[10px] text-slate-400 font-mono">${p.sku}</span>
+                                <strong class="text-slate-900 block font-semibold text-xs">${p.name}</strong>
+                                <span class="text-[10px] text-slate-400 truncate max-w-xs block">${p.description || ''}</span>
                             </div>
                         </td>
                         <td class="py-3 px-4 font-medium text-slate-700">${p.category}</td>
-                        <td class="py-3 px-4 font-bold text-slate-900">$${p.price.toFixed(2)}</td>
+                        <td class="py-3 px-4 font-black text-slate-900">Bs. ${parseFloat(p.price).toFixed(2)}</td>
                         <td class="py-3 px-4 font-black ${p.stock <= 5 ? 'text-amber-600' : 'text-slate-800'}">${p.stock} uds</td>
                         <td class="py-3 px-4">
                             <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold border ${badgeClass}">
@@ -2486,17 +2648,17 @@
                             </span>
                         </td>
                         <td class="py-3 px-4 text-center">
-                            <div class="inline-flex items-center gap-1 bg-slate-100 rounded-lg p-0.5">
+                            <div class="inline-flex items-center gap-1 bg-slate-100 rounded-lg p-0.5 border border-slate-200">
                                 <button onclick="quickAdjustStock('${p.id}', -1)" class="w-6 h-6 rounded bg-white hover:bg-rose-100 hover:text-rose-700 text-slate-700 font-bold flex items-center justify-center text-xs shadow-xs" title="Restar 1">-</button>
                                 <span class="text-xs font-bold px-1.5">${p.stock}</span>
                                 <button onclick="quickAdjustStock('${p.id}', 1)" class="w-6 h-6 rounded bg-white hover:bg-emerald-100 hover:text-emerald-700 text-slate-700 font-bold flex items-center justify-center text-xs shadow-xs" title="Sumar 1">+</button>
                             </div>
                         </td>
                         <td class="py-3 px-4 text-right space-x-1">
-                            <button onclick="openProductModal('${p.id}')" class="p-1.5 rounded-lg text-slate-500 hover:text-blue-700 hover:bg-blue-50 transition-colors" title="Editar">
+                            <button onclick="openProductModal('${p.id}')" class="p-1.5 rounded-lg text-slate-500 hover:text-blue-700 hover:bg-blue-50 transition-colors" title="Editar Producto">
                                 <i class="fa-solid fa-pen-to-square"></i>
                             </button>
-                            <button onclick="deleteProduct('${p.id}')" class="p-1.5 rounded-lg text-slate-500 hover:text-rose-700 hover:bg-rose-50 transition-colors" title="Eliminar">
+                            <button onclick="deleteProduct('${p.id}')" class="p-1.5 rounded-lg text-slate-500 hover:text-rose-700 hover:bg-rose-50 transition-colors" title="Quitar Producto de BD">
                                 <i class="fa-solid fa-trash-can"></i>
                             </button>
                         </td>
@@ -2505,16 +2667,169 @@
             }).join('');
         }
 
-        function quickAdjustStock(productId, delta) {
+        // ==========================================
+        // VISOR E INSPECTOR DE BASE DE DATOS RELACIONAL SQL
+        // ==========================================
+        let currentSQLTable = 'productos';
+
+        async function switchSQLTable(tableName) {
+            currentSQLTable = tableName;
+
+            ['productos', 'ventas', 'movimientos_inventario'].forEach(t => {
+                const btn = document.getElementById(`sqlTabBtn-${t}`);
+                if (btn) {
+                    btn.className = (t === tableName)
+                        ? "px-4 py-2 rounded-xl text-xs font-bold transition-all bg-sky-900 text-white shadow-sm flex items-center gap-2"
+                        : "px-4 py-2 rounded-xl text-xs font-bold transition-all bg-white text-slate-700 border border-slate-300 hover:bg-slate-100 flex items-center gap-2";
+                }
+            });
+
+            await refreshSQLTableInspector();
+        }
+
+        async function refreshSQLTableInspector() {
+            const queryDisplay = document.getElementById('sqlQueryDisplay');
+            const countDisplay = document.getElementById('sqlTableRecordCount');
+            const thead = document.getElementById('sqlInspectorTableHeader');
+            const tbody = document.getElementById('sqlInspectorTableBody');
+
+            if (!thead || !tbody) return;
+
+            if (queryDisplay) {
+                queryDisplay.textContent = `SELECT * FROM ${currentSQLTable} ORDER BY id ASC;`;
+            }
+
+            try {
+                let tableData = [];
+                let tableColumns = [];
+
+                if (isBackendConnected) {
+                    const res = await fetch(`${API_BASE}/api/db/tables/${currentSQLTable}`);
+                    if (res.ok) {
+                        const result = await res.json();
+                        tableData = result.data || [];
+                        tableColumns = result.columns || [];
+                    }
+                }
+
+                if (tableData.length === 0 && currentSQLTable === 'productos') {
+                    tableData = products;
+                    tableColumns = ['id', 'sku', 'name', 'category', 'price', 'stock', 'description'];
+                } else if (tableData.length === 0 && currentSQLTable === 'ventas') {
+                    tableData = orders;
+                    tableColumns = ['id', 'customerName', 'customerPhone', 'customerAddress', 'paymentMethod', 'total', 'date', 'status'];
+                }
+
+                if (countDisplay) countDisplay.textContent = tableData.length;
+
+                const countBadge = document.getElementById(`sqlCount-${currentSQLTable}`);
+                if (countBadge) countBadge.textContent = tableData.length;
+
+                if (tableData.length === 0) {
+                    thead.innerHTML = `<tr><th class="py-3 px-4">Tabla Vacia</th></tr>`;
+                    tbody.innerHTML = `<tr><td class="py-6 text-center text-slate-400 font-sans">No hay registros almacenados en la tabla SQL '${currentSQLTable}'.</td></tr>`;
+                    return;
+                }
+
+                if (tableColumns.length === 0 && tableData.length > 0) {
+                    tableColumns = Object.keys(tableData[0]);
+                }
+
+                const columnNamesMap = {
+                    'id': 'ID BD',
+                    'sku': 'Código (SKU)',
+                    'name': 'Nombre del Producto',
+                    'category': 'Categoría',
+                    'price': 'Precio (Bs.)',
+                    'stock': 'Stock (Uds.)',
+                    'description': 'Descripción',
+                    'image': 'Imagen (URL)',
+                    'created_at': 'Fecha Registro',
+                    'customername': 'Cliente (Tutor)',
+                    'customerphone': 'Teléfono / WhatsApp',
+                    'customeraddress': 'Dirección',
+                    'paymentmethod': 'Método de Pago',
+                    'total': 'Monto Total (Bs.)',
+                    'total_amount': 'Monto Total (Bs.)',
+                    'date': 'Fecha y Hora',
+                    'status': 'Estado SQL',
+                    'order_id': 'ID Orden',
+                    'product_id': 'ID Producto',
+                    'quantity': 'Cantidad',
+                    'unit_price': 'Precio Unit. (Bs.)',
+                    'subtotal': 'Subtotal (Bs.)',
+                    'movement_type': 'Tipo Movimiento',
+                    'timestamp': 'Fecha / Hora'
+                };
+
+                thead.innerHTML = `
+                    <tr>
+                        ${tableColumns.map(c => `<th class="py-3 px-4 text-slate-800">${(columnNamesMap[c.toLowerCase()] || c).toUpperCase()}</th>`).join('')}
+                        ${currentSQLTable === 'productos' ? '<th class="py-3 px-4 text-right">ACCIONES</th>' : ''}
+                    </tr>
+                `;
+
+                tbody.innerHTML = tableData.map(row => {
+                    return `
+                        <tr class="hover:bg-slate-50 transition-colors">
+                            ${tableColumns.map(col => {
+                                let val = row[col];
+                                if (typeof val === 'object') val = JSON.stringify(val);
+                                if (col === 'id' || col === 'sku') {
+                                    return `<td class="py-3 px-4 font-bold text-blue-900">${val}</td>`;
+                                } else if (col === 'price' || col === 'total') {
+                                    return `<td class="py-3 px-4 font-black text-emerald-700">Bs. ${parseFloat(val || 0).toFixed(2)}</td>`;
+                                } else if (col === 'stock') {
+                                    const isLow = parseInt(val) <= 5;
+                                    return `<td class="py-3 px-4 font-bold ${isLow ? 'text-amber-600' : 'text-slate-800'}">${val} uds</td>`;
+                                }
+                                return `<td class="py-3 px-4 text-slate-700 max-w-xs truncate">${val !== null && val !== undefined ? val : ''}</td>`;
+                            }).join('')}
+                            ${currentSQLTable === 'productos' ? `
+                                <td class="py-3 px-4 text-right space-x-1">
+                                    <button onclick="openProductModal('${row.id}')" class="px-2 py-1 bg-blue-50 text-blue-700 hover:bg-blue-100 rounded text-[10px] font-bold font-sans">Editar</button>
+                                    <button onclick="deleteProduct('${row.id}')" class="px-2 py-1 bg-rose-50 text-rose-700 hover:bg-rose-100 rounded text-[10px] font-bold font-sans">🗑️ Quitar</button>
+                                </td>
+                            ` : ''}
+                        </tr>
+                    `;
+                }).join('');
+            } catch (e) {
+                console.error("Error cargando visor SQL:", e);
+                tbody.innerHTML = `<tr><td colspan="10" class="py-4 text-center text-rose-600 font-sans">Error al consultar la tabla SQL: ${e.message}</td></tr>`;
+            }
+        }
+
+        async function quickAdjustStock(productId, delta) {
             const prod = products.find(p => p.id === productId);
             if (!prod) return;
 
-            prod.stock = Math.max(0, prod.stock + delta);
-            saveState();
-            renderAdminInventoryTable();
-            renderCatalog();
-            updateDashboardKPIs();
-            showToast(`Stock actualizado para ${prod.name}: ${prod.stock} uds.`, 'info');
+            const newStock = Math.max(0, prod.stock + delta);
+
+            try {
+                if (isBackendConnected) {
+                    const res = await fetch(`${API_BASE}/api/productos/${productId}`, {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ stock: newStock })
+                    });
+                    if (!res.ok) throw new Error('Error al actualizar stock en la base de datos');
+                    const updated = await res.json();
+                    prod.stock = updated.stock;
+                    showToast(`Stock actualizado en base de datos SQL: ${prod.name} (${prod.stock} uds.)`, 'info');
+                } else {
+                    prod.stock = newStock;
+                    showToast(`Stock actualizado: ${prod.name} (${prod.stock} uds.)`, 'info');
+                }
+
+                saveState();
+                renderAdminInventoryTable();
+                renderCatalog();
+                updateDashboardKPIs();
+            } catch (err) {
+                console.error("Error ajustando stock:", err);
+                showToast(`Error: ${err.message}`, 'error');
+            }
         }
 
         function openProductModal(productId = null) {
@@ -2549,7 +2864,7 @@
             document.getElementById('productModal').classList.add('hidden');
         }
 
-        function handleSaveProduct(event) {
+        async function handleSaveProduct(event) {
             event.preventDefault();
 
             const id = document.getElementById('prodId').value;
@@ -2561,7 +2876,6 @@
             let image = document.getElementById('prodImage').value.trim();
             const description = document.getElementById('prodDescription').value.trim() || 'Útil escolar de calidad garantizada para estudiantes.';
 
-            // Fallback image based on category
             if (!image) {
                 const catImages = {
                     'Libros': 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=600&q=80',
@@ -2574,48 +2888,88 @@
                 image = catImages[category] || 'https://images.unsplash.com/photo-1452860606245-08befc0ff44b?auto=format&fit=crop&w=600&q=80';
             }
 
-            if (id) {
-                // Update existing
-                const prod = products.find(p => p.id === id);
-                if (prod) {
-                    prod.name = name;
-                    prod.category = category;
-                    prod.sku = sku;
-                    prod.price = price;
-                    prod.stock = stock;
-                    prod.image = image;
-                    prod.description = description;
-                    showToast(`Producto ${name} actualizado correctamente.`, 'success');
-                }
-            } else {
-                // Create new
-                const newProduct = {
-                    id: `prod-${Date.now()}`,
-                    sku: sku,
-                    name: name,
-                    category: category,
-                    price: price,
-                    stock: stock,
-                    image: image,
-                    description: description
-                };
-                products.unshift(newProduct);
-                showToast(`Nuevo producto ${name} agregado al inventario.`, 'success');
-            }
+            const payload = {
+                name,
+                category,
+                sku,
+                price,
+                stock,
+                image,
+                description
+            };
 
-            saveState();
-            closeProductModal();
-            renderAdminInventoryTable();
-            renderCatalog();
-            updateCategoryCounts();
-            updateDashboardKPIs();
+            try {
+                if (isBackendConnected) {
+                    if (id) {
+                        const res = await fetch(`${API_BASE}/api/productos/${id}`, {
+                            method: 'PUT',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(payload)
+                        });
+                        if (!res.ok) throw new Error('Error al actualizar el producto en la base de datos SQL');
+                        const updated = await res.json();
+                        const idx = products.findIndex(p => p.id === id);
+                        if (idx !== -1) products[idx] = updated;
+                        showToast(`Producto ${name} actualizado en base de datos SQL.`, 'success');
+                    } else {
+                        const res = await fetch(`${API_BASE}/api/productos`, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(payload)
+                        });
+                        if (!res.ok) throw new Error('Error al guardar el producto en la base de datos SQL');
+                        const created = await res.json();
+                        products.unshift(created);
+                        showToast(`Nuevo producto ${name} guardado en base de datos SQL.`, 'success');
+                    }
+                } else {
+                    if (id) {
+                        const prod = products.find(p => p.id === id);
+                        if (prod) {
+                            Object.assign(prod, payload);
+                            showToast(`Producto ${name} actualizado (modo local).`, 'success');
+                        }
+                    } else {
+                        const newProduct = {
+                            id: `prod-${Date.now()}`,
+                            ...payload
+                        };
+                        products.unshift(newProduct);
+                        showToast(`Nuevo producto ${name} agregado (modo local).`, 'success');
+                    }
+                }
+
+                saveState();
+                closeProductModal();
+                renderAdminInventoryTable();
+                renderCatalog();
+                updateCategoryCounts();
+                updateDashboardKPIs();
+            } catch (err) {
+                console.error("Error guardando producto:", err);
+                showToast(`Error: ${err.message}`, 'error');
+            }
         }
 
-        function deleteProduct(productId) {
+        async function deleteProduct(productId) {
             const prod = products.find(p => p.id === productId);
             if (!prod) return;
 
-            if (confirm(`¿Estás seguro de eliminar "${prod.name}" del inventario escolar?`)) {
+            if (!confirm(`¿Estás seguro de eliminar "${prod.name}" del inventario escolar?`)) {
+                return;
+            }
+
+            try {
+                if (isBackendConnected) {
+                    const res = await fetch(`${API_BASE}/api/productos/${productId}`, {
+                        method: 'DELETE'
+                    });
+                    if (!res.ok) throw new Error('No se pudo eliminar el producto de la base de datos SQL');
+                    showToast(`Producto ${prod.name} eliminado de la base de datos SQL.`, 'info');
+                } else {
+                    showToast(`Producto ${prod.name} eliminado (modo local).`, 'info');
+                }
+
                 products = products.filter(p => p.id !== productId);
                 cart = cart.filter(i => i.id !== productId);
                 saveState();
@@ -2624,7 +2978,36 @@
                 updateCategoryCounts();
                 renderCartUI();
                 updateDashboardKPIs();
-                showToast(`Producto ${prod.name} eliminado del sistema.`, 'info');
+            } catch (err) {
+                console.error("Error eliminando producto:", err);
+                showToast(`Error: ${err.message}`, 'error');
+            }
+        }
+
+        function downloadPythonBackendPDF() {
+            const periodSelect = document.getElementById('reportPeriodSelect');
+            const period = periodSelect ? periodSelect.value : 'semanal';
+
+            if (isBackendConnected) {
+                showToast(`Generando reporte ${period} con Backend Python...`, 'info');
+                window.open(`${API_BASE}/api/reportes/semanal-pdf?period=${period}`, '_blank');
+            } else {
+                showToast('Servidor Python desconectado. Generando reporte local con jsPDF...', 'warning');
+                generatePDFReport();
+            }
+        }
+
+        function updateReportPeriodUI() {
+            const periodSelect = document.getElementById('reportPeriodSelect');
+            const period = periodSelect ? periodSelect.value : 'semanal';
+            const periodNames = { 'diario': 'Diario', 'semanal': 'Semanal', 'mensual': 'Mensual', 'anual': 'Anual' };
+            showToast(`Período de reporte cambiado a: ${periodNames[period]}`, 'info');
+        }
+
+        function openWhatsAppModalById(orderId) {
+            const o = orders.find(x => x.id === orderId);
+            if (o) {
+                openWhatsAppModal(o, o.items || []);
             }
         }
 
@@ -2647,157 +3030,166 @@
                 return;
             }
 
-            tbody.innerHTML = orders.map(o => `
-                <tr class="hover:bg-slate-50 transition-colors">
-                    <td class="py-3.5 px-4 font-mono font-bold text-blue-900">#${o.id}</td>
-                    <td class="py-3.5 px-4">
-                        <strong class="text-slate-900 block font-semibold">${o.customerName}</strong>
-                        <span class="text-[10px] text-slate-400">${o.customerAddress}</span>
-                    </td>
-                    <td class="py-3.5 px-4 font-mono text-slate-600">${o.customerPhone}</td>
-                    <td class="py-3.5 px-4">
-                        <span class="font-bold text-slate-800">${o.items.reduce((s, i) => s + i.quantity, 0)} uds</span>
-                        <span class="text-[10px] text-slate-400 block truncate max-w-[150px]">${o.items.map(i => `${i.quantity}x ${i.name}`).join(', ')}</span>
-                    </td>
-                    <td class="py-3.5 px-4 font-black text-slate-900">$${o.total.toFixed(2)}</td>
-                    <td class="py-3.5 px-4">
-                        <span class="px-2 py-0.5 bg-blue-50 text-blue-700 rounded-md text-[10px] font-bold border border-blue-200">
-                            ${o.paymentMethod}
-                        </span>
-                    </td>
-                    <td class="py-3.5 px-4 text-[11px] text-slate-500">${o.date}</td>
-                    <td class="py-3.5 px-4 text-center">
-                        <button onclick='openWhatsAppModal(${JSON.stringify(o)}, ${JSON.stringify(o.items)})' class="p-1.5 text-emerald-600 hover:bg-emerald-50 rounded-lg" title="Ver Notificación WhatsApp">
-                            <i class="fa-brands fa-whatsapp text-base"></i>
-                        </button>
-                    </td>
-                </tr>
-            `).join('');
+            tbody.innerHTML = orders.map(o => {
+                const totalFormatted = parseFloat(o.total || 0).toFixed(2);
+                const itemsCount = (o.items || []).reduce((s, i) => s + (parseInt(i.quantity) || 1), 0);
+                const itemsSummary = (o.items || []).map(i => `${i.quantity}x ${i.name}`).join(', ');
+
+                return `
+                    <tr class="hover:bg-slate-50 transition-colors">
+                        <td class="py-3.5 px-4 font-mono font-bold text-blue-900">#${o.id}</td>
+                        <td class="py-3.5 px-4">
+                            <strong class="text-slate-900 block font-semibold">${o.customerName}</strong>
+                            <span class="text-[10px] text-slate-400">${o.customerAddress}</span>
+                        </td>
+                        <td class="py-3.5 px-4 font-mono text-slate-600">${o.customerPhone}</td>
+                        <td class="py-3.5 px-4">
+                            <span class="font-bold text-slate-800">${itemsCount} uds</span>
+                            <span class="text-[10px] text-slate-400 block truncate max-w-[150px]">${itemsSummary}</span>
+                        </td>
+                        <td class="py-3.5 px-4 font-black text-slate-900">Bs. ${totalFormatted}</td>
+                        <td class="py-3.5 px-4">
+                            <span class="px-2 py-0.5 bg-blue-50 text-blue-700 rounded-md text-[10px] font-bold border border-blue-200">
+                                ${o.paymentMethod}
+                            </span>
+                        </td>
+                        <td class="py-3.5 px-4 text-[11px] text-slate-500">${o.date}</td>
+                        <td class="py-3.5 px-4 text-center">
+                            <button onclick="openWhatsAppModalById('${o.id}')" class="p-1.5 text-emerald-600 hover:bg-emerald-50 rounded-lg" title="Ver Notificación WhatsApp">
+                                <i class="fa-brands fa-whatsapp text-base"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
         }
 
         // ==========================================
-        // WEEKLY REPORTS & PDF GENERATOR (PDFKIT SIMULATION)
+        // WEEKLY REPORTS & PDF GENERATOR
         // ==========================================
         function updateReportSummary() {
-            const totalRevenue = orders.reduce((sum, o) => sum + o.total, 0);
-            const totalUnits = orders.reduce((sum, o) => sum + o.items.reduce((s, i) => s + i.quantity, 0), 0);
-            const inventoryValue = products.reduce((sum, p) => sum + (p.price * p.stock), 0);
+            const totalRevenue = orders.reduce((sum, o) => sum + parseFloat(o.total || 0), 0);
+            const totalUnits = orders.reduce((sum, o) => sum + (o.items || []).reduce((s, i) => s + (parseInt(i.quantity) || 1), 0), 0);
+            const inventoryValue = products.reduce((sum, p) => sum + (parseFloat(p.price || 0) * parseInt(p.stock || 0)), 0);
 
-            document.getElementById('reportRevenueTotal').textContent = `$${totalRevenue.toFixed(2)}`;
+            document.getElementById('reportRevenueTotal').textContent = `Bs. ${totalRevenue.toFixed(2)}`;
             document.getElementById('reportUnitsSold').textContent = `${totalUnits} unidades`;
-            document.getElementById('reportInventoryValue').textContent = `$${inventoryValue.toFixed(2)}`;
+            document.getElementById('reportInventoryValue').textContent = `Bs. ${inventoryValue.toFixed(2)}`;
         }
 
-        function generateWeeklyPDFReport() {
+        function generatePDFReport() {
             try {
                 const { jsPDF } = window.jspdf;
                 const doc = new jsPDF('p', 'pt', 'a4');
 
-                const totalRevenue = orders.reduce((sum, o) => sum + o.total, 0);
-                const totalUnits = orders.reduce((sum, o) => sum + o.items.reduce((s, i) => s + i.quantity, 0), 0);
-                const inventoryValue = products.reduce((sum, p) => sum + (p.price * p.stock), 0);
+                const periodSelect = document.getElementById('reportPeriodSelect');
+                const period = periodSelect ? periodSelect.value : 'semanal';
+                const periodNames = { 'diario': 'Diario', 'semanal': 'Semanal', 'mensual': 'Mensual', 'anual': 'Anual' };
+                const periodLabel = periodNames[period] || 'Semanal';
+
+                const totalRevenue = orders.reduce((sum, o) => sum + parseFloat(o.total || 0), 0);
+                const totalUnits = orders.reduce((sum, o) => sum + (o.items || []).reduce((s, i) => s + (parseInt(i.quantity) || 1), 0), 0);
+                const inventoryValue = products.reduce((sum, p) => sum + (parseFloat(p.price || 0) * parseInt(p.stock || 0)), 0);
 
                 // HEADER BANNER
-                doc.setFillColor(30, 58, 138); // Azul institucional
-                doc.rect(0, 0, 595.28, 90, 'F');
+                doc.setFillColor(30, 58, 138);
+                doc.rect(0, 0, 595.28, 85, 'F');
 
                 doc.setTextColor(255, 255, 255);
                 doc.setFont('helvetica', 'bold');
-                doc.setFontSize(22);
-                doc.text("EDUSMART - REPORTE OFICIAL DE VENTAS E INVENTARIO", 40, 45);
+                doc.setFontSize(14);
+                doc.text(`EDUSMART - REPORTE DE VENTAS E INVENTARIO (${periodLabel.toUpperCase()})`, 40, 42);
 
                 doc.setFont('helvetica', 'normal');
-                doc.setFontSize(11);
-                doc.text("Proyecto Festival de Ciencia 2026 | Sistema con Backend en Python & Sincronización Webhook", 40, 68);
+                doc.setFontSize(10);
+                doc.text("EduSmart Escolar | La Paz, Bolivia | Sistema de Gestión de Librería", 40, 62);
 
                 // METADATA
                 doc.setTextColor(51, 65, 85);
-                doc.setFontSize(10);
+                doc.setFontSize(9.5);
                 const now = new Date();
-                doc.text(`Fecha de Emisión: ${now.toLocaleDateString()} ${now.toLocaleTimeString()}`, 40, 115);
-                doc.text(`Estado del Sistema: 100% Operativo | Base de Datos PostgreSQL 24/7 Conectada`, 40, 130);
+                doc.text(`Fecha de Emisión: ${now.toLocaleDateString()} ${now.toLocaleTimeString()}`, 40, 110);
+                doc.text(`Tipo de Reporte: Reporte ${periodLabel} | Estado: Operativo`, 40, 124);
 
                 // EXECUTIVE SUMMARY CARDS
                 doc.setFillColor(241, 245, 249);
-                doc.roundedRect(40, 145, 160, 60, 6, 6, 'F');
-                doc.roundedRect(215, 145, 165, 60, 6, 6, 'F');
-                doc.roundedRect(395, 145, 160, 60, 6, 6, 'F');
+                doc.roundedRect(40, 140, 160, 55, 6, 6, 'F');
+                doc.roundedRect(215, 140, 165, 55, 6, 6, 'F');
+                doc.roundedRect(395, 140, 160, 55, 6, 6, 'F');
 
                 doc.setFont('helvetica', 'bold');
-                doc.setFontSize(9);
+                doc.setFontSize(8.5);
                 doc.setTextColor(100, 116, 139);
-                doc.text("VENTAS TOTALES", 50, 165);
-                doc.text("UNIDADES VENDIDAS", 225, 165);
-                doc.text("VALOR INVENTARIO", 405, 165);
+                doc.text("VENTAS TOTALES", 50, 158);
+                doc.text("UNIDADES VENDIDAS", 225, 158);
+                doc.text("VALOR INVENTARIO", 405, 158);
 
-                doc.setFontSize(15);
+                doc.setFontSize(14);
                 doc.setTextColor(15, 23, 42);
-                doc.text(`$${totalRevenue.toFixed(2)} USD`, 50, 190);
-                doc.text(`${totalUnits} uds`, 225, 190);
-                doc.text(`$${inventoryValue.toFixed(2)} USD`, 405, 190);
+                doc.text(`Bs. ${totalRevenue.toFixed(2)}`, 50, 180);
+                doc.text(`${totalUnits} uds`, 225, 180);
+                doc.text(`Bs. ${inventoryValue.toFixed(2)}`, 405, 180);
 
                 // TABLE 1: RECENT ORDERS
                 doc.setFont('helvetica', 'bold');
-                doc.setFontSize(13);
+                doc.setFontSize(12);
                 doc.setTextColor(30, 58, 138);
-                doc.text("1. Registro de Ventas Semanales en Línea", 40, 230);
+                doc.text(`1. Registro de Ventas (${periodLabel})`, 40, 220);
 
-                const ordersTableRows = orders.slice(0, 8).map(o => [
+                const ordersTableRows = orders.slice(0, 10).map(o => [
                     o.id,
                     o.customerName,
                     o.customerPhone,
                     o.paymentMethod,
-                    `$${o.total.toFixed(2)}`,
-                    o.date.split(' ')[0]
+                    `Bs. ${parseFloat(o.total || 0).toFixed(2)}`,
+                    (o.date || '').split(' ')[0]
                 ]);
 
                 doc.autoTable({
-                    startY: 240,
-                    head: [['N° Orden', 'Cliente / Tutor', 'WhatsApp', 'Método Pago', 'Monto Total', 'Fecha']],
+                    startY: 230,
+                    head: [['N° Orden', 'Cliente / Tutor', 'Teléfono', 'Método Pago', 'Monto Total (Bs.)', 'Fecha']],
                     body: ordersTableRows,
                     theme: 'striped',
                     headStyles: { fillColor: [30, 58, 138], textColor: 255, fontStyle: 'bold' },
                     styles: { fontSize: 8.5, cellPadding: 4 }
                 });
 
-                // TABLE 2: LOW STOCK INVENTORY ITEMS
+                // TABLE 2: INVENTORY ITEMS
                 const currentY = doc.lastAutoTable.finalY + 25;
                 doc.setFont('helvetica', 'bold');
-                doc.setFontSize(13);
+                doc.setFontSize(12);
                 doc.setTextColor(30, 58, 138);
                 doc.text("2. Estado de Inventario de Útiles Escolares", 40, currentY);
 
-                const inventoryRows = products.slice(0, 10).map(p => [
+                const inventoryRows = products.slice(0, 12).map(p => [
                     p.sku,
                     p.name,
                     p.category,
-                    `$${p.price.toFixed(2)}`,
+                    `Bs. ${parseFloat(p.price || 0).toFixed(2)}`,
                     `${p.stock} uds`,
                     p.stock <= 0 ? 'AGOTADO' : (p.stock <= 5 ? 'STOCK CRÍTICO' : 'NORMAL')
                 ]);
 
                 doc.autoTable({
                     startY: currentY + 10,
-                    head: [['SKU', 'Producto', 'Categoría', 'Precio', 'Stock Actual', 'Diagnóstico']],
+                    head: [['SKU', 'Producto', 'Categoría', 'Precio (Bs.)', 'Stock Actual', 'Diagnóstico']],
                     body: inventoryRows,
                     theme: 'striped',
                     headStyles: { fillColor: [5, 150, 105], textColor: 255, fontStyle: 'bold' },
                     styles: { fontSize: 8, cellPadding: 3.5 }
                 });
 
-                // FOOTER / SIGNATURE LINE
-                const finalY = doc.lastAutoTable.finalY + 40;
+                // SINGLE SIGNATURE LINE (ONLY ADMIN SIGNATURE)
+                const finalY = doc.lastAutoTable.finalY + 45;
                 doc.setDrawColor(203, 213, 225);
-                doc.line(40, finalY, 220, finalY);
-                doc.line(375, finalY, 555, finalY);
+                doc.line(40, finalY, 240, finalY);
 
                 doc.setFontSize(9);
                 doc.setFont('helvetica', 'normal');
                 doc.setTextColor(100, 116, 139);
                 doc.text("Firma: Administrador de Librería", 50, finalY + 15);
-                doc.text("Evaluador: Festival de Ciencia 2026", 385, finalY + 15);
 
-                doc.save(`EduSmart_Reporte_Semanal_${now.toISOString().split('T')[0]}.pdf`);
+                doc.save(`EduSmart_Reporte_${periodLabel}_${now.toISOString().split('T')[0]}.pdf`);
                 showToast('Reporte semanal en PDF generado y descargado correctamente', 'success');
             } catch (err) {
                 console.error("Error generating PDF:", err);
@@ -2822,7 +3214,7 @@
                     data: {
                         labels: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'],
                         datasets: [{
-                            label: 'Ingresos ($ USD)',
+                            label: 'Ingresos (Bs.)',
                             data: [180, 240, 310, 280, 420, 560, 390],
                             backgroundColor: 'rgba(2, 132, 199, 0.85)',
                             borderRadius: 8,
@@ -2839,7 +3231,7 @@
                             y: {
                                 beginAtZero: true,
                                 grid: { color: '#f1f5f9' },
-                                ticks: { callback: v => `$${v}` }
+                                ticks: { callback: v => `Bs. ${v}` }
                             },
                             x: {
                                 grid: { display: false }
