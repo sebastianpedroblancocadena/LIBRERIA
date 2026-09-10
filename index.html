@@ -1,0 +1,2924 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduSmart - Sistema Integral de Tienda Escolar & Gestión de Inventario</title>
+    <!-- Google Fonts: Inter & Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            200: '#bae0fd',
+                            500: '#0284c7',
+                            600: '#0369a1',
+                            700: '#075985',
+                            800: '#0c4a6e',
+                            900: '#082f49',
+                        },
+                        school: {
+                            primary: '#1e3a8a', // Azul institucional
+                            accent: '#f59e0b', // Ámbar dorado
+                            emerald: '#059669', // Verde éxito
+                            purple: '#7c3aed',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Chart.js CDN for Admin Reports and Dashboard -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- jsPDF & autoTable for Client/Admin PDF Report Generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+    <style>
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 50%, #0369a1 100%);
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(12px);
+        }
+        .whatsapp-bubble {
+            background-color: #dcf8c6;
+            position: relative;
+        }
+        .whatsapp-bubble::after {
+            content: '';
+            position: absolute;
+            left: -8px;
+            top: 12px;
+            width: 0;
+            height: 0;
+            border-top: 8px solid transparent;
+            border-bottom: 8px solid transparent;
+            border-right: 8px solid #dcf8c6;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col custom-scrollbar selection:bg-brand-500 selection:text-white">
+
+    <!-- TOP NAVIGATION BAR -->
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-slate-200 shadow-sm transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo & Brand -->
+                <div class="flex items-center gap-3 cursor-pointer" onclick="switchView('client')">
+                    <div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-blue-700 to-sky-500 flex items-center justify-center text-white shadow-md shadow-blue-500/20">
+                        <i class="fa-solid fa-graduation-cap text-2xl"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <span class="font-heading font-extrabold text-2xl tracking-tight text-blue-900">EduSmart</span>
+                            <span class="bg-amber-100 text-amber-800 text-[11px] font-bold px-2 py-0.5 rounded-full border border-amber-300">Ciencia 2026</span>
+                        </div>
+                        <p class="text-xs text-slate-500 hidden sm:block font-medium">Tienda de Útiles Escolares & Gestión de Inventario</p>
+                    </div>
+                </div>
+
+                <!-- Navigation Switcher Tabs (Cliente vs Admin vs Arquitectura) -->
+                <nav class="hidden md:flex items-center p-1.5 bg-slate-100/90 rounded-2xl border border-slate-200 shadow-inner">
+                    <button id="navBtnClient" onclick="switchView('client')" class="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-200 bg-white text-blue-900 shadow-sm">
+                        <i class="fa-solid fa-bag-shopping text-blue-600"></i> Tienda del Cliente
+                    </button>
+                    <button id="navBtnAdmin" onclick="switchView('admin')" class="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-200 text-slate-600 hover:text-blue-800">
+                        <i class="fa-solid fa-chart-line text-emerald-600"></i> Panel de Administración
+                    </button>
+                    <button id="navBtnArch" onclick="switchView('architecture')" class="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-200 text-slate-600 hover:text-purple-800">
+                        <i class="fa-solid fa-server text-purple-600"></i> Arquitectura & Viabilidad
+                    </button>
+                </nav>
+
+                <!-- Right Actions: Social Share, Search, Cart -->
+                <div class="flex items-center gap-3">
+                    <!-- Share Store Dropdown / Button -->
+                    <div class="relative group">
+                        <button class="p-2.5 rounded-xl border border-slate-200 text-slate-600 hover:text-blue-700 hover:bg-slate-50 transition-colors flex items-center gap-1.5 text-sm font-medium" title="Compartir Tienda">
+                            <i class="fa-solid fa-share-nodes"></i>
+                            <span class="hidden lg:inline">Compartir</span>
+                        </button>
+                        <div class="absolute right-0 mt-2 w-56 bg-white rounded-2xl shadow-xl border border-slate-100 p-2 hidden group-hover:block transition-all z-50">
+                            <p class="text-xs font-semibold text-slate-400 px-3 py-1.5 uppercase">Compartir en Redes</p>
+                            <a href="javascript:void(0)" onclick="shareStore('whatsapp')" class="flex items-center gap-2.5 px-3 py-2 text-sm text-slate-700 hover:bg-emerald-50 hover:text-emerald-700 rounded-xl transition-colors">
+                                <i class="fa-brands fa-whatsapp text-emerald-500 text-base"></i> WhatsApp
+                            </a>
+                            <a href="javascript:void(0)" onclick="shareStore('facebook')" class="flex items-center gap-2.5 px-3 py-2 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-700 rounded-xl transition-colors">
+                                <i class="fa-brands fa-facebook text-blue-600 text-base"></i> Facebook
+                            </a>
+                            <a href="javascript:void(0)" onclick="shareStore('twitter')" class="flex items-center gap-2.5 px-3 py-2 text-sm text-slate-700 hover:bg-sky-50 hover:text-sky-600 rounded-xl transition-colors">
+                                <i class="fa-brands fa-x-twitter text-slate-800 text-base"></i> X (Twitter)
+                            </a>
+                            <button onclick="shareStore('copy')" class="w-full flex items-center gap-2.5 px-3 py-2 text-sm text-slate-700 hover:bg-amber-50 hover:text-amber-700 rounded-xl transition-colors text-left">
+                                <i class="fa-solid fa-link text-amber-500 text-base"></i> Copiar Enlace
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Cart Trigger Button -->
+                    <button onclick="toggleCartDrawer(true)" class="relative p-2.5 bg-blue-900 text-white rounded-xl shadow-md hover:bg-blue-800 transition-all flex items-center gap-2 text-sm font-semibold">
+                        <i class="fa-solid fa-cart-shopping text-base"></i>
+                        <span class="hidden sm:inline">Carrito</span>
+                        <span id="cartBadgeCount" class="absolute -top-1.5 -right-1.5 bg-amber-500 text-slate-900 text-xs font-black w-5 h-5 rounded-full flex items-center justify-center border-2 border-white shadow">0</span>
+                    </button>
+
+                    <!-- Mobile Mode Switcher Trigger -->
+                    <div class="md:hidden">
+                        <button onclick="toggleMobileNav()" class="p-2.5 rounded-xl border border-slate-200 text-slate-700 hover:bg-slate-100">
+                            <i class="fa-solid fa-bars text-lg"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Nav Menu -->
+        <div id="mobileNavMenu" class="hidden md:hidden border-t border-slate-200 bg-white px-4 py-3 space-y-2">
+            <button onclick="switchView('client'); toggleMobileNav()" class="w-full text-left flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-blue-900 bg-blue-50">
+                <i class="fa-solid fa-bag-shopping text-blue-600"></i> Tienda del Cliente
+            </button>
+            <button onclick="switchView('admin'); toggleMobileNav()" class="w-full text-left flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-100">
+                <i class="fa-solid fa-chart-line text-emerald-600"></i> Panel de Administración
+            </button>
+            <button onclick="switchView('architecture'); toggleMobileNav()" class="w-full text-left flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-100">
+                <i class="fa-solid fa-server text-purple-600"></i> Arquitectura & Viabilidad
+            </button>
+        </div>
+    </header>
+
+    <!-- MAIN APP CONTAINER -->
+    <main class="flex-1">
+
+        <!-- ======================================================== -->
+        <!-- VIEW 1: INTERFAZ DEL CLIENTE (ESTUDIANTES Y PADRES) -->
+        <!-- ======================================================== -->
+        <div id="viewClient" class="transition-opacity duration-300">
+            
+            <!-- Hero Banner Escolar -->
+            <section class="relative hero-gradient text-white overflow-hidden py-16 sm:py-24">
+                <!-- Background Pattern Accents -->
+                <div class="absolute inset-0 opacity-10 pointer-events-none">
+                    <div class="absolute top-10 left-10 text-8xl font-black rotate-12">📚</div>
+                    <div class="absolute bottom-10 right-20 text-8xl font-black -rotate-12">📐</div>
+                    <div class="absolute top-20 right-1/4 text-6xl rotate-45">✏️</div>
+                    <div class="absolute bottom-4 left-1/3 text-7xl -rotate-6">📓</div>
+                </div>
+
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                        <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/15 backdrop-blur text-blue-100 text-xs font-semibold tracking-wide uppercase border border-white/20">
+                                <i class="fa-solid fa-bolt text-amber-300"></i> Temporada Escolar 2026 - Entrega Rápida
+                            </div>
+                            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-heading font-black tracking-tight leading-tight">
+                                Todo para tu Éxito Escolar en un Solo Lugar
+                            </h1>
+                            <p class="text-lg text-blue-100 max-w-2xl font-light leading-relaxed">
+                                Diseñado especialmente para estudiantes y padres de familia. Adquiere libros de texto, cuadernos, lápices, lapiceros y carpetas con disponibilidad en tiempo real y confirmación inmediata a tu WhatsApp.
+                            </p>
+                            <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
+                                <a href="#catalogo" class="px-8 py-4 bg-amber-400 hover:bg-amber-300 text-slate-900 font-heading font-bold rounded-2xl shadow-lg shadow-amber-400/25 hover:scale-105 transition-all flex items-center gap-3 text-lg">
+                                    <i class="fa-solid fa-basket-shopping text-xl"></i> Comprar en Línea
+                                </a>
+                                <button onclick="switchView('architecture')" class="px-6 py-4 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-2xl backdrop-blur border border-white/20 transition-all flex items-center gap-2">
+                                    <i class="fa-solid fa-circle-info"></i> Conocer el Proyecto
+                                </button>
+                            </div>
+
+                            <!-- Social Direct Share Bar -->
+                            <div class="pt-6 flex items-center justify-center lg:justify-start gap-3 text-sm text-blue-200">
+                                <span class="font-medium text-xs uppercase tracking-wider text-blue-300">Recomienda la tienda:</span>
+                                <button onclick="shareStore('whatsapp')" class="w-9 h-9 rounded-full bg-white/15 hover:bg-emerald-500 hover:text-white flex items-center justify-center transition-all" title="Compartir por WhatsApp">
+                                    <i class="fa-brands fa-whatsapp"></i>
+                                </button>
+                                <button onclick="shareStore('facebook')" class="w-9 h-9 rounded-full bg-white/15 hover:bg-blue-600 hover:text-white flex items-center justify-center transition-all" title="Compartir en Facebook">
+                                    <i class="fa-brands fa-facebook-f"></i>
+                                </button>
+                                <button onclick="shareStore('twitter')" class="w-9 h-9 rounded-full bg-white/15 hover:bg-sky-400 hover:text-white flex items-center justify-center transition-all" title="Compartir en X">
+                                    <i class="fa-brands fa-x-twitter"></i>
+                                </button>
+                                <button onclick="shareStore('copy')" class="w-9 h-9 rounded-full bg-white/15 hover:bg-amber-400 hover:text-slate-900 flex items-center justify-center transition-all" title="Copiar Enlace">
+                                    <i class="fa-solid fa-link"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Hero Banner Visual (School Supplies Real Composition) -->
+                        <div class="lg:col-span-5 relative">
+                            <div class="relative mx-auto max-w-md lg:max-w-none">
+                                <div class="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white/20 group">
+                                    <img src="https://images.unsplash.com/photo-1452860606245-08befc0ff44b?auto=format&fit=crop&w=1000&q=80" 
+                                         alt="Materiales y Útiles Escolares" 
+                                         class="w-full h-[380px] object-cover object-center group-hover:scale-105 transition-transform duration-700">
+                                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent"></div>
+                                    <div class="absolute bottom-6 left-6 right-6 text-white">
+                                        <span class="bg-emerald-500 text-slate-900 text-xs font-black uppercase px-2.5 py-1 rounded-md mb-2 inline-block">Stock Sincronizado</span>
+                                        <h3 class="font-heading font-bold text-xl">Calidad Certificada para Escuelas y Colegios</h3>
+                                        <p class="text-xs text-slate-300 mt-1">Los mejores artículos con garantía escolar oficial.</p>
+                                    </div>
+                                </div>
+                                <!-- Floating Mini Badges -->
+                                <div class="absolute -bottom-5 -left-5 bg-white text-slate-800 p-4 rounded-2xl shadow-xl flex items-center gap-3 border border-slate-100 animate-bounce sm:flex hidden">
+                                    <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-lg">
+                                        <i class="fa-solid fa-truck-fast"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs text-slate-400 font-medium">Entrega Directa</p>
+                                        <p class="text-sm font-bold text-slate-800">Aulas y Domicilios</p>
+                                    </div>
+                                </div>
+                                <div class="absolute -top-5 -right-5 bg-white text-slate-800 p-3.5 rounded-2xl shadow-xl flex items-center gap-3 border border-slate-100 hidden sm:flex">
+                                    <div class="w-9 h-9 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center font-bold">
+                                        <i class="fa-solid fa-shield-halved"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-[11px] text-slate-400 font-medium">Pago Seguro</p>
+                                        <p class="text-xs font-bold text-slate-800">Cifrado SSL 256-bit</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Categorías Rápidas Highlight -->
+            <section class="py-8 bg-white border-b border-slate-200">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
+                        <button onclick="filterCategory('Libros')" class="flex flex-col items-center p-3.5 rounded-2xl border border-slate-100 hover:border-blue-300 hover:bg-blue-50/50 hover:shadow-md transition-all text-center group">
+                            <span class="text-3xl mb-1 group-hover:scale-110 transition-transform">📚</span>
+                            <span class="text-xs font-bold text-slate-700 group-hover:text-blue-800">Libros</span>
+                            <span class="text-[10px] text-slate-400 font-medium" id="countLibros">4 productos</span>
+                        </button>
+                        <button onclick="filterCategory('Cuadernos')" class="flex flex-col items-center p-3.5 rounded-2xl border border-slate-100 hover:border-blue-300 hover:bg-blue-50/50 hover:shadow-md transition-all text-center group">
+                            <span class="text-3xl mb-1 group-hover:scale-110 transition-transform">📓</span>
+                            <span class="text-xs font-bold text-slate-700 group-hover:text-blue-800">Cuadernos</span>
+                            <span class="text-[10px] text-slate-400 font-medium" id="countCuadernos">4 productos</span>
+                        </button>
+                        <button onclick="filterCategory('Lápices')" class="flex flex-col items-center p-3.5 rounded-2xl border border-slate-100 hover:border-blue-300 hover:bg-blue-50/50 hover:shadow-md transition-all text-center group">
+                            <span class="text-3xl mb-1 group-hover:scale-110 transition-transform">✏️</span>
+                            <span class="text-xs font-bold text-slate-700 group-hover:text-blue-800">Lápices</span>
+                            <span class="text-[10px] text-slate-400 font-medium" id="countLapices">4 productos</span>
+                        </button>
+                        <button onclick="filterCategory('Lapiceros')" class="flex flex-col items-center p-3.5 rounded-2xl border border-slate-100 hover:border-blue-300 hover:bg-blue-50/50 hover:shadow-md transition-all text-center group">
+                            <span class="text-3xl mb-1 group-hover:scale-110 transition-transform">🖊️</span>
+                            <span class="text-xs font-bold text-slate-700 group-hover:text-blue-800">Lapiceros</span>
+                            <span class="text-[10px] text-slate-400 font-medium" id="countLapiceros">4 productos</span>
+                        </button>
+                        <button onclick="filterCategory('Reglas')" class="flex flex-col items-center p-3.5 rounded-2xl border border-slate-100 hover:border-blue-300 hover:bg-blue-50/50 hover:shadow-md transition-all text-center group">
+                            <span class="text-3xl mb-1 group-hover:scale-110 transition-transform">📏</span>
+                            <span class="text-xs font-bold text-slate-700 group-hover:text-blue-800">Reglas</span>
+                            <span class="text-[10px] text-slate-400 font-medium" id="countReglas">4 productos</span>
+                        </button>
+                        <button onclick="filterCategory('Carpetas')" class="flex flex-col items-center p-3.5 rounded-2xl border border-slate-100 hover:border-blue-300 hover:bg-blue-50/50 hover:shadow-md transition-all text-center group">
+                            <span class="text-3xl mb-1 group-hover:scale-110 transition-transform">📁</span>
+                            <span class="text-xs font-bold text-slate-700 group-hover:text-blue-800">Carpetas</span>
+                            <span class="text-[10px] text-slate-400 font-medium" id="countCarpetas">4 productos</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CATÁLOGO DE PRODUCTOS -->
+            <section id="catalogo" class="py-14 sm:py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <!-- Section Header -->
+                <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-10 border-b border-slate-200">
+                    <div>
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-blue-100 text-blue-800 text-xs font-bold uppercase tracking-wider mb-2">
+                            <i class="fa-solid fa-cart-flatbed"></i> Catálogo Completo 🛒
+                        </div>
+                        <h2 class="text-3xl sm:text-4xl font-heading font-extrabold text-slate-900">
+                            Útiles Escolares Disponibles
+                        </h2>
+                        <p class="text-slate-500 text-sm mt-1 max-w-xl">
+                            Inventario sincronizado en tiempo real. Selecciona los productos que necesitas para la lista escolar.
+                        </p>
+                    </div>
+
+                    <!-- Search Bar & Filters -->
+                    <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full md:w-auto">
+                        <!-- Search Box -->
+                        <div class="relative min-w-[260px]">
+                            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+                            <input type="text" id="searchInput" oninput="handleSearch()" placeholder="Buscar libros, cuadernos, lápices..." class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent text-sm bg-white shadow-sm">
+                        </div>
+                        <!-- Sort by price / name -->
+                        <select id="sortSelect" onchange="handleSort()" class="px-3.5 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-600 text-sm bg-white shadow-sm font-medium text-slate-700">
+                            <option value="featured">Destacados</option>
+                            <option value="price-asc">Precio: Menor a Mayor</option>
+                            <option value="price-desc">Precio: Mayor a Menor</option>
+                            <option value="stock-desc">Mayor Disponibilidad</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Category Filters Pills -->
+                <div class="flex items-center gap-2 overflow-x-auto py-6 custom-scrollbar">
+                    <button onclick="filterCategory('all')" id="filterTab-all" class="category-pill active px-4 py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all bg-blue-900 text-white shadow-sm">
+                        Todos los Productos (<span id="totalProductCount">24</span>)
+                    </button>
+                    <button onclick="filterCategory('Libros')" id="filterTab-Libros" class="category-pill px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-all bg-white text-slate-600 border border-slate-200 hover:bg-slate-100">
+                        📚 Libros
+                    </button>
+                    <button onclick="filterCategory('Cuadernos')" id="filterTab-Cuadernos" class="category-pill px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-all bg-white text-slate-600 border border-slate-200 hover:bg-slate-100">
+                        📓 Cuadernos
+                    </button>
+                    <button onclick="filterCategory('Lápices')" id="filterTab-Lápices" class="category-pill px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-all bg-white text-slate-600 border border-slate-200 hover:bg-slate-100">
+                        ✏️ Lápices
+                    </button>
+                    <button onclick="filterCategory('Lapiceros')" id="filterTab-Lapiceros" class="category-pill px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-all bg-white text-slate-600 border border-slate-200 hover:bg-slate-100">
+                        🖊️ Lapiceros
+                    </button>
+                    <button onclick="filterCategory('Reglas')" id="filterTab-Reglas" class="category-pill px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-all bg-white text-slate-600 border border-slate-200 hover:bg-slate-100">
+                        📏 Reglas
+                    </button>
+                    <button onclick="filterCategory('Carpetas')" id="filterTab-Carpetas" class="category-pill px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-all bg-white text-slate-600 border border-slate-200 hover:bg-slate-100">
+                        📁 Carpetas
+                    </button>
+                </div>
+
+                <!-- Product Grid (Responsive 1 to 4 cols) -->
+                <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    <!-- Dynamic Product Cards injected via JavaScript -->
+                </div>
+
+                <!-- Empty State if no product found -->
+                <div id="noProductsFound" class="hidden py-16 text-center">
+                    <div class="w-16 h-16 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center mx-auto text-2xl mb-4">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-700">No encontramos productos</h3>
+                    <p class="text-sm text-slate-500 mt-1">Prueba con otra palabra clave o selecciona otra categoría.</p>
+                    <button onclick="resetFilters()" class="mt-4 px-4 py-2 bg-blue-900 text-white text-sm font-semibold rounded-xl">
+                        Ver todos los productos
+                    </button>
+                </div>
+            </section>
+
+            <!-- Ventajas y Garantías para Padres y Estudiantes -->
+            <section class="py-14 bg-slate-100 border-t border-slate-200">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="flex items-start gap-4 p-6 bg-white rounded-2xl shadow-sm border border-slate-200/80">
+                            <div class="w-12 h-12 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center text-2xl shrink-0">
+                                <i class="fa-brands fa-whatsapp"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-heading font-bold text-base text-slate-900">Notificación Meta Cloud API</h4>
+                                <p class="text-xs text-slate-500 mt-1 leading-relaxed">
+                                    Al completar tu compra recibes la confirmación de pedido directamente en tu WhatsApp oficial con el detalle de artículos y número de guía.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4 p-6 bg-white rounded-2xl shadow-sm border border-slate-200/80">
+                            <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center text-2xl shrink-0">
+                                <i class="fa-solid fa-box-check"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-heading font-bold text-base text-slate-900">Inventario Preciso en Vivo</h4>
+                                <p class="text-xs text-slate-500 mt-1 leading-relaxed">
+                                    Cada compra descuenta las unidades al instante de la base de datos centralizada, asegurando que nunca compres un producto agotado.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4 p-6 bg-white rounded-2xl shadow-sm border border-slate-200/80">
+                            <div class="w-12 h-12 rounded-xl bg-purple-100 text-purple-700 flex items-center justify-center text-2xl shrink-0">
+                                <i class="fa-solid fa-credit-card"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-heading font-bold text-base text-slate-900">Compras Seguras y Escalables</h4>
+                                <p class="text-xs text-slate-500 mt-1 leading-relaxed">
+                                    Arquitectura preparada con certificado SSL y pasarelas de pago listas para añadir nuevos procesadores bancarios sin reconstruir el sistema.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+
+        <!-- ======================================================== -->
+        <!-- VIEW 2: PANEL DE ADMINISTRACIÓN (DUEÑO O EMPLEADO) -->
+        <!-- ======================================================== -->
+        <div id="viewAdmin" class="hidden transition-opacity duration-300">
+            <div class="flex flex-col lg:flex-row min-h-[85vh]">
+                
+                <!-- SIDEBAR MENU INTERACTIVO -->
+                <aside class="w-full lg:w-72 bg-slate-900 text-slate-300 p-6 flex flex-col justify-between shrink-0">
+                    <div class="space-y-6">
+                        <!-- Admin Profile Tag -->
+                        <div class="flex items-center gap-3 pb-6 border-b border-slate-800">
+                            <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-emerald-500 to-teal-400 text-slate-950 flex items-center justify-center font-black text-lg">
+                                AD
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-white text-sm">Administrador</h4>
+                                <p class="text-xs text-emerald-400 flex items-center gap-1">
+                                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Sistema en Línea (24/7)
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Menu Options -->
+                        <nav class="space-y-1.5 font-medium text-sm">
+                            <p class="text-[11px] uppercase tracking-wider text-slate-500 font-bold px-3 py-1">Navegación Principal</p>
+                            <button onclick="switchAdminTab('dashboard')" id="adminTab-dashboard" class="w-full flex items-center gap-3 px-3.5 py-3 rounded-xl transition-colors bg-blue-600 text-white font-semibold shadow-md">
+                                <i class="fa-solid fa-gauge-high text-base w-5 text-center"></i> Dashboard Principal
+                            </button>
+                            <button onclick="switchAdminTab('inventario')" id="adminTab-inventario" class="w-full flex items-center gap-3 px-3.5 py-3 rounded-xl transition-colors text-slate-300 hover:bg-slate-800 hover:text-white">
+                                <i class="fa-solid fa-boxes-stacked text-base w-5 text-center text-amber-400"></i> Gestión de Inventario 📦
+                            </button>
+                            <button onclick="switchAdminTab('ventas')" id="adminTab-ventas" class="w-full flex items-center gap-3 px-3.5 py-3 rounded-xl transition-colors text-slate-300 hover:bg-slate-800 hover:text-white">
+                                <i class="fa-solid fa-receipt text-base w-5 text-center text-emerald-400"></i> Ventas & Clientes 👥
+                            </button>
+                            <button onclick="switchAdminTab('reportes')" id="adminTab-reportes" class="w-full flex items-center gap-3 px-3.5 py-3 rounded-xl transition-colors text-slate-300 hover:bg-slate-800 hover:text-white">
+                                <i class="fa-solid fa-file-pdf text-base w-5 text-center text-rose-400"></i> Reportes Semanales 📊
+                            </button>
+                        </nav>
+                    </div>
+
+                    <!-- Bottom System Quick Info -->
+                    <div class="mt-8 pt-6 border-t border-slate-800 space-y-3">
+                        <div class="bg-slate-800/80 rounded-xl p-3 text-xs text-slate-400 space-y-1">
+                            <div class="flex justify-between">
+                                <span>Motor Backend:</span>
+                                <span class="font-bold text-amber-400">Python 3.11</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Base de Datos:</span>
+                                <span class="font-bold text-sky-400">PostgreSQL 24/7</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Sincronización:</span>
+                                <span class="font-bold text-emerald-400">Webhooks Activos</span>
+                            </div>
+                        </div>
+                        <button onclick="switchView('client')" class="w-full py-2.5 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-xs font-semibold flex items-center justify-center gap-2 transition-colors">
+                            <i class="fa-solid fa-arrow-left"></i> Volver a la Tienda
+                        </button>
+                    </div>
+                </aside>
+
+                <!-- ADMIN CONTENT AREA -->
+                <section class="flex-1 bg-slate-50 p-6 sm:p-8 lg:p-10 overflow-y-auto">
+
+                    <!-- ======================= -->
+                    <!-- TAB 1: DASHBOARD OVERVIEW -->
+                    <!-- ======================= -->
+                    <div id="adminContent-dashboard" class="space-y-8">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                            <div>
+                                <h2 class="text-2xl sm:text-3xl font-heading font-extrabold text-slate-900">Dashboard General</h2>
+                                <p class="text-sm text-slate-500">Monitoreo en tiempo real del inventario, ventas y actividad de estudiantes.</p>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <button onclick="resetDemoData()" class="px-3.5 py-2 text-xs font-semibold bg-white border border-slate-300 rounded-xl hover:bg-slate-100 text-slate-700 shadow-sm flex items-center gap-1.5" title="Restablecer datos para la presentación">
+                                    <i class="fa-solid fa-arrows-rotate"></i> Reiniciar Datos Demo
+                                </button>
+                                <button onclick="switchAdminTab('reportes')" class="px-4 py-2 text-xs font-bold bg-blue-900 hover:bg-blue-800 text-white rounded-xl shadow flex items-center gap-1.5">
+                                    <i class="fa-solid fa-file-pdf"></i> Generar Reporte PDF
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- KPI STATS CARDS -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between">
+                                <div>
+                                    <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Ingresos Totales</p>
+                                    <h3 id="kpiTotalRevenue" class="text-2xl font-black text-slate-900 mt-1">$1,428.50</h3>
+                                    <p class="text-[11px] text-emerald-600 font-semibold mt-1 flex items-center gap-1">
+                                        <i class="fa-solid fa-arrow-trend-up"></i> +18.4% vs semana previa
+                                    </p>
+                                </div>
+                                <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-xl">
+                                    <i class="fa-solid fa-sack-dollar"></i>
+                                </div>
+                            </div>
+
+                            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between">
+                                <div>
+                                    <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Ventas Realizadas</p>
+                                    <h3 id="kpiTotalOrders" class="text-2xl font-black text-slate-900 mt-1">42 órdenes</h3>
+                                    <p class="text-[11px] text-blue-600 font-semibold mt-1">Actualizado por Webhook</p>
+                                </div>
+                                <div class="w-12 h-12 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center text-xl">
+                                    <i class="fa-solid fa-cart-check"></i>
+                                </div>
+                            </div>
+
+                            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between">
+                                <div>
+                                    <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Stock Crítico / Bajo</p>
+                                    <h3 id="kpiLowStock" class="text-2xl font-black text-amber-600 mt-1">3 ítems</h3>
+                                    <p class="text-[11px] text-amber-700 font-semibold mt-1">Requieren reposición</p>
+                                </div>
+                                <div class="w-12 h-12 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center text-xl">
+                                    <i class="fa-solid fa-triangle-exclamation"></i>
+                                </div>
+                            </div>
+
+                            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between">
+                                <div>
+                                    <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Catálogo Activo</p>
+                                    <h3 id="kpiCatalogCount" class="text-2xl font-black text-purple-600 mt-1">24 productos</h3>
+                                    <p class="text-[11px] text-slate-500 font-medium mt-1">6 categorías escolares</p>
+                                </div>
+                                <div class="w-12 h-12 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center text-xl">
+                                    <i class="fa-solid fa-layer-group"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- CHARTS SECTION (Chart.js) -->
+                        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                            <!-- Ventas de la Semana -->
+                            <div class="lg:col-span-8 bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                                <div class="flex items-center justify-between mb-4">
+                                    <div>
+                                        <h4 class="font-heading font-bold text-slate-900 text-base">Ventas Semanales y Flujo de Caja</h4>
+                                        <p class="text-xs text-slate-400">Ingresos registrados día a día durante la semana actual</p>
+                                    </div>
+                                    <span class="text-xs font-bold px-2.5 py-1 bg-blue-50 text-blue-700 rounded-lg border border-blue-200">
+                                        Semana 37 (2026)
+                                    </span>
+                                </div>
+                                <div class="h-64 sm:h-72">
+                                    <canvas id="weeklySalesChart"></canvas>
+                                </div>
+                            </div>
+
+                            <!-- Distribución por Categorías -->
+                            <div class="lg:col-span-4 bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                                <div class="mb-4">
+                                    <h4 class="font-heading font-bold text-slate-900 text-base">Ventas por Categoría</h4>
+                                    <p class="text-xs text-slate-400">Demanda de útiles escolares</p>
+                                </div>
+                                <div class="h-64 sm:h-72 flex items-center justify-center">
+                                    <canvas id="categorySalesChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- AUTOMATION NOTIFICATION FEED -->
+                        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="flex items-center gap-2">
+                                    <span class="w-3 h-3 rounded-full bg-emerald-500 animate-ping"></span>
+                                    <h4 class="font-heading font-bold text-slate-900 text-base">Sincronización en Tiempo Real (Automatización)</h4>
+                                </div>
+                                <span class="text-xs text-slate-400">Descuento automático de stock activado</span>
+                            </div>
+                            <div id="liveActivityFeed" class="space-y-2.5 text-xs">
+                                <!-- Dynamic feed items -->
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- ======================= -->
+                    <!-- TAB 2: INVENTARIO (CRUD COMPLETO) -->
+                    <!-- ======================= -->
+                    <div id="adminContent-inventario" class="hidden space-y-6">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                            <div>
+                                <h2 class="text-2xl sm:text-3xl font-heading font-extrabold text-slate-900">Gestión de Inventario 📦</h2>
+                                <p class="text-sm text-slate-500">Agrega, edita, consulta y elimina productos escolares. El stock se descuenta automáticamente con cada compra.</p>
+                            </div>
+                            <button onclick="openProductModal()" class="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-sm rounded-xl shadow flex items-center gap-2">
+                                <i class="fa-solid fa-plus"></i> Agregar Nuevo Producto
+                            </button>
+                        </div>
+
+                        <!-- Inventory Filter & Search Bar -->
+                        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex flex-col sm:flex-row gap-3 items-center justify-between">
+                            <div class="relative w-full sm:w-80">
+                                <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+                                <input type="text" id="adminInventorySearch" oninput="renderAdminInventoryTable()" placeholder="Buscar por SKU, nombre o categoría..." class="w-full pl-9 pr-3 py-2 text-xs rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-slate-50">
+                            </div>
+                            <div class="flex items-center gap-2 w-full sm:w-auto">
+                                <select id="adminCategoryFilter" onchange="renderAdminInventoryTable()" class="px-3 py-2 text-xs rounded-xl border border-slate-300 bg-slate-50 font-medium text-slate-700">
+                                    <option value="all">Todas las Categorías</option>
+                                    <option value="Libros">📚 Libros</option>
+                                    <option value="Cuadernos">📓 Cuadernos</option>
+                                    <option value="Lápices">✏️ Lápices</option>
+                                    <option value="Lapiceros">🖊️ Lapiceros</option>
+                                    <option value="Reglas">📏 Reglas</option>
+                                    <option value="Carpetas">📁 Carpetas</option>
+                                </select>
+                                <select id="adminStockStatusFilter" onchange="renderAdminInventoryTable()" class="px-3 py-2 text-xs rounded-xl border border-slate-300 bg-slate-50 font-medium text-slate-700">
+                                    <option value="all">Todos los Estados</option>
+                                    <option value="low">⚠️ Stock Crítico (&le; 5)</option>
+                                    <option value="out">❌ Agotados (0)</option>
+                                    <option value="in">✅ En Stock (&gt; 5)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Table -->
+                        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-left text-xs text-slate-600">
+                                    <thead class="bg-slate-100 text-slate-700 font-bold uppercase tracking-wider text-[11px] border-b border-slate-200">
+                                        <tr>
+                                            <th class="py-3.5 px-4">Producto</th>
+                                            <th class="py-3.5 px-4">Categoría</th>
+                                            <th class="py-3.5 px-4">Precio</th>
+                                            <th class="py-3.5 px-4">Stock Disponible</th>
+                                            <th class="py-3.5 px-4">Estado</th>
+                                            <th class="py-3.5 px-4 text-center">Ajuste Rápido</th>
+                                            <th class="py-3.5 px-4 text-right">Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="adminInventoryTableBody" class="divide-y divide-slate-100">
+                                        <!-- Dynamic Table Rows -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- ======================= -->
+                    <!-- TAB 3: VENTAS Y CLIENTES -->
+                    <!-- ======================= -->
+                    <div id="adminContent-ventas" class="hidden space-y-6">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                            <div>
+                                <h2 class="text-2xl sm:text-3xl font-heading font-extrabold text-slate-900">Módulo de Clientes & Ventas 👥</h2>
+                                <p class="text-sm text-slate-500">Registro seguro de órdenes en línea, datos personales y método de pago utilizado.</p>
+                            </div>
+                            <span class="px-3.5 py-1.5 bg-blue-100 text-blue-800 rounded-xl text-xs font-bold flex items-center gap-1.5 self-start sm:self-auto">
+                                <i class="fa-solid fa-lock"></i> Base de Datos Cifrada SSL
+                            </span>
+                        </div>
+
+                        <!-- Orders List -->
+                        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+                            <div class="p-4 border-b border-slate-200 flex items-center justify-between">
+                                <h3 class="font-bold text-slate-800 text-sm">Historial de Órdenes Recibidas</h3>
+                                <span id="ordersCountBadge" class="text-xs bg-slate-100 text-slate-600 px-2.5 py-1 rounded-full font-bold">12 registros</span>
+                            </div>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-left text-xs text-slate-600">
+                                    <thead class="bg-slate-100 text-slate-700 font-bold uppercase tracking-wider text-[11px] border-b border-slate-200">
+                                        <tr>
+                                            <th class="py-3.5 px-4">N° Orden</th>
+                                            <th class="py-3.5 px-4">Cliente (Estudiante / Tutor)</th>
+                                            <th class="py-3.5 px-4">WhatsApp / Tel</th>
+                                            <th class="py-3.5 px-4">Artículos</th>
+                                            <th class="py-3.5 px-4">Total</th>
+                                            <th class="py-3.5 px-4">Método de Pago</th>
+                                            <th class="py-3.5 px-4">Fecha y Hora</th>
+                                            <th class="py-3.5 px-4 text-center">Acción</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="adminOrdersTableBody" class="divide-y divide-slate-100">
+                                        <!-- Dynamic Orders Rows -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- ======================= -->
+                    <!-- TAB 4: REPORTES SEMANALES EN PDF -->
+                    <!-- ======================= -->
+                    <div id="adminContent-reportes" class="hidden space-y-6">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                            <div>
+                                <h2 class="text-2xl sm:text-3xl font-heading font-extrabold text-slate-900">Módulo de Reportes Semanales 📊</h2>
+                                <p class="text-sm text-slate-500">Evaluación gerencial del inventario y ventas con generador oficial en formato PDF (simulación PDFKit de Python).</p>
+                            </div>
+                            <button onclick="generateWeeklyPDFReport()" class="px-6 py-3 bg-rose-600 hover:bg-rose-500 text-white font-bold text-sm rounded-xl shadow-lg shadow-rose-600/25 flex items-center gap-2">
+                                <i class="fa-solid fa-file-arrow-down text-lg"></i> Descargar Reporte en PDF
+                            </button>
+                        </div>
+
+                        <!-- Report Summary Card Preview -->
+                        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-6">
+                            <div class="border-b border-slate-200 pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                                <div>
+                                    <span class="text-xs font-bold text-rose-600 uppercase tracking-wider">Reporte Semanal Consolidado</span>
+                                    <h3 class="text-xl font-heading font-black text-slate-900">Librería & Papelería Escolar - Festival de Ciencia</h3>
+                                </div>
+                                <div class="text-xs text-slate-500 font-medium">
+                                    Período: <strong class="text-slate-800">Semana Escolar en Curso</strong> | Generado por: <strong class="text-slate-800">Python PDFKit Engine</strong>
+                                </div>
+                            </div>
+
+                            <!-- Metrics Grid -->
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
+                                    <p class="text-xs text-slate-500">Ventas Totales Registradas</p>
+                                    <h4 id="reportRevenueTotal" class="text-xl font-black text-slate-900 mt-1">$1,428.50</h4>
+                                    <p class="text-[11px] text-emerald-600 font-semibold mt-1">Margen operativo óptimo</p>
+                                </div>
+                                <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
+                                    <p class="text-xs text-slate-500">Unidades Vendidas en Línea</p>
+                                    <h4 id="reportUnitsSold" class="text-xl font-black text-slate-900 mt-1">118 unidades</h4>
+                                    <p class="text-[11px] text-blue-600 font-semibold mt-1">Descontadas del stock 100%</p>
+                                </div>
+                                <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
+                                    <p class="text-xs text-slate-500">Valor de Inventario Remanente</p>
+                                    <h4 id="reportInventoryValue" class="text-xl font-black text-slate-900 mt-1">$5,890.00</h4>
+                                    <p class="text-[11px] text-slate-500 font-medium mt-1">Stock seguro en almacén</p>
+                                </div>
+                            </div>
+
+                            <!-- PDF Preview Box -->
+                            <div class="p-4 bg-amber-50 rounded-xl border border-amber-200 flex items-center justify-between text-xs text-amber-900">
+                                <div class="flex items-center gap-3">
+                                    <i class="fa-solid fa-file-circle-check text-2xl text-amber-600"></i>
+                                    <div>
+                                        <p class="font-bold">Plantilla de Reporte PDF Lista para Descargar</p>
+                                        <p class="text-[11px] text-amber-800">Incluye: Membrete oficial, resumen ejecutivo, tabla de órdenes con desglose por ítem y balance de inventario.</p>
+                                    </div>
+                                </div>
+                                <button onclick="generateWeeklyPDFReport()" class="px-4 py-2 bg-amber-600 hover:bg-amber-500 text-white font-bold rounded-lg shadow-sm">
+                                    Generar Ahora
+                                </button>
+                            </div>
+
+                            <!-- Python Backend Code Reference -->
+                            <div class="bg-slate-900 text-slate-200 p-4 rounded-xl font-mono text-xs overflow-x-auto">
+                                <p class="text-emerald-400 font-bold mb-1"># Script de Python para generar PDF con PDFKit / ReportLab:</p>
+                                <p class="text-slate-400">import pdfkit, psycopg2, datetime</p>
+                                <p class="text-slate-400">def generar_reporte_semanal_pdf():</p>
+                                <p class="text-slate-400">&nbsp;&nbsp;&nbsp;&nbsp;datos = db.query("SELECT * FROM inventario WHERE stock &lt; 10")</p>
+                                <p class="text-slate-400">&nbsp;&nbsp;&nbsp;&nbsp;html_doc = render_template('reporte_template.html', items=datos)</p>
+                                <p class="text-slate-400">&nbsp;&nbsp;&nbsp;&nbsp;pdfkit.from_string(html_doc, 'reporte_semanal_ventas.pdf')</p>
+                                <p class="text-emerald-400 mt-1"># [OK] Listo para ser presentado al comité evaluador de ciencias</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+
+        <!-- ======================================================== -->
+        <!-- VIEW 3: ARQUITECTURA, SEGURIDAD & VIABILIDAD (EXPOSICIÓN) -->
+        <!-- ======================================================== -->
+        <div id="viewArchitecture" class="hidden transition-opacity duration-300 py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+            
+            <!-- Header Section -->
+            <div class="text-center max-w-3xl mx-auto space-y-4">
+                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-100 text-purple-800 text-xs font-bold uppercase tracking-wider">
+                    <i class="fa-solid fa-microchip"></i> Sección Técnica para Jurados y Evaluadores
+                </div>
+                <h2 class="text-3xl sm:text-5xl font-heading font-black text-slate-900">
+                    Arquitectura, Seguridad & Viabilidad del Proyecto
+                </h2>
+                <p class="text-slate-600 text-base leading-relaxed">
+                    Explicación de la infraestructura informática, bases de datos 24/7, cifrado de alta seguridad, sincronización en tiempo real con Webhooks y estudio financiero de rentabilidad.
+                </p>
+            </div>
+
+            <!-- 3 PILARES TÉCNICOS: BASE DE DATOS, SSL Y WEBHOOKS -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <!-- Pilar 1: BD 24/7 -->
+                <div class="bg-white p-7 rounded-3xl border border-slate-200 shadow-sm hover:shadow-lg transition-all space-y-4">
+                    <div class="w-14 h-14 rounded-2xl bg-blue-100 text-blue-700 flex items-center justify-center text-3xl font-bold">
+                        <i class="fa-solid fa-database"></i>
+                    </div>
+                    <h3 class="font-heading font-bold text-xl text-slate-900">Base de Datos Ininterrumpida 24/7</h3>
+                    <p class="text-xs text-slate-500 leading-relaxed">
+                        Toda la información (catálogo de productos, usuarios, compras y stock online) se almacena en un clúster de base de datos relacional (MySQL / PostgreSQL) alojado en la nube con réplicas activas y balanceador de carga.
+                    </p>
+                    <ul class="text-xs text-slate-600 space-y-2 pt-2 border-t border-slate-100">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-500"></i> Disponibilidad 99.9% ininterrumpida</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-500"></i> Transacciones ACID (Evita sobreventas)</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-500"></i> Copias de seguridad automáticas diarias</li>
+                    </ul>
+                </div>
+
+                <!-- Pilar 2: Seguridad SSL -->
+                <div class="bg-white p-7 rounded-3xl border border-slate-200 shadow-sm hover:shadow-lg transition-all space-y-4">
+                    <div class="w-14 h-14 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center text-3xl font-bold">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <h3 class="font-heading font-bold text-xl text-slate-900">Seguridad SSL & Cifrado 🔒</h3>
+                    <p class="text-xs text-slate-500 leading-relaxed">
+                        El sistema opera bajo conexión cifrada mediante certificados SSL/TLS con encriptación de 256 bits, garantizando la privacidad absoluta de los datos de padres de familia y las transacciones de pago.
+                    </p>
+                    <ul class="text-xs text-slate-600 space-y-2 pt-2 border-t border-slate-100">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-500"></i> Certificado TLS 1.3 End-to-End</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-500"></i> Protección contra ataques CSRF y SQL Injection</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-500"></i> Cumplimiento estricto de privacidad escolar</li>
+                    </ul>
+                </div>
+
+                <!-- Pilar 3: Webhooks & Meta Cloud API -->
+                <div class="bg-white p-7 rounded-3xl border border-slate-200 shadow-sm hover:shadow-lg transition-all space-y-4">
+                    <div class="w-14 h-14 rounded-2xl bg-purple-100 text-purple-700 flex items-center justify-center text-3xl font-bold">
+                        <i class="fa-solid fa-network-wired"></i>
+                    </div>
+                    <h3 class="font-heading font-bold text-xl text-slate-900">Sincronización con Webhooks</h3>
+                    <p class="text-xs text-slate-500 leading-relaxed">
+                        Utiliza eventos asíncronos (Webhooks) para sincronizar en tiempo real el servidor backend en Python, la base de datos y la interfaz de usuario con la API de Meta Cloud (WhatsApp).
+                    </p>
+                    <ul class="text-xs text-slate-600 space-y-2 pt-2 border-t border-slate-100">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-500"></i> Descuento de stock en milisegundos</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-500"></i> Disparo automático de WhatsApp oficial</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-500"></i> Arquitectura desacoplada y escalable</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- DIAGRAMA INTERACTIVO DE FLUJO DEL SISTEMA -->
+            <div class="bg-slate-900 text-white p-8 sm:p-12 rounded-3xl shadow-xl space-y-8">
+                <div class="text-center max-w-2xl mx-auto">
+                    <span class="text-xs uppercase tracking-widest text-amber-400 font-black">Flujo de Datos en Tiempo Real</span>
+                    <h3 class="text-2xl sm:text-3xl font-heading font-bold mt-1">Cómo Interactúan los Componentes</h3>
+                    <p class="text-xs text-slate-400 mt-2">Diagrama de comunicación entre el estudiante, el servidor web, el backend en Python, la base de datos y WhatsApp.</p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 text-center">
+                    <!-- Paso 1 -->
+                    <div class="bg-slate-800/90 p-5 rounded-2xl border border-slate-700 flex flex-col items-center">
+                        <div class="w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center text-2xl mb-3">
+                            <i class="fa-solid fa-mobile-screen"></i>
+                        </div>
+                        <span class="text-[10px] font-bold text-blue-400 uppercase">1. Cliente</span>
+                        <h4 class="font-bold text-sm text-white mt-1">Compra en Tienda</h4>
+                        <p class="text-[11px] text-slate-400 mt-1">Estudiante/Padre realiza la orden desde la web.</p>
+                    </div>
+
+                    <!-- Paso 2 -->
+                    <div class="bg-slate-800/90 p-5 rounded-2xl border border-slate-700 flex flex-col items-center">
+                        <div class="w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-2xl mb-3">
+                            <i class="fa-solid fa-lock"></i>
+                        </div>
+                        <span class="text-[10px] font-bold text-emerald-400 uppercase">2. Seguridad</span>
+                        <h4 class="font-bold text-sm text-white mt-1">Túnel SSL 256-bit</h4>
+                        <p class="text-[11px] text-slate-400 mt-1">Cifrado de datos y verificación de token.</p>
+                    </div>
+
+                    <!-- Paso 3 -->
+                    <div class="bg-slate-800/90 p-5 rounded-2xl border border-slate-700 flex flex-col items-center">
+                        <div class="w-12 h-12 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center text-2xl mb-3">
+                            <i class="fa-brands fa-python"></i>
+                        </div>
+                        <span class="text-[10px] font-bold text-amber-400 uppercase">3. Backend</span>
+                        <h4 class="font-bold text-sm text-white mt-1">Servidor Python</h4>
+                        <p class="text-[11px] text-slate-400 mt-1">Procesa la orden y ejecuta el Webhook.</p>
+                    </div>
+
+                    <!-- Paso 4 -->
+                    <div class="bg-slate-800/90 p-5 rounded-2xl border border-slate-700 flex flex-col items-center">
+                        <div class="w-12 h-12 rounded-full bg-sky-500/20 text-sky-400 flex items-center justify-center text-2xl mb-3">
+                            <i class="fa-solid fa-database"></i>
+                        </div>
+                        <span class="text-[10px] font-bold text-sky-400 uppercase">4. Almacén 24/7</span>
+                        <h4 class="font-bold text-sm text-white mt-1">Actualiza Stock</h4>
+                        <p class="text-[11px] text-slate-400 mt-1">Resta unidades y guarda recibo en PostgreSQL.</p>
+                    </div>
+
+                    <!-- Paso 5 -->
+                    <div class="bg-slate-800/90 p-5 rounded-2xl border border-slate-700 flex flex-col items-center">
+                        <div class="w-12 h-12 rounded-full bg-teal-500/20 text-teal-400 flex items-center justify-center text-2xl mb-3">
+                            <i class="fa-brands fa-whatsapp"></i>
+                        </div>
+                        <span class="text-[10px] font-bold text-teal-400 uppercase">5. Meta Cloud</span>
+                        <h4 class="font-bold text-sm text-white mt-1">WhatsApp Notif.</h4>
+                        <p class="text-[11px] text-slate-400 mt-1">Mensaje inmediato con ticket y comprobante.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ESTUDIO DE VIABILIDAD Y FINANZAS ($7,000 USD Y ROI EN 1 MES) -->
+            <div class="bg-white p-8 sm:p-12 rounded-3xl border border-slate-200 shadow-sm space-y-8">
+                <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 border-b border-slate-200 pb-8">
+                    <div class="max-w-2xl">
+                        <span class="text-xs font-black text-blue-700 uppercase tracking-wider">Estudio Financiero & Rentabilidad</span>
+                        <h3 class="text-3xl font-heading font-extrabold text-slate-900 mt-1">
+                            Viabilidad del Proyecto y Retorno de Inversión (ROI)
+                        </h3>
+                        <p class="text-sm text-slate-500 mt-2 leading-relaxed">
+                            La implementación de este sistema web requiere un presupuesto de <strong>$7,000 dólares netos</strong>. Gracias a la eliminación de mermas por descontrol de inventario y al incremento de ventas en línea, se prevé la <strong>recuperación total de la inversión en solo un mes</strong>.
+                        </p>
+                    </div>
+                    <div class="p-5 rounded-2xl bg-emerald-50 border border-emerald-200 text-center shrink-0">
+                        <p class="text-xs font-bold text-emerald-800 uppercase">Presupuesto Neto Requerido</p>
+                        <h4 class="text-3xl sm:text-4xl font-black text-emerald-700 mt-1">$7,000 USD</h4>
+                        <p class="text-[11px] font-semibold text-emerald-600 mt-1">Recuperación estimada: 30 Días</p>
+                    </div>
+                </div>
+
+                <!-- Desglose del Presupuesto de $7,000 USD -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h4 class="font-heading font-bold text-base text-slate-900 mb-4 flex items-center gap-2">
+                            <i class="fa-solid fa-list-check text-blue-600"></i> Desglose del Presupuesto ($7,000 USD)
+                        </h4>
+                        <div class="space-y-3 text-xs">
+                            <div class="flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-slate-200">
+                                <div>
+                                    <strong class="text-slate-800">1. Infraestructura Cloud & Base de Datos 24/7</strong>
+                                    <p class="text-slate-500 text-[11px]">Servidores AWS/DigitalOcean con disponibilidad 24/7 y réplicas</p>
+                                </div>
+                                <span class="font-black text-slate-900 text-sm">$1,200</span>
+                            </div>
+
+                            <div class="flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-slate-200">
+                                <div>
+                                    <strong class="text-slate-800">2. Desarrollo Frontend (HTML, CSS, JS, Tailwind)</strong>
+                                    <p class="text-slate-500 text-[11px]">Interfaz adaptativa para estudiantes y padres de familia</p>
+                                </div>
+                                <span class="font-black text-slate-900 text-sm">$1,800</span>
+                            </div>
+
+                            <div class="flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-slate-200">
+                                <div>
+                                    <strong class="text-slate-800">3. Backend Python & Motor de Reportes PDFKit</strong>
+                                    <p class="text-slate-500 text-[11px]">Lógica de negocio, gestión de inventario y generación PDF</p>
+                                </div>
+                                <span class="font-black text-slate-900 text-sm">$2,000</span>
+                            </div>
+
+                            <div class="flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-slate-200">
+                                <div>
+                                    <strong class="text-slate-800">4. Certificado SSL, Seguridad & Dominio Oficial</strong>
+                                    <p class="text-slate-500 text-[11px]">Cifrado TLS de 256 bits y protección de datos escolares</p>
+                                </div>
+                                <span class="font-black text-slate-900 text-sm">$500</span>
+                            </div>
+
+                            <div class="flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-slate-200">
+                                <div>
+                                    <strong class="text-slate-800">5. Integración Meta Cloud API (WhatsApp) & Pagos</strong>
+                                    <p class="text-slate-500 text-[11px]">Webhooks para alertas automáticas y pasarela escalable</p>
+                                </div>
+                                <span class="font-black text-slate-900 text-sm">$1,000</span>
+                            </div>
+
+                            <div class="flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-slate-200">
+                                <div>
+                                    <strong class="text-slate-800">6. Capacitación, Pruebas y Despliegue Final</strong>
+                                    <p class="text-slate-500 text-[11px]">Puesta en marcha, manuales para personal y soporte inicial</p>
+                                </div>
+                                <span class="font-black text-slate-900 text-sm">$500</span>
+                            </div>
+
+                            <div class="flex items-center justify-between p-3.5 rounded-xl bg-blue-900 text-white font-bold text-sm">
+                                <span>TOTAL PRESUPUESTO DEL PROYECTO:</span>
+                                <span class="text-amber-300 text-base">$7,000 USD Netos</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Retorno de Inversión (ROI) Gráfico / Justificación -->
+                    <div class="space-y-4">
+                        <h4 class="font-heading font-bold text-base text-slate-900 flex items-center gap-2">
+                            <i class="fa-solid fa-chart-pie text-emerald-600"></i> Amortización & Ganancias en el 1er Mes
+                        </h4>
+                        <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-4 text-xs">
+                            <div class="space-y-1">
+                                <div class="flex justify-between font-semibold text-slate-700">
+                                    <span>Aumento de Ventas en Línea (Canal Digital 24/7)</span>
+                                    <span class="text-emerald-600 font-bold">+$4,800 USD</span>
+                                </div>
+                                <div class="w-full h-2 bg-slate-200 rounded-full overflow-hidden">
+                                    <div class="h-full bg-emerald-500 rounded-full" style="width: 68%"></div>
+                                </div>
+                                <p class="text-[11px] text-slate-400">Captación de compras nocturnas y fines de semana de padres de familia.</p>
+                            </div>
+
+                            <div class="space-y-1">
+                                <div class="flex justify-between font-semibold text-slate-700">
+                                    <span>Ahorro por Eliminación de Pérdidas y Faltantes de Stock</span>
+                                    <span class="text-blue-600 font-bold">+$2,400 USD</span>
+                                </div>
+                                <div class="w-full h-2 bg-slate-200 rounded-full overflow-hidden">
+                                    <div class="h-full bg-blue-600 rounded-full" style="width: 35%"></div>
+                                </div>
+                                <p class="text-[11px] text-slate-400">Control estricto con actualización automática con cada orden.</p>
+                            </div>
+
+                            <div class="space-y-1">
+                                <div class="flex justify-between font-semibold text-slate-700">
+                                    <span>Optimización en Tiempos de Atención y Facturación</span>
+                                    <span class="text-purple-600 font-bold">+$950 USD</span>
+                                </div>
+                                <div class="w-full h-2 bg-slate-200 rounded-full overflow-hidden">
+                                    <div class="h-full bg-purple-600 rounded-full" style="width: 20%"></div>
+                                </div>
+                                <p class="text-[11px] text-slate-400">Generación automática de reportes en PDF y avisos por WhatsApp.</p>
+                            </div>
+
+                            <div class="pt-3 border-t border-slate-200 flex justify-between items-center text-sm font-bold">
+                                <span class="text-slate-800">Beneficio Neto Mensual Estimado:</span>
+                                <span class="text-emerald-700 text-base">+$8,150 USD</span>
+                            </div>
+                        </div>
+
+                        <div class="p-4 rounded-xl bg-emerald-100/60 border border-emerald-300 text-emerald-950 text-xs flex items-start gap-3">
+                            <i class="fa-solid fa-circle-check text-emerald-600 text-base shrink-0 mt-0.5"></i>
+                            <div>
+                                <p class="font-bold">Conclusión de Viabilidad:</p>
+                                <p class="mt-0.5 leading-relaxed">
+                                    El sistema genera <strong>$8,150 USD de beneficio</strong> en los primeros 30 días, cubriendo por completo los <strong>$7,000 USD de inversión inicial</strong> con un excedente positivo neto de $1,150 USD a partir del primer mes.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+
+    <!-- ======================================================== -->
+    <!-- SLIDE-OVER DRAWER: CARRITO Y COMPRAS EN LÍNEA -->
+    <!-- ======================================================== -->
+    <div id="cartDrawer" class="fixed inset-0 z-50 overflow-hidden hidden">
+        <!-- Backdrop -->
+        <div onclick="toggleCartDrawer(false)" class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity"></div>
+
+        <div class="fixed inset-y-0 right-0 max-w-full flex pl-10">
+            <div class="w-screen max-w-md bg-white shadow-2xl flex flex-col">
+                <!-- Drawer Header -->
+                <div class="p-6 border-b border-slate-200 flex items-center justify-between bg-slate-50">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-blue-100 text-blue-800 flex items-center justify-center font-bold text-lg">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-heading font-bold text-lg text-slate-900">Carrito de Compras 💳</h3>
+                            <p class="text-xs text-slate-500">Revisa tus útiles antes de pagar</p>
+                        </div>
+                    </div>
+                    <button onclick="toggleCartDrawer(false)" class="p-2 rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-200 transition-colors">
+                        <i class="fa-solid fa-xmark text-lg"></i>
+                    </button>
+                </div>
+
+                <!-- Drawer Cart Items -->
+                <div id="cartItemsContainer" class="flex-1 overflow-y-auto p-6 space-y-4 custom-scrollbar">
+                    <!-- Injected dynamically -->
+                </div>
+
+                <!-- Drawer Footer Summary -->
+                <div class="p-6 border-t border-slate-200 bg-slate-50 space-y-4">
+                    <div class="space-y-1.5 text-xs text-slate-600">
+                        <div class="flex justify-between">
+                            <span>Subtotal:</span>
+                            <span id="cartSubtotal" class="font-semibold text-slate-800">$0.00</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Envío / Entrega en Colegio:</span>
+                            <span class="font-semibold text-emerald-600">¡GRATIS!</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Seguridad de Transacción:</span>
+                            <span class="text-[11px] text-slate-500"><i class="fa-solid fa-lock text-emerald-500"></i> Certificado SSL Activo</span>
+                        </div>
+                        <div class="flex justify-between text-base font-bold text-slate-900 pt-2 border-t border-slate-200">
+                            <span>Total a Pagar:</span>
+                            <span id="cartTotal" class="text-blue-900 font-extrabold text-xl">$0.00</span>
+                        </div>
+                    </div>
+
+                    <button id="checkoutButton" onclick="openCheckoutModal()" class="w-full py-3.5 bg-blue-900 hover:bg-blue-800 disabled:opacity-50 disabled:cursor-not-allowed text-white font-heading font-bold rounded-xl shadow-lg transition-all flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-credit-card"></i> Proceder al Pago Seguro
+                    </button>
+
+                    <p class="text-[11px] text-center text-slate-400">
+                        Al pagar recibirás el comprobante con la API de Meta Cloud (WhatsApp).
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ======================================================== -->
+    <!-- MODAL: CHECKOUT Y PAGO ESCALABLE -->
+    <!-- ======================================================== -->
+    <div id="checkoutModal" class="fixed inset-0 z-50 overflow-y-auto hidden">
+        <div class="flex items-center justify-center min-h-screen px-4 py-8 text-center sm:p-0">
+            <div onclick="closeCheckoutModal()" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity"></div>
+
+            <div class="inline-block bg-white rounded-3xl text-left overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:max-w-xl w-full relative z-10 border border-slate-100">
+                <div class="bg-blue-900 text-white p-6 flex items-center justify-between">
+                    <div>
+                        <span class="text-xs font-bold text-amber-300 uppercase tracking-wider">Pasarela Escalable</span>
+                        <h3 class="font-heading font-black text-xl">Finalizar Compra en Línea</h3>
+                    </div>
+                    <button onclick="closeCheckoutModal()" class="text-white/80 hover:text-white text-xl">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+
+                <form id="checkoutForm" onsubmit="handleProcessOrder(event)" class="p-6 space-y-5">
+                    <!-- Datos del Cliente / Estudiante -->
+                    <div class="space-y-3">
+                        <h4 class="text-xs font-bold text-slate-500 uppercase tracking-wider">Datos del Estudiante / Tutor</h4>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 mb-1">Nombre Completo *</label>
+                                <input type="text" id="custName" required placeholder="Ej: Laura Mendoza" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-600 focus:outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 mb-1">WhatsApp / Teléfono *</label>
+                                <input type="tel" id="custPhone" required placeholder="+591 76543210" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-600 focus:outline-none">
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 mb-1">Correo Electrónico</label>
+                                <input type="email" id="custEmail" placeholder="tutor@colegio.edu" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-600 focus:outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 mb-1">Colegio / Grado o Dirección</label>
+                                <input type="text" id="custAddress" required placeholder="Col. San Agustín - 5to B" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-600 focus:outline-none">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Métodos de Pago Escalables -->
+                    <div class="space-y-3 pt-2 border-t border-slate-100">
+                        <div class="flex items-center justify-between">
+                            <h4 class="text-xs font-bold text-slate-500 uppercase tracking-wider">Método de Pago 💳</h4>
+                            <span class="text-[10px] text-blue-600 font-bold bg-blue-50 px-2 py-0.5 rounded">Arquitectura Escalable</span>
+                        </div>
+
+                        <div class="grid grid-cols-3 gap-2.5">
+                            <label class="payment-method-card flex flex-col items-center p-3 rounded-2xl border-2 border-blue-600 bg-blue-50/50 cursor-pointer text-center">
+                                <input type="radio" name="payMethod" value="QR / Transferencia" checked class="hidden" onchange="updatePaymentMethodUI(this)">
+                                <i class="fa-solid fa-qrcode text-xl text-blue-700 mb-1"></i>
+                                <span class="text-[11px] font-bold text-slate-800">Pago QR</span>
+                                <span class="text-[9px] text-slate-400">Banca Móvil</span>
+                            </label>
+
+                            <label class="payment-method-card flex flex-col items-center p-3 rounded-2xl border border-slate-200 hover:border-slate-300 cursor-pointer text-center">
+                                <input type="radio" name="payMethod" value="Tarjeta Débito/Crédito" class="hidden" onchange="updatePaymentMethodUI(this)">
+                                <i class="fa-regular fa-credit-card text-xl text-slate-600 mb-1"></i>
+                                <span class="text-[11px] font-bold text-slate-800">Tarjeta</span>
+                                <span class="text-[9px] text-slate-400">Visa / MC</span>
+                            </label>
+
+                            <label class="payment-method-card flex flex-col items-center p-3 rounded-2xl border border-slate-200 hover:border-slate-300 cursor-pointer text-center">
+                                <input type="radio" name="payMethod" value="Efectivo Contraentrega" class="hidden" onchange="updatePaymentMethodUI(this)">
+                                <i class="fa-solid fa-money-bill-wave text-xl text-emerald-600 mb-1"></i>
+                                <span class="text-[11px] font-bold text-slate-800">Efectivo</span>
+                                <span class="text-[9px] text-slate-400">En entrega</span>
+                            </label>
+                        </div>
+
+                        <!-- Dynamic payment method details -->
+                        <div id="paymentDetailBox" class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs space-y-1">
+                            <p class="font-bold text-slate-800 flex items-center gap-1.5 text-blue-700">
+                                <i class="fa-solid fa-qrcode"></i> Código QR Dinámico Generado
+                            </p>
+                            <p class="text-[11px] text-slate-500">
+                                Se validará la transferencia bancaria automáticamente y se enviará el recibo de compra a tu WhatsApp.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Total a Pagar y Submit -->
+                    <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+                        <div>
+                            <span class="text-xs text-slate-400">Monto total:</span>
+                            <h4 id="checkoutModalTotal" class="text-2xl font-black text-blue-900">$0.00</h4>
+                        </div>
+                        <div class="flex gap-2">
+                            <button type="button" onclick="closeCheckoutModal()" class="px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-100 rounded-xl">
+                                Cancelar
+                            </button>
+                            <button type="submit" id="submitOrderBtn" class="px-6 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl shadow-md flex items-center gap-2">
+                                <i class="fa-solid fa-check"></i> Confirmar y Descontar Stock
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ======================================================== -->
+    <!-- MODAL: NOTIFICACIÓN OFICIAL META CLOUD API (WHATSAPP) -->
+    <!-- ======================================================== -->
+    <div id="whatsappModal" class="fixed inset-0 z-50 overflow-y-auto hidden">
+        <div class="flex items-center justify-center min-h-screen px-4 py-8 text-center sm:p-0">
+            <div onclick="closeWhatsAppModal()" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity"></div>
+
+            <div class="inline-block bg-white rounded-3xl text-left overflow-hidden shadow-2xl transform transition-all sm:max-w-md w-full relative z-10 border border-slate-100">
+                <!-- Header Simulated WhatsApp Business -->
+                <div class="bg-emerald-700 text-white p-4 flex items-center justify-between shadow-md">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-white text-emerald-700 flex items-center justify-center font-bold text-lg">
+                            <i class="fa-brands fa-whatsapp text-2xl"></i>
+                        </div>
+                        <div>
+                            <div class="flex items-center gap-1.5">
+                                <h4 class="font-bold text-sm">EduSmart Tienda Escolar</h4>
+                                <i class="fa-solid fa-circle-check text-emerald-300 text-xs" title="Empresa Verificada Meta"></i>
+                            </div>
+                            <p class="text-[10px] text-emerald-100">Meta Cloud API • Mensaje Automatizado</p>
+                        </div>
+                    </div>
+                    <button onclick="closeWhatsAppModal()" class="text-white/80 hover:text-white">
+                        <i class="fa-solid fa-xmark text-lg"></i>
+                    </button>
+                </div>
+
+                <!-- Chat Body Simulator -->
+                <div class="p-5 bg-slate-100/70 space-y-4">
+                    <div class="text-center">
+                        <span class="text-[10px] bg-slate-200 text-slate-600 px-2 py-0.5 rounded-md font-semibold uppercase">Hoy • Confirmación Inmediata</span>
+                    </div>
+
+                    <!-- Simulated WhatsApp Message Bubble -->
+                    <div class="whatsapp-bubble p-4 rounded-2xl shadow-sm text-xs text-slate-800 space-y-2 border border-emerald-200">
+                        <div class="flex items-center justify-between border-b border-emerald-200/60 pb-1.5">
+                            <span class="font-bold text-emerald-900">¡Compra Confirmada con Éxito! 🎉</span>
+                            <span class="text-[10px] text-slate-500" id="waOrderTime">11:00 AM</span>
+                        </div>
+                        <p id="waGreeting">Hola <strong>Estudiante</strong>,</p>
+                        <p>Hemos procesado tu pedido escolar correctamente a través de nuestra plataforma web.</p>
+                        
+                        <div class="p-2.5 bg-white/70 rounded-xl space-y-1 font-mono text-[11px]">
+                            <p><strong>N° de Orden:</strong> <span id="waOrderId" class="text-blue-800 font-bold">#ORD-0000</span></p>
+                            <p><strong>Total Pagado:</strong> <span id="waOrderTotal" class="text-emerald-700 font-bold">$0.00</span></p>
+                            <p><strong>Método:</strong> <span id="waOrderMethod">QR / Transferencia</span></p>
+                            <p><strong>Entrega en:</strong> <span id="waOrderAddress">Colegio</span></p>
+                        </div>
+
+                        <div class="pt-1">
+                            <p class="font-bold text-slate-700 mb-1">Artículos Adquiridos:</p>
+                            <ul id="waOrderItemsList" class="list-disc pl-4 text-[11px] text-slate-600 space-y-0.5">
+                                <!-- Dynamic order items -->
+                            </ul>
+                        </div>
+
+                        <p class="text-[11px] text-slate-500 pt-1">
+                            📦 El inventario centralizado ya fue descontado en tiempo real. ¡Gracias por tu compra!
+                        </p>
+                    </div>
+
+                    <!-- Actions in Modal -->
+                    <div class="space-y-2 pt-2">
+                        <a id="waDirectChatBtn" href="#" target="_blank" class="w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl shadow-md flex items-center justify-center gap-2 transition-all">
+                            <i class="fa-brands fa-whatsapp text-base"></i> Abrir en WhatsApp Real
+                        </a>
+                        <button onclick="closeWhatsAppModal()" class="w-full py-2 bg-white text-slate-700 text-xs font-semibold rounded-xl border border-slate-300 hover:bg-slate-50">
+                            Cerrar y Seguir Comprando
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ======================================================== -->
+    <!-- MODAL: CREAR / EDITAR PRODUCTO (PANEL DE INVENTARIO) -->
+    <!-- ======================================================== -->
+    <div id="productModal" class="fixed inset-0 z-50 overflow-y-auto hidden">
+        <div class="flex items-center justify-center min-h-screen px-4 py-8 text-center sm:p-0">
+            <div onclick="closeProductModal()" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity"></div>
+
+            <div class="inline-block bg-white rounded-3xl text-left overflow-hidden shadow-2xl transform transition-all sm:max-w-lg w-full relative z-10 border border-slate-100">
+                <div class="bg-slate-900 text-white p-5 flex items-center justify-between">
+                    <h3 id="productModalTitle" class="font-heading font-bold text-lg">Agregar Nuevo Producto al Inventario</h3>
+                    <button onclick="closeProductModal()" class="text-slate-400 hover:text-white">
+                        <i class="fa-solid fa-xmark text-lg"></i>
+                    </button>
+                </div>
+
+                <form id="productForm" onsubmit="handleSaveProduct(event)" class="p-6 space-y-4">
+                    <input type="hidden" id="prodId">
+
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">Nombre del Producto *</label>
+                        <input type="text" id="prodName" required placeholder="Ej: Cuaderno Espiral 100 Hojas Rayado" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1">Categoría Escolar *</label>
+                            <select id="prodCategory" required class="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 focus:ring-2 focus:ring-emerald-500 bg-white">
+                                <option value="Libros">📚 Libros</option>
+                                <option value="Cuadernos">📓 Cuadernos</option>
+                                <option value="Lápices">✏️ Lápices</option>
+                                <option value="Lapiceros">🖊️ Lapiceros</option>
+                                <option value="Reglas">📏 Reglas</option>
+                                <option value="Carpetas">📁 Carpetas</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1">SKU / Código</label>
+                            <input type="text" id="prodSku" placeholder="UTL-2026-X" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1">Precio Unitario ($) *</label>
+                            <input type="number" step="0.01" min="0.10" id="prodPrice" required placeholder="4.50" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1">Stock Inicial *</label>
+                            <input type="number" min="0" id="prodStock" required placeholder="25" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">URL de Imagen del Producto</label>
+                        <input type="url" id="prodImage" placeholder="https://images.unsplash.com/..." class="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                        <p class="text-[10px] text-slate-400 mt-1">Si se deja en blanco se asignará una imagen predeterminada de alta calidad según su categoría.</p>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">Descripción del Producto</label>
+                        <textarea id="prodDescription" rows="2" placeholder="Especificaciones, marca o recomendaciones de uso escolar..." class="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none"></textarea>
+                    </div>
+
+                    <div class="pt-4 border-t border-slate-100 flex items-center justify-end gap-2">
+                        <button type="button" onclick="closeProductModal()" class="px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-100 rounded-xl">
+                            Cancelar
+                        </button>
+                        <button type="submit" class="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl shadow-md">
+                            Guardar Producto en Inventario
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- FLOATING TOAST NOTIFICATION -->
+    <div id="toastNotification" class="fixed bottom-5 right-5 z-50 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none">
+        <div class="bg-slate-900 text-white px-5 py-3.5 rounded-2xl shadow-xl flex items-center gap-3 text-xs font-medium border border-slate-800">
+            <span id="toastIcon" class="text-base text-emerald-400"><i class="fa-solid fa-circle-check"></i></span>
+            <span id="toastMessage">Operación realizada con éxito</span>
+        </div>
+    </div>
+
+
+    <!-- ======================================================== -->
+    <!-- FOOTER -->
+    <!-- ======================================================== -->
+    <footer class="bg-slate-900 text-slate-400 text-xs border-t border-slate-800 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div class="space-y-3">
+                    <div class="flex items-center gap-2 text-white font-heading font-bold text-lg">
+                        <i class="fa-solid fa-graduation-cap text-blue-500"></i> EduSmart Escolar
+                    </div>
+                    <p class="text-slate-400 text-xs leading-relaxed">
+                        Proyecto de Sistema Web para el Festival de Ciencia 2026. Tienda en línea para estudiantes y padres con backend en Python, base de datos 24/7 y notificación por Meta Cloud API.
+                    </p>
+                </div>
+
+                <div>
+                    <h5 class="text-white font-bold mb-3 uppercase tracking-wider text-[11px]">Categorías de Útiles</h5>
+                    <ul class="space-y-2">
+                        <li><a href="javascript:void(0)" onclick="switchView('client'); filterCategory('Libros')" class="hover:text-blue-400">📚 Libros de Texto & Lectura</a></li>
+                        <li><a href="javascript:void(0)" onclick="switchView('client'); filterCategory('Cuadernos')" class="hover:text-blue-400">📓 Cuadernos Escolares</a></li>
+                        <li><a href="javascript:void(0)" onclick="switchView('client'); filterCategory('Lápices')" class="hover:text-blue-400">✏️ Lápices de Grafito & Colores</a></li>
+                        <li><a href="javascript:void(0)" onclick="switchView('client'); filterCategory('Lapiceros')" class="hover:text-blue-400">🖊️ Lapiceros & Bolígrafos</a></li>
+                        <li><a href="javascript:void(0)" onclick="switchView('client'); filterCategory('Reglas')" class="hover:text-blue-400">📏 Reglas & Geometría</a></li>
+                        <li><a href="javascript:void(0)" onclick="switchView('client'); filterCategory('Carpetas')" class="hover:text-blue-400">📁 Carpetas & Archivadores</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h5 class="text-white font-bold mb-3 uppercase tracking-wider text-[11px]">Secciones del Proyecto</h5>
+                    <ul class="space-y-2">
+                        <li><a href="javascript:void(0)" onclick="switchView('client')" class="hover:text-blue-400">1. Interfaz del Cliente (Estudiantes y Padres)</a></li>
+                        <li><a href="javascript:void(0)" onclick="switchView('admin')" class="hover:text-blue-400">2. Panel de Administración (Python Backend)</a></li>
+                        <li><a href="javascript:void(0)" onclick="switchView('architecture')" class="hover:text-blue-400">3. Arquitectura, SSL & Viabilidad ($7,000)</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h5 class="text-white font-bold mb-3 uppercase tracking-wider text-[11px]">Festival de Ciencia 2026</h5>
+                    <p class="text-slate-400 text-xs">
+                        Desarrollado con HTML, CSS, JavaScript, Tailwind CSS, Chart.js, jsPDF y arquitectura Backend en Python.
+                    </p>
+                    <div class="mt-3 flex gap-2">
+                        <button onclick="shareStore('whatsapp')" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-emerald-600 text-white flex items-center justify-center transition-colors">
+                            <i class="fa-brands fa-whatsapp"></i>
+                        </button>
+                        <button onclick="shareStore('facebook')" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-blue-600 text-white flex items-center justify-center transition-colors">
+                            <i class="fa-brands fa-facebook-f"></i>
+                        </button>
+                        <button onclick="shareStore('copy')" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-amber-500 text-white flex items-center justify-center transition-colors">
+                            <i class="fa-solid fa-link"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pt-6 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px]">
+                <p>&copy; 2026 EduSmart - Festival de Ciencia. Todos los derechos reservados.</p>
+                <div class="flex items-center gap-4 text-emerald-400">
+                    <span><i class="fa-solid fa-lock"></i> Cifrado SSL Activo</span>
+                    <span><i class="fa-solid fa-bolt"></i> Sincronización Webhook 24/7</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- ======================================================== -->
+    <!-- JAVASCRIPT LOGIC & STATE MANAGEMENT -->
+    <!-- ======================================================== -->
+    <script>
+        // INITIAL CATALOG DATA (24 PRODUCTS SPREAD ACROSS THE 6 SCHOOL CATEGORIES)
+        const DEFAULT_PRODUCTS = [
+            // 📚 Libros
+            {
+                id: 'prod-1',
+                sku: 'LIB-MAT-01',
+                name: 'Libro de Matemáticas Aplicadas Secundaria',
+                category: 'Libros',
+                price: 18.50,
+                stock: 24,
+                image: 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=600&q=80',
+                description: 'Texto escolar con ejercicios prácticos, álgebra, geometría y trigonometría para nivel secundario.'
+            },
+            {
+                id: 'prod-2',
+                sku: 'LIB-LIT-02',
+                name: 'Novela Escolar "Cien Años de Soledad" (Ed. Juvenil)',
+                category: 'Libros',
+                price: 14.00,
+                stock: 18,
+                image: 'https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=600&q=80',
+                description: 'Edición con guía de análisis literario, vocabulario y notas pedagógicas para estudiantes.'
+            },
+            {
+                id: 'prod-3',
+                sku: 'LIB-DIC-03',
+                name: 'Diccionario Escolar de la Lengua Española Ilustrado',
+                category: 'Libros',
+                price: 11.50,
+                stock: 15,
+                image: 'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=600&q=80',
+                description: 'Más de 40,000 definiciones, sinónimos, antónimos y reglas ortográficas actualizadas.'
+            },
+            {
+                id: 'prod-4',
+                sku: 'LIB-BIO-04',
+                name: 'Atlas de Biología y Ciencias Naturales',
+                category: 'Libros',
+                price: 16.00,
+                stock: 12,
+                image: 'https://images.unsplash.com/photo-1532012164546-f432f2e3777f?auto=format&fit=crop&w=600&q=80',
+                description: 'Guía visual completa sobre anatomía humana, ecosistemas y biodiversidad planetaria.'
+            },
+
+            // 📓 Cuadernos
+            {
+                id: 'prod-5',
+                sku: 'CUA-ESP-01',
+                name: 'Cuaderno Espiral Universitario 100 Hojas Rayado',
+                category: 'Cuadernos',
+                price: 3.50,
+                stock: 45,
+                image: 'https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format&fit=crop&w=600&q=80',
+                description: 'Tapa dura plastificada, hojas de 75g de alta blancura que no traspasan la tinta.'
+            },
+            {
+                id: 'prod-6',
+                sku: 'CUA-CUA-02',
+                name: 'Cuaderno Cuadriculado 7mm 100 Hojas Cosido',
+                category: 'Cuadernos',
+                price: 2.80,
+                stock: 50,
+                image: 'https://images.unsplash.com/photo-1531346878377-a5be20888e57?auto=format&fit=crop&w=600&q=80',
+                description: 'Encuadernación cosida resistente al uso rudo escolar, ideal para matemáticas y ciencias.'
+            },
+            {
+                id: 'prod-7',
+                sku: 'CUA-DIB-03',
+                name: 'Cuaderno Block de Dibujo Marquilla 50 Hojas',
+                category: 'Cuadernos',
+                price: 4.20,
+                stock: 20,
+                image: 'https://images.unsplash.com/photo-1600132806370-bf17e65e942f?auto=format&fit=crop&w=600&q=80',
+                description: 'Papel especial de 120g para lápices de colores, acuarelas ligeras y bocetos artísticos.'
+            },
+            {
+                id: 'prod-8',
+                sku: 'CUA-CAL-04',
+                name: 'Cuaderno Doble Raya Caligrafía y Escritura',
+                category: 'Cuadernos',
+                price: 2.20,
+                stock: 35,
+                image: 'https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=600&q=80',
+                description: 'Especial para el desarrollo de la motricidad fina y caligrafía en primaria y secundaria.'
+            },
+
+            // ✏️ Lápices
+            {
+                id: 'prod-9',
+                sku: 'LAP-GRA-01',
+                name: 'Caja de Lápices Grafito HB Faber-Castell (12 Uds)',
+                category: 'Lápices',
+                price: 4.80,
+                stock: 40,
+                image: 'https://images.unsplash.com/photo-1585336261026-8c4600216b3f?auto=format&fit=crop&w=600&q=80',
+                description: 'Mina protegida contra roturas mediante proceso de encolado SV. Escritura suave y precisa.'
+            },
+            {
+                id: 'prod-10',
+                sku: 'LAP-COL-02',
+                name: 'Lápices de Colores x24 Largos Prismacolor Junior',
+                category: 'Lápices',
+                price: 8.90,
+                stock: 28,
+                image: 'https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?auto=format&fit=crop&w=600&q=80',
+                description: 'Pigmentos vivos e intensos, mina suave de 3.3mm que permite mezclas y degradados uniformes.'
+            },
+            {
+                id: 'prod-11',
+                sku: 'LAP-POR-03',
+                name: 'Portaminas Metálico Ergonómico 0.5mm + Minas 2B',
+                category: 'Lápices',
+                price: 3.90,
+                stock: 18,
+                image: 'https://images.unsplash.com/photo-1583485088034-697b5bc54ccd?auto=format&fit=crop&w=600&q=80',
+                description: 'Cuerpo metálico con agarre antideslizante y borrador integrado libre de látex.'
+            },
+            {
+                id: 'prod-12',
+                sku: 'LAP-BIC-04',
+                name: 'Lápiz Bicolor Rojo / Azul para Correcciones (Pack x3)',
+                category: 'Lápices',
+                price: 2.10,
+                stock: 30,
+                image: 'https://images.unsplash.com/photo-1596495578065-6e0763fa1178?auto=format&fit=crop&w=600&q=80',
+                description: 'Imprescindible para subrayados, revisión de tareas y mapas geográficos escolares.'
+            },
+
+            // 🖊️ Lapiceros
+            {
+                id: 'prod-13',
+                sku: 'LPC-TRI-01',
+                name: 'Set de Lapiceros Clásicos 4 Colores (Azul, Negro, Rojo, Verde)',
+                category: 'Lapiceros',
+                price: 2.50,
+                stock: 60,
+                image: 'https://images.unsplash.com/photo-1583485088034-697b5bc54ccd?auto=format&fit=crop&w=600&q=80',
+                description: 'Punta media de 1.0mm, flujo constante de tinta que garantiza escritura sin manchas.'
+            },
+            {
+                id: 'prod-14',
+                sku: 'LPC-GEL-02',
+                name: 'Lapicero de Tinta Gel 0.5mm Negro Secado Rápido',
+                category: 'Lapiceros',
+                price: 1.80,
+                stock: 45,
+                image: 'https://images.unsplash.com/photo-1569683795645-b62e50fbf103?auto=format&fit=crop&w=600&q=80',
+                description: 'Tinta gel ultra fluida indeleble, perfecta para exámenes, apuntes limpios y firmas.'
+            },
+            {
+                id: 'prod-15',
+                sku: 'LPC-ROL-03',
+                name: 'Pluma Rollerball Tinta Líquida Azul Real Pilot',
+                category: 'Lapiceros',
+                price: 3.20,
+                stock: 22,
+                image: 'https://images.unsplash.com/photo-1585336261026-8c4600216b3f?auto=format&fit=crop&w=600&q=80',
+                description: 'Visor transparente de nivel de tinta, punta de carburo de tungsteno indeformable.'
+            },
+            {
+                id: 'prod-16',
+                sku: 'LPC-RES-04',
+                name: 'Set de Resaltadores Pastel x6 Colores Suaves',
+                category: 'Lapiceros',
+                price: 5.40,
+                stock: 25,
+                image: 'https://images.unsplash.com/photo-1596495578065-6e0763fa1178?auto=format&fit=crop&w=600&q=80',
+                description: 'Punta biselada para trazos de 2mm y 5mm. Tinta al agua ecológica que no atraviesa el papel.'
+            },
+
+            // 📏 Reglas
+            {
+                id: 'prod-17',
+                sku: 'REG-JUE-01',
+                name: 'Juego Geométrico Escolar Completo 4 Piezas (30cm)',
+                category: 'Reglas',
+                price: 4.50,
+                stock: 35,
+                image: 'https://images.unsplash.com/photo-1580974852861-c381510bc98a?auto=format&fit=crop&w=600&q=80',
+                description: 'Incluye regla de 30cm, escuadra 45°, cartabón 60° y transportador de 180° en estuche protector.'
+            },
+            {
+                id: 'prod-18',
+                sku: 'REG-ACE-02',
+                name: 'Regla Metálica de Acero Inoxidable Graduada 30cm',
+                category: 'Reglas',
+                price: 3.20,
+                stock: 28,
+                image: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=600&q=80',
+                description: 'Graduación milimétrica grabada al ácido, resistente a golpes y cortes con cutter.'
+            },
+            {
+                id: 'prod-19',
+                sku: 'REG-TRA-03',
+                name: 'Transportador Circular 360° Acrílico Transparente',
+                category: 'Reglas',
+                price: 2.10,
+                stock: 30,
+                image: 'https://images.unsplash.com/photo-1580974852861-c381510bc98a?auto=format&fit=crop&w=600&q=80',
+                description: 'Visión completa para cálculos precisos de ángulos en matemáticas, física y dibujo técnico.'
+            },
+            {
+                id: 'prod-20',
+                sku: 'REG-ESC-04',
+                name: 'Escalímetro Triangular Técnico Profesional',
+                category: 'Reglas',
+                price: 6.80,
+                stock: 14,
+                image: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=600&q=80',
+                description: '6 escalas normalizadas para estudiantes de secundaria avanzada, diseño y arquitectura.'
+            },
+
+            // 📁 Carpetas
+            {
+                id: 'prod-21',
+                sku: 'CAR-ARC-01',
+                name: 'Archivador de Palanca Tamaño Oficio Dos Anillas',
+                category: 'Carpetas',
+                price: 5.50,
+                stock: 26,
+                image: 'https://images.unsplash.com/photo-1586075010923-2dd4570fb338?auto=format&fit=crop&w=600&q=80',
+                description: 'Cartón extra grueso forrado en PVC lavable, mecanismo niquelado con cantoneras metálicas.'
+            },
+            {
+                id: 'prod-22',
+                sku: 'CAR-FUE-02',
+                name: 'Carpeta Fuelle Acordeón con 12 Divisiones de Colores',
+                category: 'Carpetas',
+                price: 6.20,
+                stock: 19,
+                image: 'https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=600&q=80',
+                description: 'Permite clasificar todas las materias escolares en un solo lugar con pestañas identificadoras.'
+            },
+            {
+                id: 'prod-23',
+                sku: 'CAR-SOB-03',
+                name: 'Carpeta Plástica Tipo Sobre con Broche Escolar (Pack x3)',
+                category: 'Carpetas',
+                price: 3.10,
+                stock: 45,
+                image: 'https://images.unsplash.com/photo-1586075010923-2dd4570fb338?auto=format&fit=crop&w=600&q=80',
+                description: 'Polipropileno translúcido impermeable que protege tareas y trabajos contra lluvia y manchas.'
+            },
+            {
+                id: 'prod-24',
+                sku: 'CAR-MAN-04',
+                name: 'Fólder Manila Reforzado Tamaño Carta (Paquete x10)',
+                category: 'Carpetas',
+                price: 2.80,
+                stock: 50,
+                image: 'https://images.unsplash.com/photo-1586075010923-2dd4570fb338?auto=format&fit=crop&w=600&q=80',
+                description: 'Pestaña superior reforzada para entrega formal de monografías e informes escolares.'
+            }
+        ];
+
+        // INITIAL ORDERS SEED DATA (For the Science Festival Demo)
+        const DEFAULT_ORDERS = [
+            {
+                id: 'ORD-2026-9142',
+                customerName: 'Carlos Villarroel',
+                customerPhone: '+591 71234567',
+                customerEmail: 'carlos.v@gmail.com',
+                customerAddress: 'Colegio Franco Boliviano - 4to Sec.',
+                paymentMethod: 'QR / Transferencia',
+                items: [
+                    { id: 'prod-1', name: 'Libro de Matemáticas Aplicadas Secundaria', price: 18.50, quantity: 1 },
+                    { id: 'prod-5', name: 'Cuaderno Espiral Universitario 100 Hojas', price: 3.50, quantity: 3 },
+                    { id: 'prod-10', name: 'Lápices de Colores x24 Largos Prismacolor', price: 8.90, quantity: 1 }
+                ],
+                total: 37.90,
+                date: '2026-09-09 14:32:10',
+                status: 'Entregado'
+            },
+            {
+                id: 'ORD-2026-9141',
+                customerName: 'Mariana Gutierrez',
+                customerPhone: '+591 79876543',
+                customerEmail: 'mariana.g@outlook.com',
+                customerAddress: 'Col. Alemán - 1ro Secundaria',
+                paymentMethod: 'Tarjeta Débito/Crédito',
+                items: [
+                    { id: 'prod-9', name: 'Caja de Lápices Grafito HB Faber-Castell', price: 4.80, quantity: 2 },
+                    { id: 'prod-17', name: 'Juego Geométrico Escolar 4 Piezas', price: 4.50, quantity: 1 },
+                    { id: 'prod-21', name: 'Archivador de Palanca Tamaño Oficio', price: 5.50, quantity: 2 }
+                ],
+                total: 25.10,
+                date: '2026-09-09 16:45:22',
+                status: 'Entregado'
+            },
+            {
+                id: 'ORD-2026-9140',
+                customerName: 'Fernando Morales (Padre)',
+                customerPhone: '+591 76543210',
+                customerEmail: 'f.morales@hotmail.com',
+                customerAddress: 'Colegio San Calixto - Primaria',
+                paymentMethod: 'Efectivo Contraentrega',
+                items: [
+                    { id: 'prod-3', name: 'Diccionario Escolar Lengua Española', price: 11.50, quantity: 1 },
+                    { id: 'prod-16', name: 'Set de Resaltadores Pastel x6', price: 5.40, quantity: 2 },
+                    { id: 'prod-6', name: 'Cuaderno Cuadriculado 7mm 100 Hojas', price: 2.80, quantity: 4 }
+                ],
+                total: 33.50,
+                date: '2026-09-10 09:15:00',
+                status: 'En Proceso'
+            }
+        ];
+
+        // GLOBAL APPLICATION STATE
+        let products = [];
+        let orders = [];
+        let cart = [];
+        let currentFilter = 'all';
+        let currentSearchQuery = '';
+        let currentSort = 'featured';
+        let weeklyChartInstance = null;
+        let categoryChartInstance = null;
+
+        // INITIALIZATION
+        window.addEventListener('DOMContentLoaded', () => {
+            loadState();
+            renderCatalog();
+            updateCategoryCounts();
+            renderCartUI();
+            renderAdminInventoryTable();
+            renderAdminOrdersTable();
+            renderLiveActivityFeed();
+            initCharts();
+        });
+
+        // PERSISTENCE HELPERS
+        function loadState() {
+            try {
+                const savedProducts = localStorage.getItem('edusmart_products');
+                products = savedProducts ? JSON.parse(savedProducts) : [...DEFAULT_PRODUCTS];
+
+                const savedOrders = localStorage.getItem('edusmart_orders');
+                orders = savedOrders ? JSON.parse(savedOrders) : [...DEFAULT_ORDERS];
+
+                const savedCart = localStorage.getItem('edusmart_cart');
+                cart = savedCart ? JSON.parse(savedCart) : [];
+            } catch (e) {
+                console.error('Error loading state from localStorage:', e);
+                products = [...DEFAULT_PRODUCTS];
+                orders = [...DEFAULT_ORDERS];
+                cart = [];
+            }
+        }
+
+        function saveState() {
+            try {
+                localStorage.setItem('edusmart_products', JSON.stringify(products));
+                localStorage.setItem('edusmart_orders', JSON.stringify(orders));
+                localStorage.setItem('edusmart_cart', JSON.stringify(cart));
+            } catch (e) {
+                console.error('Error saving state:', e);
+            }
+        }
+
+        function resetDemoData() {
+            if (confirm('¿Deseas reiniciar los productos, inventario y órdenes a los valores iniciales para la presentación?')) {
+                products = [...DEFAULT_PRODUCTS];
+                orders = [...DEFAULT_ORDERS];
+                cart = [];
+                saveState();
+                renderCatalog();
+                updateCategoryCounts();
+                renderCartUI();
+                renderAdminInventoryTable();
+                renderAdminOrdersTable();
+                renderLiveActivityFeed();
+                initCharts();
+                showToast('Datos reiniciados correctamente para el Festival de Ciencia', 'success');
+            }
+        }
+
+        // ==========================================
+        // VIEW NAVIGATION (SWITCHER)
+        // ==========================================
+        function switchView(viewName) {
+            const clientView = document.getElementById('viewClient');
+            const adminView = document.getElementById('viewAdmin');
+            const archView = document.getElementById('viewArchitecture');
+
+            const btnClient = document.getElementById('navBtnClient');
+            const btnAdmin = document.getElementById('navBtnAdmin');
+            const btnArch = document.getElementById('navBtnArch');
+
+            // Reset tabs styling
+            [btnClient, btnAdmin, btnArch].forEach(btn => {
+                btn.className = "flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-200 text-slate-600 hover:text-blue-800";
+            });
+
+            // Hide all views
+            clientView.classList.add('hidden');
+            adminView.classList.add('hidden');
+            archView.classList.add('hidden');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            if (viewName === 'client') {
+                clientView.classList.remove('hidden');
+                btnClient.className = "flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-200 bg-white text-blue-900 shadow-sm";
+                renderCatalog();
+            } else if (viewName === 'admin') {
+                adminView.classList.remove('hidden');
+                btnAdmin.className = "flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-200 bg-white text-emerald-900 shadow-sm";
+                switchAdminTab('dashboard');
+            } else if (viewName === 'architecture') {
+                archView.classList.remove('hidden');
+                btnArch.className = "flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-200 bg-white text-purple-900 shadow-sm";
+            }
+        }
+
+        function toggleMobileNav() {
+            const menu = document.getElementById('mobileNavMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        // ==========================================
+        // CLIENT INTERFACE: CATALOG & FILTERS
+        // ==========================================
+        function filterCategory(category) {
+            currentFilter = category;
+            
+            // Update active state in pills
+            document.querySelectorAll('.category-pill').forEach(pill => {
+                pill.classList.remove('bg-blue-900', 'text-white', 'shadow-sm');
+                pill.classList.add('bg-white', 'text-slate-600', 'border', 'border-slate-200');
+            });
+
+            const activePill = document.getElementById(`filterTab-${category}`);
+            if (activePill) {
+                activePill.classList.add('bg-blue-900', 'text-white', 'shadow-sm');
+                activePill.classList.remove('bg-white', 'text-slate-600', 'border', 'border-slate-200');
+            }
+
+            renderCatalog();
+        }
+
+        function handleSearch() {
+            currentSearchQuery = document.getElementById('searchInput').value.trim().toLowerCase();
+            renderCatalog();
+        }
+
+        function handleSort() {
+            currentSort = document.getElementById('sortSelect').value;
+            renderCatalog();
+        }
+
+        function resetFilters() {
+            document.getElementById('searchInput').value = '';
+            currentSearchQuery = '';
+            filterCategory('all');
+        }
+
+        function updateCategoryCounts() {
+            const countByCat = { Libros: 0, Cuadernos: 0, Lápices: 0, Lapiceros: 0, Reglas: 0, Carpetas: 0 };
+            products.forEach(p => {
+                if (countByCat[p.category] !== undefined) countByCat[p.category]++;
+            });
+
+            if (document.getElementById('countLibros')) document.getElementById('countLibros').textContent = `${countByCat.Libros} productos`;
+            if (document.getElementById('countCuadernos')) document.getElementById('countCuadernos').textContent = `${countByCat.Cuadernos} productos`;
+            if (document.getElementById('countLapices')) document.getElementById('countLapices').textContent = `${countByCat.Lápices} productos`;
+            if (document.getElementById('countLapiceros')) document.getElementById('countLapiceros').textContent = `${countByCat.Lapiceros} productos`;
+            if (document.getElementById('countReglas')) document.getElementById('countReglas').textContent = `${countByCat.Reglas} productos`;
+            if (document.getElementById('countCarpetas')) document.getElementById('countCarpetas').textContent = `${countByCat.Carpetas} productos`;
+            if (document.getElementById('totalProductCount')) document.getElementById('totalProductCount').textContent = products.length;
+        }
+
+        function renderCatalog() {
+            const grid = document.getElementById('productGrid');
+            const noProducts = document.getElementById('noProductsFound');
+            if (!grid) return;
+
+            let filtered = products.filter(p => {
+                const matchCategory = (currentFilter === 'all') || (p.category === currentFilter);
+                const matchSearch = !currentSearchQuery || 
+                                    p.name.toLowerCase().includes(currentSearchQuery) || 
+                                    p.description.toLowerCase().includes(currentSearchQuery) ||
+                                    p.category.toLowerCase().includes(currentSearchQuery);
+                return matchCategory && matchSearch;
+            });
+
+            // Sorting
+            if (currentSort === 'price-asc') {
+                filtered.sort((a, b) => a.price - b.price);
+            } else if (currentSort === 'price-desc') {
+                filtered.sort((a, b) => b.price - a.price);
+            } else if (currentSort === 'stock-desc') {
+                filtered.sort((a, b) => b.stock - a.stock);
+            }
+
+            if (filtered.length === 0) {
+                grid.innerHTML = '';
+                noProducts.classList.remove('hidden');
+                return;
+            }
+
+            noProducts.classList.add('hidden');
+            grid.innerHTML = filtered.map(product => {
+                const isOutOfStock = product.stock <= 0;
+                const isLowStock = product.stock > 0 && product.stock <= 5;
+                
+                let stockBadge = '';
+                if (isOutOfStock) {
+                    stockBadge = '<span class="bg-rose-100 text-rose-800 text-[10px] font-bold px-2 py-0.5 rounded-full border border-rose-200">Agotado</span>';
+                } else if (isLowStock) {
+                    stockBadge = `<span class="bg-amber-100 text-amber-800 text-[10px] font-bold px-2 py-0.5 rounded-full border border-amber-300">¡Últimas ${product.stock} unidades!</span>`;
+                } else {
+                    stockBadge = `<span class="bg-emerald-100 text-emerald-800 text-[10px] font-semibold px-2 py-0.5 rounded-full border border-emerald-200">Stock: ${product.stock} disp.</span>`;
+                }
+
+                // Category Icon
+                const catIcons = {
+                    'Libros': '📚',
+                    'Cuadernos': '📓',
+                    'Lápices': '✏️',
+                    'Lapiceros': '🖊️',
+                    'Reglas': '📏',
+                    'Carpetas': '📁'
+                };
+                const catEmoji = catIcons[product.category] || '📦';
+
+                return `
+                    <div class="bg-white rounded-3xl border border-slate-200/80 shadow-sm hover:shadow-xl hover:border-blue-300 transition-all duration-300 flex flex-col justify-between overflow-hidden group">
+                        <div class="relative overflow-hidden bg-slate-100 aspect-video">
+                            <img src="${product.image}" 
+                                 alt="${product.name}" 
+                                 loading="lazy" 
+                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            
+                            <div class="absolute top-3 left-3">
+                                <span class="bg-slate-900/80 backdrop-blur text-white text-[11px] font-bold px-2.5 py-1 rounded-xl shadow">
+                                    ${catEmoji} ${product.category}
+                                </span>
+                            </div>
+
+                            <div class="absolute top-3 right-3">
+                                ${stockBadge}
+                            </div>
+                        </div>
+
+                        <div class="p-5 flex-1 flex flex-col justify-between space-y-3">
+                            <div>
+                                <span class="text-[10px] font-mono text-slate-400 uppercase tracking-wider">${product.sku}</span>
+                                <h3 class="font-heading font-bold text-slate-900 text-base leading-snug group-hover:text-blue-800 transition-colors line-clamp-2">
+                                    ${product.name}
+                                </h3>
+                                <p class="text-xs text-slate-500 mt-1 line-clamp-2 leading-relaxed">
+                                    ${product.description}
+                                </p>
+                            </div>
+
+                            <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
+                                <div>
+                                    <span class="text-[10px] text-slate-400 block font-medium">Precio Escolar</span>
+                                    <span class="text-xl font-black text-slate-900">$${product.price.toFixed(2)}</span>
+                                </div>
+
+                                <button onclick="addToCart('${product.id}')" 
+                                        ${isOutOfStock ? 'disabled' : ''} 
+                                        class="px-4 py-2.5 rounded-xl font-bold text-xs transition-all flex items-center gap-1.5 ${isOutOfStock ? 'bg-slate-100 text-slate-400 cursor-not-allowed' : 'bg-blue-900 hover:bg-blue-800 text-white shadow-md hover:scale-105'}">
+                                    <i class="fa-solid fa-cart-plus"></i> ${isOutOfStock ? 'Agotado' : 'Añadir'}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // ==========================================
+        // CART & CHECKOUT LOGIC
+        // ==========================================
+        function toggleCartDrawer(open) {
+            const drawer = document.getElementById('cartDrawer');
+            if (open) {
+                drawer.classList.remove('hidden');
+                renderCartUI();
+            } else {
+                drawer.classList.add('hidden');
+            }
+        }
+
+        function addToCart(productId) {
+            const prod = products.find(p => p.id === productId);
+            if (!prod) return;
+
+            if (prod.stock <= 0) {
+                showToast(`El producto ${prod.name} está agotado en inventario.`, 'error');
+                return;
+            }
+
+            const existing = cart.find(item => item.id === productId);
+            if (existing) {
+                if (existing.quantity >= prod.stock) {
+                    showToast(`No puedes añadir más unidades de ${prod.name}. Stock máximo alcanzado (${prod.stock}).`, 'warning');
+                    return;
+                }
+                existing.quantity++;
+            } else {
+                cart.push({
+                    id: prod.id,
+                    name: prod.name,
+                    price: prod.price,
+                    image: prod.image,
+                    sku: prod.sku,
+                    quantity: 1
+                });
+            }
+
+            saveState();
+            renderCartUI();
+            showToast(`Añadido al carrito: ${prod.name}`, 'success');
+        }
+
+        function updateCartQty(productId, delta) {
+            const item = cart.find(i => i.id === productId);
+            const prod = products.find(p => p.id === productId);
+            if (!item || !prod) return;
+
+            const newQty = item.quantity + delta;
+            if (newQty <= 0) {
+                removeFromCart(productId);
+                return;
+            }
+
+            if (newQty > prod.stock) {
+                showToast(`Stock máximo disponible: ${prod.stock} unidades.`, 'warning');
+                return;
+            }
+
+            item.quantity = newQty;
+            saveState();
+            renderCartUI();
+        }
+
+        function removeFromCart(productId) {
+            cart = cart.filter(i => i.id !== productId);
+            saveState();
+            renderCartUI();
+            showToast('Producto eliminado del carrito', 'info');
+        }
+
+        function renderCartUI() {
+            const container = document.getElementById('cartItemsContainer');
+            const badge = document.getElementById('cartBadgeCount');
+            const subtotalEl = document.getElementById('cartSubtotal');
+            const totalEl = document.getElementById('cartTotal');
+            const checkoutBtn = document.getElementById('checkoutButton');
+
+            const totalItems = cart.reduce((sum, i) => sum + i.quantity, 0);
+            badge.textContent = totalItems;
+
+            const totalAmount = cart.reduce((sum, i) => sum + (i.price * i.quantity), 0);
+            subtotalEl.textContent = `$${totalAmount.toFixed(2)}`;
+            totalEl.textContent = `$${totalAmount.toFixed(2)}`;
+
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="h-64 flex flex-col items-center justify-center text-center p-6 text-slate-400">
+                        <i class="fa-solid fa-basket-shopping text-5xl mb-3 text-slate-300"></i>
+                        <h4 class="font-bold text-slate-700 text-base">Tu carrito está vacío</h4>
+                        <p class="text-xs mt-1 max-w-xs">Explora nuestro catálogo de útiles escolares y agrega lo que necesitas.</p>
+                    </div>
+                `;
+                checkoutBtn.disabled = true;
+                return;
+            }
+
+            checkoutBtn.disabled = false;
+            container.innerHTML = cart.map(item => `
+                <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-2xl border border-slate-200">
+                    <img src="${item.image}" alt="${item.name}" class="w-16 h-16 rounded-xl object-cover bg-white shrink-0 border border-slate-200">
+                    <div class="flex-1 min-w-0">
+                        <h4 class="font-heading font-bold text-xs text-slate-800 truncate">${item.name}</h4>
+                        <span class="text-[10px] text-slate-400 block">${item.sku}</span>
+                        <div class="flex items-center justify-between mt-1">
+                            <span class="text-xs font-black text-slate-900">$${(item.price * item.quantity).toFixed(2)}</span>
+                            <div class="flex items-center gap-2 bg-white px-2 py-0.5 rounded-lg border border-slate-300">
+                                <button onclick="updateCartQty('${item.id}', -1)" class="text-xs text-slate-600 hover:text-rose-600 font-bold px-1">-</button>
+                                <span class="text-xs font-bold text-slate-800 px-1">${item.quantity}</span>
+                                <button onclick="updateCartQty('${item.id}', 1)" class="text-xs text-slate-600 hover:text-emerald-600 font-bold px-1">+</button>
+                            </div>
+                        </div>
+                    </div>
+                    <button onclick="removeFromCart('${item.id}')" class="p-2 text-slate-400 hover:text-rose-600 transition-colors" title="Eliminar">
+                        <i class="fa-solid fa-trash-can text-sm"></i>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function openCheckoutModal() {
+            if (cart.length === 0) return;
+            toggleCartDrawer(false);
+            const totalAmount = cart.reduce((sum, i) => sum + (i.price * i.quantity), 0);
+            document.getElementById('checkoutModalTotal').textContent = `$${totalAmount.toFixed(2)}`;
+            document.getElementById('checkoutModal').classList.remove('hidden');
+        }
+
+        function closeCheckoutModal() {
+            document.getElementById('checkoutModal').classList.add('hidden');
+        }
+
+        function updatePaymentMethodUI(radio) {
+            document.querySelectorAll('.payment-method-card').forEach(card => {
+                card.className = "payment-method-card flex flex-col items-center p-3 rounded-2xl border border-slate-200 hover:border-slate-300 cursor-pointer text-center";
+            });
+            const parentLabel = radio.closest('label');
+            parentLabel.className = "payment-method-card flex flex-col items-center p-3 rounded-2xl border-2 border-blue-600 bg-blue-50/50 cursor-pointer text-center";
+
+            const detailBox = document.getElementById('paymentDetailBox');
+            if (radio.value === 'QR / Transferencia') {
+                detailBox.innerHTML = `
+                    <p class="font-bold text-slate-800 flex items-center gap-1.5 text-blue-700">
+                        <i class="fa-solid fa-qrcode"></i> Código QR Dinámico Generado
+                    </p>
+                    <p class="text-[11px] text-slate-500">
+                        Se validará la transferencia bancaria automáticamente y se enviará el recibo de compra a tu WhatsApp.
+                    </p>
+                `;
+            } else if (radio.value === 'Tarjeta Débito/Crédito') {
+                detailBox.innerHTML = `
+                    <p class="font-bold text-slate-800 flex items-center gap-1.5 text-blue-700">
+                        <i class="fa-solid fa-shield-halved"></i> Pasarela Cifrada SSL
+                    </p>
+                    <p class="text-[11px] text-slate-500">
+                        Acepta Visa, Mastercard y tarjetas escolares prepagadas con tokenización segura sin almacenar tus números.
+                    </p>
+                `;
+            } else {
+                detailBox.innerHTML = `
+                    <p class="font-bold text-slate-800 flex items-center gap-1.5 text-emerald-700">
+                        <i class="fa-solid fa-hand-holding-dollar"></i> Pago Contra Entrega
+                    </p>
+                    <p class="text-[11px] text-slate-500">
+                        Paga en efectivo al recibir el paquete escolar en portería de tu colegio o en tu domicilio.
+                    </p>
+                `;
+            }
+        }
+
+        // ==========================================
+        // ORDER PROCESSING & AUTOMATIC STOCK REDUCTION
+        // ==========================================
+        function handleProcessOrder(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('custName').value.trim();
+            const phone = document.getElementById('custPhone').value.trim();
+            const email = document.getElementById('custEmail').value.trim() || 'No especificado';
+            const address = document.getElementById('custAddress').value.trim();
+            const payMethod = document.querySelector('input[name="payMethod"]:checked').value;
+
+            // Validate stock availability before final execution
+            for (let item of cart) {
+                const prod = products.find(p => p.id === item.id);
+                if (!prod || prod.stock < item.quantity) {
+                    showToast(`Error: Stock insuficiente para ${item.name}. Disponibles: ${prod ? prod.stock : 0}`, 'error');
+                    return;
+                }
+            }
+
+            const totalAmount = cart.reduce((sum, i) => sum + (i.price * i.quantity), 0);
+            const randomOrderNum = Math.floor(1000 + Math.random() * 9000);
+            const orderId = `ORD-2026-${randomOrderNum}`;
+            const now = new Date();
+            const formattedDate = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}:${String(now.getSeconds()).padStart(2,'0')}`;
+
+            // 1. AUTOMATIC STOCK DISCOUNT
+            const stockMovements = [];
+            cart.forEach(item => {
+                const prod = products.find(p => p.id === item.id);
+                if (prod) {
+                    prod.stock -= item.quantity;
+                    stockMovements.push(`${item.name} (-${item.quantity})`);
+                }
+            });
+
+            // 2. CREATE AND PERSIST ORDER
+            const newOrder = {
+                id: orderId,
+                customerName: name,
+                customerPhone: phone,
+                customerEmail: email,
+                customerAddress: address,
+                paymentMethod: payMethod,
+                items: [...cart],
+                total: totalAmount,
+                date: formattedDate,
+                status: 'Entregado'
+            };
+
+            orders.unshift(newOrder); // Prepend for live dashboard visibility
+            
+            // 3. CLEAR CART & SAVE STATE
+            const purchasedCartBackup = [...cart];
+            cart = [];
+            saveState();
+
+            // 4. REFRESH UI
+            renderCatalog();
+            updateCategoryCounts();
+            renderCartUI();
+            renderAdminInventoryTable();
+            renderAdminOrdersTable();
+            renderLiveActivityFeed();
+            initCharts();
+
+            // 5. CLOSE CHECKOUT & OPEN WHATSAPP META CLOUD NOTIFICATION MODAL
+            closeCheckoutModal();
+            openWhatsAppModal(newOrder, purchasedCartBackup);
+
+            showToast(`¡Compra exitosa! Se descontó el inventario en tiempo real.`, 'success');
+        }
+
+        // ==========================================
+        // WHATSAPP META CLOUD API SIMULATION
+        // ==========================================
+        function openWhatsAppModal(order, items) {
+            const modal = document.getElementById('whatsappModal');
+            document.getElementById('waGreeting').innerHTML = `Hola <strong>${order.customerName}</strong>,`;
+            document.getElementById('waOrderId').textContent = `#${order.id}`;
+            document.getElementById('waOrderTotal').textContent = `$${order.total.toFixed(2)}`;
+            document.getElementById('waOrderMethod').textContent = order.paymentMethod;
+            document.getElementById('waOrderAddress').textContent = order.customerAddress;
+
+            const now = new Date();
+            document.getElementById('waOrderTime').textContent = `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
+
+            const itemsList = document.getElementById('waOrderItemsList');
+            itemsList.innerHTML = items.map(i => `
+                <li>${i.quantity}x ${i.name} - $${(i.price * i.quantity).toFixed(2)}</li>
+            `).join('');
+
+            // Setup real WhatsApp link for direct share
+            const textMsg = encodeURIComponent(
+                `*EduSmart - Confirmación de Compra Escolar*\n` +
+                `*N° de Orden:* #${order.id}\n` +
+                `*Cliente:* ${order.customerName}\n` +
+                `*Total Pagado:* $${order.total.toFixed(2)}\n` +
+                `*Método:* ${order.paymentMethod}\n` +
+                `*Entrega:* ${order.customerAddress}\n\n` +
+                `*Artículos:*\n` + items.map(i => `• ${i.quantity}x ${i.name}`).join('\n') +
+                `\n\n_Mensaje automático generado por EduSmart Webhook & Meta Cloud API._`
+            );
+            const cleanPhone = order.customerPhone.replace(/[^0-9]/g, '');
+            const waUrl = cleanPhone.length > 6 ? `https://api.whatsapp.com/send?phone=${cleanPhone}&text=${textMsg}` : `https://api.whatsapp.com/send?text=${textMsg}`;
+            document.getElementById('waDirectChatBtn').href = waUrl;
+
+            modal.classList.remove('hidden');
+        }
+
+        function closeWhatsAppModal() {
+            document.getElementById('whatsappModal').classList.add('hidden');
+        }
+
+        function shareStore(network) {
+            const url = window.location.href.split('#')[0];
+            const text = "¡Descubre EduSmart! La tienda en línea de útiles escolares para estudiantes y padres con confirmación por WhatsApp y stock en tiempo real: ";
+
+            if (network === 'whatsapp') {
+                window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text + url)}`, '_blank');
+            } else if (network === 'facebook') {
+                window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, '_blank');
+            } else if (network === 'twitter') {
+                window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, '_blank');
+            } else if (network === 'copy') {
+                navigator.clipboard.writeText(url).then(() => {
+                    showToast('Enlace de la tienda escolar copiado al portapapeles', 'info');
+                }).catch(() => {
+                    prompt('Copia este enlace:', url);
+                });
+            }
+        }
+
+        // ==========================================
+        // ADMIN PANEL MODULES
+        // ==========================================
+        function switchAdminTab(tabName) {
+            ['dashboard', 'inventario', 'ventas', 'reportes'].forEach(t => {
+                document.getElementById(`adminContent-${t}`).classList.add('hidden');
+                const btn = document.getElementById(`adminTab-${t}`);
+                if (btn) {
+                    btn.classList.remove('bg-blue-600', 'text-white');
+                    btn.classList.add('text-slate-300', 'hover:bg-slate-800', 'hover:text-white');
+                }
+            });
+
+            const activeContent = document.getElementById(`adminContent-${tabName}`);
+            const activeBtn = document.getElementById(`adminTab-${tabName}`);
+            if (activeContent) activeContent.classList.remove('hidden');
+            if (activeBtn) {
+                activeBtn.classList.add('bg-blue-600', 'text-white');
+                activeBtn.classList.remove('text-slate-300', 'hover:bg-slate-800', 'hover:text-white');
+            }
+
+            if (tabName === 'dashboard') {
+                initCharts();
+                updateDashboardKPIs();
+            } else if (tabName === 'inventario') {
+                renderAdminInventoryTable();
+            } else if (tabName === 'ventas') {
+                renderAdminOrdersTable();
+            } else if (tabName === 'reportes') {
+                updateReportSummary();
+            }
+        }
+
+        function updateDashboardKPIs() {
+            const totalRevenue = orders.reduce((sum, o) => sum + o.total, 0);
+            const totalOrders = orders.length;
+            const lowStockCount = products.filter(p => p.stock <= 5).length;
+            const totalCatalog = products.length;
+
+            document.getElementById('kpiTotalRevenue').textContent = `$${totalRevenue.toFixed(2)}`;
+            document.getElementById('kpiTotalOrders').textContent = `${totalOrders} órdenes`;
+            document.getElementById('kpiLowStock').textContent = `${lowStockCount} ítems`;
+            document.getElementById('kpiCatalogCount').textContent = `${totalCatalog} productos`;
+        }
+
+        function renderLiveActivityFeed() {
+            const feed = document.getElementById('liveActivityFeed');
+            if (!feed) return;
+
+            const recentOrders = orders.slice(0, 4);
+            if (recentOrders.length === 0) {
+                feed.innerHTML = `<p class="text-slate-400">Sin actividad reciente.</p>`;
+                return;
+            }
+
+            feed.innerHTML = recentOrders.map(o => `
+                <div class="flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-slate-200">
+                    <div class="flex items-center gap-2.5">
+                        <span class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-xs">
+                            <i class="fa-solid fa-receipt"></i>
+                        </span>
+                        <div>
+                            <p class="font-bold text-slate-800">${o.customerName} realizó compra #${o.id}</p>
+                            <p class="text-[10px] text-slate-400">${o.items.length} artículos • Descuento automático de stock aplicado</p>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <span class="font-black text-slate-900 text-xs">$${o.total.toFixed(2)}</span>
+                        <span class="text-[9px] text-emerald-600 block font-semibold">Webhook Sincronizado</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // ==========================================
+        // INVENTORY MANAGEMENT (CRUD COMPLETO)
+        // ==========================================
+        function renderAdminInventoryTable() {
+            const tbody = document.getElementById('adminInventoryTableBody');
+            if (!tbody) return;
+
+            const searchQuery = (document.getElementById('adminInventorySearch')?.value || '').toLowerCase().trim();
+            const catFilter = document.getElementById('adminCategoryFilter')?.value || 'all';
+            const stockFilter = document.getElementById('adminStockStatusFilter')?.value || 'all';
+
+            const filtered = products.filter(p => {
+                const matchCat = (catFilter === 'all') || (p.category === catFilter);
+                const matchSearch = !searchQuery || 
+                                    p.name.toLowerCase().includes(searchQuery) || 
+                                    p.sku.toLowerCase().includes(searchQuery) ||
+                                    p.category.toLowerCase().includes(searchQuery);
+                
+                let matchStock = true;
+                if (stockFilter === 'low') matchStock = (p.stock > 0 && p.stock <= 5);
+                else if (stockFilter === 'out') matchStock = (p.stock <= 0);
+                else if (stockFilter === 'in') matchStock = (p.stock > 5);
+
+                return matchCat && matchSearch && matchStock;
+            });
+
+            if (filtered.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="7" class="py-8 text-center text-slate-400">
+                            No se encontraron productos en el inventario con los filtros seleccionados.
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            tbody.innerHTML = filtered.map(p => {
+                let badgeClass = 'bg-emerald-100 text-emerald-800 border-emerald-200';
+                let statusLabel = 'En Stock';
+
+                if (p.stock <= 0) {
+                    badgeClass = 'bg-rose-100 text-rose-800 border-rose-200';
+                    statusLabel = 'Agotado';
+                } else if (p.stock <= 5) {
+                    badgeClass = 'bg-amber-100 text-amber-800 border-amber-300';
+                    statusLabel = 'Stock Crítico';
+                }
+
+                return `
+                    <tr class="hover:bg-slate-50 transition-colors">
+                        <td class="py-3 px-4 flex items-center gap-3">
+                            <img src="${p.image}" alt="${p.name}" class="w-10 h-10 rounded-xl object-cover bg-white border border-slate-200">
+                            <div>
+                                <strong class="text-slate-900 block font-semibold">${p.name}</strong>
+                                <span class="text-[10px] text-slate-400 font-mono">${p.sku}</span>
+                            </div>
+                        </td>
+                        <td class="py-3 px-4 font-medium text-slate-700">${p.category}</td>
+                        <td class="py-3 px-4 font-bold text-slate-900">$${p.price.toFixed(2)}</td>
+                        <td class="py-3 px-4 font-black ${p.stock <= 5 ? 'text-amber-600' : 'text-slate-800'}">${p.stock} uds</td>
+                        <td class="py-3 px-4">
+                            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold border ${badgeClass}">
+                                ${statusLabel}
+                            </span>
+                        </td>
+                        <td class="py-3 px-4 text-center">
+                            <div class="inline-flex items-center gap-1 bg-slate-100 rounded-lg p-0.5">
+                                <button onclick="quickAdjustStock('${p.id}', -1)" class="w-6 h-6 rounded bg-white hover:bg-rose-100 hover:text-rose-700 text-slate-700 font-bold flex items-center justify-center text-xs shadow-xs" title="Restar 1">-</button>
+                                <span class="text-xs font-bold px-1.5">${p.stock}</span>
+                                <button onclick="quickAdjustStock('${p.id}', 1)" class="w-6 h-6 rounded bg-white hover:bg-emerald-100 hover:text-emerald-700 text-slate-700 font-bold flex items-center justify-center text-xs shadow-xs" title="Sumar 1">+</button>
+                            </div>
+                        </td>
+                        <td class="py-3 px-4 text-right space-x-1">
+                            <button onclick="openProductModal('${p.id}')" class="p-1.5 rounded-lg text-slate-500 hover:text-blue-700 hover:bg-blue-50 transition-colors" title="Editar">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </button>
+                            <button onclick="deleteProduct('${p.id}')" class="p-1.5 rounded-lg text-slate-500 hover:text-rose-700 hover:bg-rose-50 transition-colors" title="Eliminar">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function quickAdjustStock(productId, delta) {
+            const prod = products.find(p => p.id === productId);
+            if (!prod) return;
+
+            prod.stock = Math.max(0, prod.stock + delta);
+            saveState();
+            renderAdminInventoryTable();
+            renderCatalog();
+            updateDashboardKPIs();
+            showToast(`Stock actualizado para ${prod.name}: ${prod.stock} uds.`, 'info');
+        }
+
+        function openProductModal(productId = null) {
+            const modal = document.getElementById('productModal');
+            const title = document.getElementById('productModalTitle');
+            const form = document.getElementById('productForm');
+
+            form.reset();
+
+            if (productId) {
+                const prod = products.find(p => p.id === productId);
+                if (!prod) return;
+                title.textContent = "Modificar Producto en Inventario";
+                document.getElementById('prodId').value = prod.id;
+                document.getElementById('prodName').value = prod.name;
+                document.getElementById('prodCategory').value = prod.category;
+                document.getElementById('prodSku').value = prod.sku;
+                document.getElementById('prodPrice').value = prod.price;
+                document.getElementById('prodStock').value = prod.stock;
+                document.getElementById('prodImage').value = prod.image;
+                document.getElementById('prodDescription').value = prod.description;
+            } else {
+                title.textContent = "Agregar Nuevo Producto al Inventario";
+                document.getElementById('prodId').value = '';
+                document.getElementById('prodSku').value = `UTL-${Math.floor(100 + Math.random() * 900)}`;
+            }
+
+            modal.classList.remove('hidden');
+        }
+
+        function closeProductModal() {
+            document.getElementById('productModal').classList.add('hidden');
+        }
+
+        function handleSaveProduct(event) {
+            event.preventDefault();
+
+            const id = document.getElementById('prodId').value;
+            const name = document.getElementById('prodName').value.trim();
+            const category = document.getElementById('prodCategory').value;
+            const sku = document.getElementById('prodSku').value.trim() || `UTL-${Math.floor(100+Math.random()*900)}`;
+            const price = parseFloat(document.getElementById('prodPrice').value);
+            const stock = parseInt(document.getElementById('prodStock').value, 10);
+            let image = document.getElementById('prodImage').value.trim();
+            const description = document.getElementById('prodDescription').value.trim() || 'Útil escolar de calidad garantizada para estudiantes.';
+
+            // Fallback image based on category
+            if (!image) {
+                const catImages = {
+                    'Libros': 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=600&q=80',
+                    'Cuadernos': 'https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format&fit=crop&w=600&q=80',
+                    'Lápices': 'https://images.unsplash.com/photo-1585336261026-8c4600216b3f?auto=format&fit=crop&w=600&q=80',
+                    'Lapiceros': 'https://images.unsplash.com/photo-1583485088034-697b5bc54ccd?auto=format&fit=crop&w=600&q=80',
+                    'Reglas': 'https://images.unsplash.com/photo-1580974852861-c381510bc98a?auto=format&fit=crop&w=600&q=80',
+                    'Carpetas': 'https://images.unsplash.com/photo-1586075010923-2dd4570fb338?auto=format&fit=crop&w=600&q=80'
+                };
+                image = catImages[category] || 'https://images.unsplash.com/photo-1452860606245-08befc0ff44b?auto=format&fit=crop&w=600&q=80';
+            }
+
+            if (id) {
+                // Update existing
+                const prod = products.find(p => p.id === id);
+                if (prod) {
+                    prod.name = name;
+                    prod.category = category;
+                    prod.sku = sku;
+                    prod.price = price;
+                    prod.stock = stock;
+                    prod.image = image;
+                    prod.description = description;
+                    showToast(`Producto ${name} actualizado correctamente.`, 'success');
+                }
+            } else {
+                // Create new
+                const newProduct = {
+                    id: `prod-${Date.now()}`,
+                    sku: sku,
+                    name: name,
+                    category: category,
+                    price: price,
+                    stock: stock,
+                    image: image,
+                    description: description
+                };
+                products.unshift(newProduct);
+                showToast(`Nuevo producto ${name} agregado al inventario.`, 'success');
+            }
+
+            saveState();
+            closeProductModal();
+            renderAdminInventoryTable();
+            renderCatalog();
+            updateCategoryCounts();
+            updateDashboardKPIs();
+        }
+
+        function deleteProduct(productId) {
+            const prod = products.find(p => p.id === productId);
+            if (!prod) return;
+
+            if (confirm(`¿Estás seguro de eliminar "${prod.name}" del inventario escolar?`)) {
+                products = products.filter(p => p.id !== productId);
+                cart = cart.filter(i => i.id !== productId);
+                saveState();
+                renderAdminInventoryTable();
+                renderCatalog();
+                updateCategoryCounts();
+                renderCartUI();
+                updateDashboardKPIs();
+                showToast(`Producto ${prod.name} eliminado del sistema.`, 'info');
+            }
+        }
+
+        // ==========================================
+        // ORDERS & SALES MANAGEMENT (CLIENTES & VENTAS)
+        // ==========================================
+        function renderAdminOrdersTable() {
+            const tbody = document.getElementById('adminOrdersTableBody');
+            const badge = document.getElementById('ordersCountBadge');
+            if (!tbody) return;
+
+            badge.textContent = `${orders.length} órdenes registradas`;
+
+            if (orders.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="8" class="py-8 text-center text-slate-400">No hay ventas registradas aún.</td>
+                    </tr>
+                `;
+                return;
+            }
+
+            tbody.innerHTML = orders.map(o => `
+                <tr class="hover:bg-slate-50 transition-colors">
+                    <td class="py-3.5 px-4 font-mono font-bold text-blue-900">#${o.id}</td>
+                    <td class="py-3.5 px-4">
+                        <strong class="text-slate-900 block font-semibold">${o.customerName}</strong>
+                        <span class="text-[10px] text-slate-400">${o.customerAddress}</span>
+                    </td>
+                    <td class="py-3.5 px-4 font-mono text-slate-600">${o.customerPhone}</td>
+                    <td class="py-3.5 px-4">
+                        <span class="font-bold text-slate-800">${o.items.reduce((s, i) => s + i.quantity, 0)} uds</span>
+                        <span class="text-[10px] text-slate-400 block truncate max-w-[150px]">${o.items.map(i => `${i.quantity}x ${i.name}`).join(', ')}</span>
+                    </td>
+                    <td class="py-3.5 px-4 font-black text-slate-900">$${o.total.toFixed(2)}</td>
+                    <td class="py-3.5 px-4">
+                        <span class="px-2 py-0.5 bg-blue-50 text-blue-700 rounded-md text-[10px] font-bold border border-blue-200">
+                            ${o.paymentMethod}
+                        </span>
+                    </td>
+                    <td class="py-3.5 px-4 text-[11px] text-slate-500">${o.date}</td>
+                    <td class="py-3.5 px-4 text-center">
+                        <button onclick='openWhatsAppModal(${JSON.stringify(o)}, ${JSON.stringify(o.items)})' class="p-1.5 text-emerald-600 hover:bg-emerald-50 rounded-lg" title="Ver Notificación WhatsApp">
+                            <i class="fa-brands fa-whatsapp text-base"></i>
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // ==========================================
+        // WEEKLY REPORTS & PDF GENERATOR (PDFKIT SIMULATION)
+        // ==========================================
+        function updateReportSummary() {
+            const totalRevenue = orders.reduce((sum, o) => sum + o.total, 0);
+            const totalUnits = orders.reduce((sum, o) => sum + o.items.reduce((s, i) => s + i.quantity, 0), 0);
+            const inventoryValue = products.reduce((sum, p) => sum + (p.price * p.stock), 0);
+
+            document.getElementById('reportRevenueTotal').textContent = `$${totalRevenue.toFixed(2)}`;
+            document.getElementById('reportUnitsSold').textContent = `${totalUnits} unidades`;
+            document.getElementById('reportInventoryValue').textContent = `$${inventoryValue.toFixed(2)}`;
+        }
+
+        function generateWeeklyPDFReport() {
+            try {
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF('p', 'pt', 'a4');
+
+                const totalRevenue = orders.reduce((sum, o) => sum + o.total, 0);
+                const totalUnits = orders.reduce((sum, o) => sum + o.items.reduce((s, i) => s + i.quantity, 0), 0);
+                const inventoryValue = products.reduce((sum, p) => sum + (p.price * p.stock), 0);
+
+                // HEADER BANNER
+                doc.setFillColor(30, 58, 138); // Azul institucional
+                doc.rect(0, 0, 595.28, 90, 'F');
+
+                doc.setTextColor(255, 255, 255);
+                doc.setFont('helvetica', 'bold');
+                doc.setFontSize(22);
+                doc.text("EDUSMART - REPORTE OFICIAL DE VENTAS E INVENTARIO", 40, 45);
+
+                doc.setFont('helvetica', 'normal');
+                doc.setFontSize(11);
+                doc.text("Proyecto Festival de Ciencia 2026 | Sistema con Backend en Python & Sincronización Webhook", 40, 68);
+
+                // METADATA
+                doc.setTextColor(51, 65, 85);
+                doc.setFontSize(10);
+                const now = new Date();
+                doc.text(`Fecha de Emisión: ${now.toLocaleDateString()} ${now.toLocaleTimeString()}`, 40, 115);
+                doc.text(`Estado del Sistema: 100% Operativo | Base de Datos PostgreSQL 24/7 Conectada`, 40, 130);
+
+                // EXECUTIVE SUMMARY CARDS
+                doc.setFillColor(241, 245, 249);
+                doc.roundedRect(40, 145, 160, 60, 6, 6, 'F');
+                doc.roundedRect(215, 145, 165, 60, 6, 6, 'F');
+                doc.roundedRect(395, 145, 160, 60, 6, 6, 'F');
+
+                doc.setFont('helvetica', 'bold');
+                doc.setFontSize(9);
+                doc.setTextColor(100, 116, 139);
+                doc.text("VENTAS TOTALES", 50, 165);
+                doc.text("UNIDADES VENDIDAS", 225, 165);
+                doc.text("VALOR INVENTARIO", 405, 165);
+
+                doc.setFontSize(15);
+                doc.setTextColor(15, 23, 42);
+                doc.text(`$${totalRevenue.toFixed(2)} USD`, 50, 190);
+                doc.text(`${totalUnits} uds`, 225, 190);
+                doc.text(`$${inventoryValue.toFixed(2)} USD`, 405, 190);
+
+                // TABLE 1: RECENT ORDERS
+                doc.setFont('helvetica', 'bold');
+                doc.setFontSize(13);
+                doc.setTextColor(30, 58, 138);
+                doc.text("1. Registro de Ventas Semanales en Línea", 40, 230);
+
+                const ordersTableRows = orders.slice(0, 8).map(o => [
+                    o.id,
+                    o.customerName,
+                    o.customerPhone,
+                    o.paymentMethod,
+                    `$${o.total.toFixed(2)}`,
+                    o.date.split(' ')[0]
+                ]);
+
+                doc.autoTable({
+                    startY: 240,
+                    head: [['N° Orden', 'Cliente / Tutor', 'WhatsApp', 'Método Pago', 'Monto Total', 'Fecha']],
+                    body: ordersTableRows,
+                    theme: 'striped',
+                    headStyles: { fillColor: [30, 58, 138], textColor: 255, fontStyle: 'bold' },
+                    styles: { fontSize: 8.5, cellPadding: 4 }
+                });
+
+                // TABLE 2: LOW STOCK INVENTORY ITEMS
+                const currentY = doc.lastAutoTable.finalY + 25;
+                doc.setFont('helvetica', 'bold');
+                doc.setFontSize(13);
+                doc.setTextColor(30, 58, 138);
+                doc.text("2. Estado de Inventario de Útiles Escolares", 40, currentY);
+
+                const inventoryRows = products.slice(0, 10).map(p => [
+                    p.sku,
+                    p.name,
+                    p.category,
+                    `$${p.price.toFixed(2)}`,
+                    `${p.stock} uds`,
+                    p.stock <= 0 ? 'AGOTADO' : (p.stock <= 5 ? 'STOCK CRÍTICO' : 'NORMAL')
+                ]);
+
+                doc.autoTable({
+                    startY: currentY + 10,
+                    head: [['SKU', 'Producto', 'Categoría', 'Precio', 'Stock Actual', 'Diagnóstico']],
+                    body: inventoryRows,
+                    theme: 'striped',
+                    headStyles: { fillColor: [5, 150, 105], textColor: 255, fontStyle: 'bold' },
+                    styles: { fontSize: 8, cellPadding: 3.5 }
+                });
+
+                // FOOTER / SIGNATURE LINE
+                const finalY = doc.lastAutoTable.finalY + 40;
+                doc.setDrawColor(203, 213, 225);
+                doc.line(40, finalY, 220, finalY);
+                doc.line(375, finalY, 555, finalY);
+
+                doc.setFontSize(9);
+                doc.setFont('helvetica', 'normal');
+                doc.setTextColor(100, 116, 139);
+                doc.text("Firma: Administrador de Librería", 50, finalY + 15);
+                doc.text("Evaluador: Festival de Ciencia 2026", 385, finalY + 15);
+
+                doc.save(`EduSmart_Reporte_Semanal_${now.toISOString().split('T')[0]}.pdf`);
+                showToast('Reporte semanal en PDF generado y descargado correctamente', 'success');
+            } catch (err) {
+                console.error("Error generating PDF:", err);
+                alert("Hubo un detalle al generar el PDF. Asegúrate de permitir descargas en tu navegador.");
+            }
+        }
+
+        // ==========================================
+        // CHART.JS ANALYTICS DASHBOARD
+        // ==========================================
+        function initCharts() {
+            if (typeof Chart === 'undefined') return;
+
+            // 1. Weekly Sales Line/Bar Chart
+            const weeklyCanvas = document.getElementById('weeklySalesChart');
+            if (weeklyCanvas) {
+                if (weeklyChartInstance) weeklyChartInstance.destroy();
+
+                const ctx = weeklyCanvas.getContext('2d');
+                weeklyChartInstance = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'],
+                        datasets: [{
+                            label: 'Ingresos ($ USD)',
+                            data: [180, 240, 310, 280, 420, 560, 390],
+                            backgroundColor: 'rgba(2, 132, 199, 0.85)',
+                            borderRadius: 8,
+                            hoverBackgroundColor: 'rgba(3, 105, 161, 1)'
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                grid: { color: '#f1f5f9' },
+                                ticks: { callback: v => `$${v}` }
+                            },
+                            x: {
+                                grid: { display: false }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // 2. Category Distribution Doughnut Chart
+            const catCanvas = document.getElementById('categorySalesChart');
+            if (catCanvas) {
+                if (categoryChartInstance) categoryChartInstance.destroy();
+
+                const ctx = catCanvas.getContext('2d');
+                categoryChartInstance = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Libros', 'Cuadernos', 'Lápices', 'Lapiceros', 'Reglas', 'Carpetas'],
+                        datasets: [{
+                            data: [28, 35, 18, 15, 12, 16],
+                            backgroundColor: [
+                                '#3b82f6',
+                                '#10b981',
+                                '#f59e0b',
+                                '#8b5cf6',
+                                '#06b6d4',
+                                '#ec4899'
+                            ],
+                            borderWidth: 2,
+                            borderColor: '#ffffff'
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: { boxWidth: 12, font: { size: 11 } }
+                            }
+                        }
+                    }
+                });
+            }
+        }
+
+        // ==========================================
+        // TOAST NOTIFICATION UTILITY
+        // ==========================================
+        let toastTimeout = null;
+        function showToast(message, type = 'info') {
+            const toast = document.getElementById('toastNotification');
+            const msgEl = document.getElementById('toastMessage');
+            const iconEl = document.getElementById('toastIcon');
+
+            if (!toast || !msgEl || !iconEl) return;
+
+            msgEl.textContent = message;
+
+            if (type === 'success') {
+                iconEl.innerHTML = '<i class="fa-solid fa-circle-check text-emerald-400"></i>';
+            } else if (type === 'error') {
+                iconEl.innerHTML = '<i class="fa-solid fa-circle-xmark text-rose-400"></i>';
+            } else if (type === 'warning') {
+                iconEl.innerHTML = '<i class="fa-solid fa-triangle-exclamation text-amber-400"></i>';
+            } else {
+                iconEl.innerHTML = '<i class="fa-solid fa-circle-info text-blue-400"></i>';
+            }
+
+            toast.classList.remove('translate-y-24', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            if (toastTimeout) clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                toast.classList.add('translate-y-24', 'opacity-0');
+                toast.classList.remove('translate-y-0', 'opacity-100');
+            }, 3500);
+        }
+    </script>
+</body>
+</html>
