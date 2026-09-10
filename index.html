@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EduSmart - Sistema Integral de Tienda Escolar & Gestión de Inventario</title>
+    <title>El Estudiante - Librería & Tienda de Útiles Escolares</title>
     <!-- Google Fonts: Inter & Poppins -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -94,12 +94,10 @@
             <div class="flex items-center justify-between h-20">
                 <!-- Logo & Brand -->
                 <div class="flex items-center gap-3 cursor-pointer" onclick="switchView('client')">
-                    <div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-blue-700 to-sky-500 flex items-center justify-center text-white shadow-md shadow-blue-500/20">
-                        <i class="fa-solid fa-graduation-cap text-2xl"></i>
-                    </div>
+                    <img src="logo.png" alt="Librería El Estudiante" class="w-12 h-12 object-contain hover:scale-105 transition-transform">
                     <div>
                         <div class="flex items-center gap-2">
-                            <span class="font-heading font-extrabold text-2xl tracking-tight text-blue-900">EduSmart</span>
+                            <span class="font-heading font-extrabold text-2xl tracking-tight text-blue-900">El Estudiante</span>
                             
                         </div>
                         <p class="text-xs text-slate-500 hidden sm:block font-medium">Tienda de útiles escolares</p>
@@ -636,7 +634,7 @@
                         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                             <div>
                                 <h2 class="text-2xl sm:text-3xl font-heading font-extrabold text-slate-900">Base de Datos Relacional SQL 🗄️</h2>
-                                <p class="text-sm text-slate-500">Inspección directa de las tablas relacionales de la base de datos SQL (<code class="font-mono bg-slate-200 px-1 py-0.5 rounded text-blue-900">edusmart.db</code>).</p>
+                                <p class="text-sm text-slate-500">Inspección directa de las tablas relacionales de la base de datos SQL (<code class="font-mono bg-slate-200 px-1 py-0.5 rounded text-blue-900">elestudiante.db</code>).</p>
                             </div>
                             <div class="flex items-center gap-2">
                                 <button onclick="openProductModal()" class="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl shadow flex items-center gap-1.5">
@@ -762,7 +760,7 @@
                             <div class="border-b border-slate-200 pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                                 <div>
                                     <span class="text-xs font-bold text-rose-600 uppercase tracking-wider">Reporte Semanal Consolidado</span>
-                                    <h3 class="text-xl font-heading font-black text-slate-900">Librería & Papelería Escolar EduSmart</h3>
+                                    <h3 class="text-xl font-heading font-black text-slate-900">Librería & Papelería Escolar El Estudiante</h3>
                                 </div>
                                 <div class="text-xs text-slate-500 font-medium">
                                     Período: <strong class="text-slate-800">Semana Escolar en Curso</strong> | Generado por: <strong class="text-slate-800">Python Flask & ReportLab Engine</strong>
@@ -1257,7 +1255,7 @@
                         </div>
                         <div>
                             <div class="flex items-center gap-1.5">
-                                <h4 class="font-bold text-sm">EduSmart Tienda Escolar</h4>
+                                <h4 class="font-bold text-sm">El Estudiante Tienda Escolar</h4>
                                 <i class="fa-solid fa-circle-check text-emerald-300 text-xs" title="Empresa Verificada Meta"></i>
                             </div>
                             <p class="text-[10px] text-emerald-100">Meta Cloud API • WhatsApp Oficial: <strong></strong></p>
@@ -1409,7 +1407,7 @@
     <footer class="bg-slate-900 text-slate-400 text-xs border-t border-slate-800 mt-auto py-8">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
             <div class="flex items-center justify-center gap-2 text-white font-heading font-bold text-lg">
-                <i class="fa-solid fa-graduation-cap text-blue-500"></i> EduSmart
+                <img src="logo.png" alt="Librería El Estudiante" class="w-8 h-8 object-contain"> Librería El Estudiante
             </div>
             <p class="text-slate-300 text-sm font-medium">
                 La librería está ubicada en la JJ Pérez, La Paz, Bolivia.
@@ -1426,7 +1424,7 @@
                 </button>
             </div>
             <p class="text-[11px] text-slate-500 pt-2 border-t border-slate-800">
-                &copy; 2026 EduSmart. Todos los derechos reservados.
+                &copy; 2026 El Estudiante. Todos los derechos reservados.
             </p>
         </div>
     </footer>
@@ -1775,13 +1773,13 @@
         // PERSISTENCE HELPERS
         function loadState() {
             try {
-                const savedProducts = localStorage.getItem('edusmart_products');
+                const savedProducts = localStorage.getItem('elestudiante_products');
                 products = savedProducts ? JSON.parse(savedProducts) : [...DEFAULT_PRODUCTS];
 
-                const savedOrders = localStorage.getItem('edusmart_orders');
+                const savedOrders = localStorage.getItem('elestudiante_orders');
                 orders = savedOrders ? JSON.parse(savedOrders) : [...DEFAULT_ORDERS];
 
-                const savedCart = localStorage.getItem('edusmart_cart');
+                const savedCart = localStorage.getItem('elestudiante_cart');
                 cart = savedCart ? JSON.parse(savedCart) : [];
             } catch (e) {
                 console.error('Error loading state from localStorage:', e);
@@ -1793,9 +1791,9 @@
 
         function saveState() {
             try {
-                localStorage.setItem('edusmart_products', JSON.stringify(products));
-                localStorage.setItem('edusmart_orders', JSON.stringify(orders));
-                localStorage.setItem('edusmart_cart', JSON.stringify(cart));
+                localStorage.setItem('elestudiante_products', JSON.stringify(products));
+                localStorage.setItem('elestudiante_orders', JSON.stringify(orders));
+                localStorage.setItem('elestudiante_cart', JSON.stringify(cart));
             } catch (e) {
                 console.error('Error saving state:', e);
             }
@@ -1853,7 +1851,7 @@
                         const prodData = await prodRes.json();
                         if (Array.isArray(prodData) && prodData.length > 0) {
                             products = prodData;
-                            localStorage.setItem('edusmart_products', JSON.stringify(products));
+                            localStorage.setItem('elestudiante_products', JSON.stringify(products));
                         }
                     }
 
@@ -1863,7 +1861,7 @@
                         const ordersData = await ordersRes.json();
                         if (Array.isArray(ordersData)) {
                             orders = ordersData;
-                            localStorage.setItem('edusmart_orders', JSON.stringify(orders));
+                            localStorage.setItem('elestudiante_orders', JSON.stringify(orders));
                         }
                     }
 
@@ -1900,7 +1898,7 @@
                 renderAdminOrdersTable();
                 renderLiveActivityFeed();
                 initCharts();
-                showToast('Datos reiniciados correctamente para el EduSmart Escolar', 'success');
+                showToast('Datos reiniciados correctamente para el El Estudiante Escolar', 'success');
             }
         }
 
@@ -2326,16 +2324,16 @@
                     const prodRes = await fetch(`${API_BASE}/api/productos`);
                     if (prodRes.ok) {
                         products = await prodRes.json();
-                        localStorage.setItem('edusmart_products', JSON.stringify(products));
+                        localStorage.setItem('elestudiante_products', JSON.stringify(products));
                     }
 
                     const newOrder = result.venta;
                     orders.unshift(newOrder);
-                    localStorage.setItem('edusmart_orders', JSON.stringify(orders));
+                    localStorage.setItem('elestudiante_orders', JSON.stringify(orders));
 
                     const purchasedCartBackup = [...cart];
                     cart = [];
-                    localStorage.setItem('edusmart_cart', JSON.stringify(cart));
+                    localStorage.setItem('elestudiante_cart', JSON.stringify(cart));
 
                     renderCatalog();
                     updateCategoryCounts();
@@ -2435,16 +2433,16 @@
 
             // Setup real WhatsApp link for direct share
             const textMsg = encodeURIComponent(
-                `*EduSmart - Confirmación de Compra Escolar*\n` +
+                `*El Estudiante - Confirmación de Compra Escolar*\n` +
                 `*N° de Orden:* #${order.id || order.order_id}\n` +
                 `*Cliente:* ${order.customerName}\n` +
                 `*Total Pagado:* Bs. ${parseFloat(order.total).toFixed(2)}\n` +
                 `*Método:* ${order.paymentMethod}\n` +
                 `*Entrega:* ${order.customerAddress}\n\n` +
                 `*Artículos:*\n` + items.map(i => `• ${i.quantity}x ${i.name}`).join('\n') +
-                `\n\n_Mensaje automático generado por EduSmart Webhook & Meta Cloud API._`
+                `\n\n_Mensaje automático generado por El Estudiante Webhook & Meta Cloud API._`
             );
-            // Número oficial de WhatsApp de la Tienda EduSmart ()
+            // Número oficial de WhatsApp de la Tienda El Estudiante ()
             const STORE_WHATSAPP_NUMBER = "59162559281";
             const waUrl = `https://api.whatsapp.com/send?phone=${STORE_WHATSAPP_NUMBER}&text=${textMsg}`;
             const directBtn = document.getElementById('waDirectChatBtn');
@@ -2462,7 +2460,7 @@
 
         function shareStore(network) {
             const url = window.location.href.split('#')[0];
-            const text = "¡Descubre EduSmart! La tienda en línea de útiles escolares para estudiantes y padres con atención por WhatsApp () y stock en tiempo real: ";
+            const text = "¡Descubre El Estudiante! La tienda en línea de útiles escolares para estudiantes y padres con atención por WhatsApp () y stock en tiempo real: ";
 
             if (network === 'whatsapp') {
                 window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text + url)}`, '_blank');
@@ -3098,11 +3096,11 @@
                 doc.setTextColor(255, 255, 255);
                 doc.setFont('helvetica', 'bold');
                 doc.setFontSize(14);
-                doc.text(`EDUSMART - REPORTE DE VENTAS E INVENTARIO (${periodLabel.toUpperCase()})`, 40, 42);
+                doc.text(`EL ESTUDIANTE - REPORTE DE VENTAS E INVENTARIO (${periodLabel.toUpperCase()})`, 40, 42);
 
                 doc.setFont('helvetica', 'normal');
                 doc.setFontSize(10);
-                doc.text("EduSmart Escolar | La Paz, Bolivia | Sistema de Gestión de Librería", 40, 62);
+                doc.text("El Estudiante Escolar | La Paz, Bolivia | Sistema de Gestión de Librería", 40, 62);
 
                 // METADATA
                 doc.setTextColor(51, 65, 85);
@@ -3189,7 +3187,7 @@
                 doc.setTextColor(100, 116, 139);
                 doc.text("Firma: Administrador de Librería", 50, finalY + 15);
 
-                doc.save(`EduSmart_Reporte_${periodLabel}_${now.toISOString().split('T')[0]}.pdf`);
+                doc.save(`El Estudiante_Reporte_${periodLabel}_${now.toISOString().split('T')[0]}.pdf`);
                 showToast('Reporte semanal en PDF generado y descargado correctamente', 'success');
             } catch (err) {
                 console.error("Error generating PDF:", err);
