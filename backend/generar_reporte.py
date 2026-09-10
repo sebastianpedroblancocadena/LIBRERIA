@@ -4,7 +4,7 @@ EduSmart - Script de Generación de Reportes PDF con Python
 ===================================================================
 Herramienta en Python para generar y evaluar reportes semanales
 de ventas e inventario en formato PDF (utilizando PDFKit / ReportLab).
-Presentación para el Festival de Ciencia 2026.
+Presentación para el EduSmart Escolar.
 ===================================================================
 """
 
@@ -39,13 +39,13 @@ def generar_reporte_con_pdfkit(archivo_salida="reporte_semanal_pdfkit.pdf"):
     <body>
         <div class="header">
             <h1>EDUSMART - REPORTE SEMANAL DE INVENTARIO Y VENTAS</h1>
-            <div class="sub">Festival de Ciencia 2026 | Sistema de Gestión Escolar con Backend en Python</div>
+            <div class="sub">EduSmart Escolar | Sistema de Gestión Escolar con Backend en Python</div>
         </div>
 
         <div class="section">
             <div class="kpi-box">
                 <strong>Resumen Ejecutivo:</strong><br>
-                • Inversión del Proyecto: <strong>$7,000 USD</strong> netos con retorno estimado en 30 días.<br>
+                • Inversión del Proyecto: <strong>7.000 Bs.</strong> netos con retorno estimado en 30 días.<br>
                 • Disponibilidad del Sistema: <strong>Base de datos PostgreSQL 24/7</strong> con certificación SSL activa.<br>
                 • Sincronización: <strong>Webhooks automáticos</strong> con la API de Meta Cloud (WhatsApp).
             </div>
@@ -67,7 +67,7 @@ def generar_reporte_con_pdfkit(archivo_salida="reporte_semanal_pdfkit.pdf"):
                         <td>LIB-MAT-01</td>
                         <td>Libro de Matemáticas Aplicadas Secundaria</td>
                         <td>Libros</td>
-                        <td>$18.50</td>
+                        <td>Bs. 18.50</td>
                         <td>24 unidades</td>
                         <td>Óptimo</td>
                     </tr>
@@ -75,7 +75,7 @@ def generar_reporte_con_pdfkit(archivo_salida="reporte_semanal_pdfkit.pdf"):
                         <td>CUA-ESP-01</td>
                         <td>Cuaderno Espiral Universitario 100 Hojas</td>
                         <td>Cuadernos</td>
-                        <td>$3.50</td>
+                        <td>Bs. 3.50</td>
                         <td>45 unidades</td>
                         <td>Óptimo</td>
                     </tr>
@@ -83,7 +83,7 @@ def generar_reporte_con_pdfkit(archivo_salida="reporte_semanal_pdfkit.pdf"):
                         <td>LAP-GRA-01</td>
                         <td>Caja de Lápices Grafito HB Faber-Castell</td>
                         <td>Lápices</td>
-                        <td>$4.80</td>
+                        <td>Bs. 4.80</td>
                         <td>40 unidades</td>
                         <td>Óptimo</td>
                     </tr>
@@ -91,7 +91,7 @@ def generar_reporte_con_pdfkit(archivo_salida="reporte_semanal_pdfkit.pdf"):
                         <td>REG-ESC-04</td>
                         <td>Escalímetro Triangular Técnico Profesional</td>
                         <td>Reglas</td>
-                        <td>$6.80</td>
+                        <td>Bs. 6.80</td>
                         <td>3 unidades</td>
                         <td><span class="badge-low">Stock Crítico</span></td>
                     </tr>
